@@ -3,10 +3,10 @@ layout: 'layouts/doc-post.njk'
 
 # The page title. This appears at the top of the doc and as the page name
 # in Google Search.
-title: Welcome
+title: 欢迎
 
 # This appears below the title and is an optional teaser
-subhead: 'Learn about developing extensions for Chrome.'
+subhead: '了解如何开发 Chrome 拓展.'
 
 # This appears in the ToC of the project landing page at
 # /docs/[project-name]/. It also appears in the <meta description> used in 
