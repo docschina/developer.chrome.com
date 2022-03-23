@@ -1,11 +1,13 @@
 ---
 layout: "layouts/doc-post.njk"
-title: "Record, replay and measure user flows"
+title: "Recorder: Record, replay and measure user flows"
 authors:
   - jecelynyeen
 date: 2021-11-02
 updated: 2021-11-03
 description: "Record, replay and measure user flows with the Recorder panel."
+tags:
+  - test
 ---
 
 Take a glance at the new **Recorder** panel (preview feature) with the video below. 
