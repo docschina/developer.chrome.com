@@ -1,31 +1,25 @@
 ---
-layout: "layouts/doc-post.njk"
-title: "Getting started"
+layout: 'layouts/doc-post.njk'
+title: 'Getting started'
 date: 2014-02-28
 updated: 2021-07-22
-description: Step-by-step instructions on how to create a Chrome Extension.
+description: 手把手介绍如何创建 Chrome 拓展程序。
 ---
 
 {# TODO: Reword this intro. "Components" is probably not the best word to use here any more as "web
 components" are a cross-browser tech for creating reusable custom elements or "components". #}
 
-Extensions are made of different, but cohesive, components. Components can include [background
-scripts][1], [content scripts][2], an [options page][3], [UI elements][4] and various logic files.
-Extension components are created with web development technologies: HTML, CSS, and JavaScript. An
-extension's components will depend on its functionality and may not require every option.
+Chrome 拓展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [background scripts 后台脚本][1]，[content scripts 注入脚本][2]，一个 [options page 选项页面][3]，[UI elements UI 元素][4] 拓展程序由 web 开发者的技术栈制作：HTML/CSS/Javascript。拓展程序所需的组件取决于要实现的功能，不需要依赖每一项。
 
-This tutorial will build an extension that allows the user to change the background color of the
-currently focused page. It will use many of the extension platform's components to give an
-introductory demonstration of their relationships.
+本教程会构建一个拓展程序，允许用户改变当前活动页面的背景颜色。它会使用拓展程序平台中的很多组件，演示彼此之间的关联。
 
-To start, create a new directory to hold the extension's files.
+开始之前，创建一个新的目录来保存拓展程序的文件。
 
-The completed extension can be downloaded [here][6].
+完成后的拓展程序可以在 [这里下载][6]。
 
-## Create the manifest {: #manifest }
+## 创建 manifest 清单 {: #manifest }
 
-Extensions start with their [manifest][7]. Create a file called `manifest.json` and include the
-following code.
+先创建 [manifest][7]。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
 
 ```json
 {
@@ -36,16 +30,15 @@ following code.
 }
 ```
 
-### Load an unpacked extension {: #unpacked }
+### 加载已解压的拓展程序 {: #unpacked }
 
-The directory holding the manifest file can be added as an extension in developer mode in its
-current state. To load an unpacked extension in developer mode, follow these steps:
+在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个拓展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
 
-1.  Open the Extension Management page by navigating to `chrome://extensions`.
-    - Alternatively, open this page by clicking on the Extensions menu button and selecting **Manage
-      Extensions** at the bottom of the menu.
-    - Alternatively, open this page by clicking on the Chrome menu, hovering over **More Tools**
-      then selecting **Extensions**
+1.  导航到 `chrome://extensions` 打开拓展程序管理页面。
+
+    - 或者，通过点击拓展程序菜单按钮，然后选择菜单底部的 **管理拓展程序** 打开此页面。
+    - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **拓展程序** 打开此页面。
+
 2.  Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
 3.  Click the **Load unpacked** button and select the extension directory.
 
@@ -94,7 +87,7 @@ multiple extension components to access that value and update it. Inside the ext
 let color = '#3aa757';
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color });
+  chrome.storage.sync.set({color});
   console.log('Default background color set to %cgreen', `color: ${color}`);
 });
 ```
@@ -124,8 +117,7 @@ views**, becomes available with a blue link, **service worker**.
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="Inspect views", width="566", height="353" %}
 
-Click the link to view the background script's console log, "`Default background color set to
-green`"
+Click the link to view the background script's console log, "`Default background color set to green`"
 
 ## Introduce a user interface {: #user_interface }
 
@@ -137,7 +129,7 @@ the background color.
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="button.css" />
   </head>
   <body>
     <button id="changeColor"></button>
@@ -179,8 +171,7 @@ button {
 }
 
 button.current {
-  box-shadow: 0 0 0 2px white,
-              0 0 0 4px black;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }
 ```
 
@@ -255,9 +246,9 @@ The last step for the popup UI is adding color to the button. Create and add a f
 
 ```js
 // Initialize button with user's preferred color
-let changeColor = document.getElementById("changeColor");
+let changeColor = document.getElementById('changeColor');
 
-chrome.storage.sync.get("color", ({ color }) => {
+chrome.storage.sync.get('color', ({color}) => {
   changeColor.style.backgroundColor = color;
 });
 ```
@@ -289,11 +280,11 @@ saved to the extension's storage. Next, it needs logic for further user interact
 
 ```js
 // When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+changeColor.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
 
   chrome.scripting.executeScript({
-    target: { tabId: tab.id },
+    target: {tabId: tab.id},
     function: setPageBackgroundColor,
   });
 });
@@ -301,7 +292,7 @@ changeColor.addEventListener("click", async () => {
 // The body of this function will be executed as a content script inside the
 // current page
 function setPageBackgroundColor() {
-  chrome.storage.sync.get("color", ({ color }) => {
+  chrome.storage.sync.get('color', ({color}) => {
     document.body.style.backgroundColor = color;
   });
 }
@@ -346,11 +337,10 @@ Start by creating a file in the directory named `options.html` and include the f
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="button.css" />
   </head>
   <body>
-    <div id="buttonDiv">
-    </div>
+    <div id="buttonDiv"></div>
     <div>
       <p>Choose a different background color!</p>
     </div>
@@ -377,9 +367,9 @@ The last step is to add the options logic. Create a file named `options.js` in t
 directory with the following code.
 
 ```js
-let page = document.getElementById("buttonDiv");
-let selectedClassName = "current";
-const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
+let page = document.getElementById('buttonDiv');
+let selectedClassName = 'current';
+const presetButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
 
 // Reacts to a button click by marking the selected button and saving
 // the selection
@@ -395,17 +385,17 @@ function handleButtonClick(event) {
   // Mark the button as selected
   let color = event.target.dataset.color;
   event.target.classList.add(selectedClassName);
-  chrome.storage.sync.set({ color });
+  chrome.storage.sync.set({color});
 }
 
 // Add a button to the page for each supplied color
 function constructOptions(buttonColors) {
-  chrome.storage.sync.get("color", (data) => {
+  chrome.storage.sync.get('color', data => {
     let currentColor = data.color;
     // For each color we were provided…
     for (let buttonColor of buttonColors) {
       // …create a button with that color…
-      let button = document.createElement("button");
+      let button = document.createElement('button');
       button.dataset.color = buttonColor;
       button.style.backgroundColor = buttonColor;
 
@@ -415,7 +405,7 @@ function constructOptions(buttonColors) {
       }
 
       // …and register a listener for when that button is clicked
-      button.addEventListener("click", handleButtonClick);
+      button.addEventListener('click', handleButtonClick);
       page.appendChild(button);
     }
   });
