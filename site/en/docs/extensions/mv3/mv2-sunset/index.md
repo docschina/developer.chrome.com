@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2022-03-29 22:36:44
- * @LastEditTime: 2022-03-29 22:52:34
- * @LastEditors: your name
+ * @LastEditTime: 2022-03-29 22:58:22
+ * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /mv3/mv3-fork/developer.chrome.com/site/en/docs/extensions/mv3/mv2-sunset/index.md
 -->
@@ -18,7 +18,6 @@ description: 'Details of the Manifest V2 phase-out and end of life.'
 date: 2021-09-23
 
 ---
-
 
 随着 Manifest V3 与 Manifest V2 接近全功能对等，我们将逐步淘汰 Manifest V2。该页指定了弃用时间表并描述了过程中所有的里程碑的含义。
 
@@ -78,5 +77,5 @@ date: 2021-09-23
     <td><ul>
       <li>即使使用企业策略，Manifest V2 扩展程序也不再在 Chrome 中运行 </li></ul>
     </td>
-  </tr>
+  </tr> 
 </table>
