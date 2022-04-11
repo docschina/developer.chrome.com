@@ -4,7 +4,7 @@
       {
         "check_name" : "Content team approval",
         "teams" : [],
-        "users" : ["jeffposnick"],
+        "users" : ["tomayac"],
         "paths" : [
           "site/_data/i18n/*"
         ]
@@ -15,7 +15,7 @@
         "users" : ["jeffposnick"],
         "paths" : [
           "**/*.js",
-          "**/*.njk"
+          "**/*.md"
         ]
       }
     ]
