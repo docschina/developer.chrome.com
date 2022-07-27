@@ -768,7 +768,7 @@
     "image": "image/hVf1flv5Jdag8OQKYqOcJgWUvtz1/S0qf801bQbEP6O4bGnBF.jpeg"
   },
   "alinavarkki": {
-    "image": "image/ChqWwaDOcpfo1hIcJvU9ZaNbWOB2/T8NY01ZlSEiAjKYcho0z.png",
+    "image": "image/jxu1OdD7LKOGIDU7jURMpSH2lyK2/mw6q7BVzO7DWfNmkVm7k.png",
     "github": "AlinaVarkki",
     "twitter": "varkki_alina"
   },
@@ -801,5 +801,9 @@
     "github": "tunetheweb",
     "homepage": "https://www.tunetheweb.com",
     "image": "image/W3z1f5ZkBJSgL1V1IfloTIctbIF3/FzCdsVVLfgdqxfgs6BDc.jpeg"
+  },
+  "barbsmith": {
+    "country": "US",
+    "image": "image/VWw0b3pM7jdugTkwI6Y81n6f5Yc2/CFDMEqVwcngFoi1NCxTF.png"
   }
 }
