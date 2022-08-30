@@ -104,7 +104,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 回到拓展管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 \*\*service worker\*\* 页面。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图Inspect views", width="566", height="353" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图查看视图Inspect views", width="566", height="353" %}
 
 点击链接会打开后台脚本的控制台 console，会看到 “`Default background color set to green`” 日志提示。
 
