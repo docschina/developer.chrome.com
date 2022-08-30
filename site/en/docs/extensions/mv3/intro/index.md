@@ -3,49 +3,33 @@ layout: 'layouts/doc-post.njk'
 
 # The page title. This appears at the top of the doc and as the page name
 # in Google Search.
-title: Welcome to Manifest V3
+title: 欢迎来到 Manifest V3
 
 # This appears below the title and is an optional teaser
-subhead: 'A step in the direction of security, privacy, and performance.'
+subhead: '迈向安全、私密、高性能的一步'
 
 # This appears in the ToC of the project landing page at
-# /docs/[project-name]/. It also appears in the <meta description> used in 
+# /docs/[project-name]/. It also appears in the <meta description> used in
 # Google Search.
-description: 'An introduction to Manifest V3'
+description: 'Manifest V3 介绍'
 
 # The publish date
 date: 2020-11-09
-
 # An optional updated date
 # updated: 2020-10-16
 
 # A list of authors. These usernames correspond to the keys in the
 # _data/authorsData.json file.
-
 ---
 
-This site introduces Manifest V3 for Chrome Extensions (Manifest V3). It presents the
-background and reasons for introducing Manifest V3 and our vision for the platform's
-future, along with guidance on how to optimize your extensions to use Manifest V3.
+本站将介绍 Chrome 拓展中的 Manifest V3 出现的背景和原因，以及我们对平台的未来愿景，同时引导大家通过使用 Mainifest V3 开发出最棒的拓展。
 
-Manifest V3 represents one of the biggest shifts in the extensions platform
-since it launched a decade ago. Extensions using Manifest V3 will enjoy enhancements in
-security, privacy, and performance; they can also use more contemporary Open
-Web technologies adopted in Manifest V3, such as service workers and promises.
-Developers can update their extensions today to take advantage of these Manifest V3
-features; this will become mandatory as we phase out Manifest V2 in the future.
+Manifest V3 是自拓展十年前发布以来改动最大的版本之一。Manifest V3 更注重拓展的安全、隐私和性能，还支持了更现代的 Web 技术，例如 service workers 和 promises。开发者可以主动升级到 Manifest V3 拓展享受这些新特性，也可能在未来 Manifest V2 弃用时强制升级。
 
-Manifest V3 is part of a shift in the philosophy behind how we approach
-end-user security and privacy. The pages in this section provide an overview of
-Manifest V3, the reasons behind it, and how to approach it:
+Manifest V3 是我们在“如何处理终端用户安全和隐私”背后的理念转变的部分体现。下文展示了 Manifest V3 概述、它出现的原因以及如何掌握它：
 
+- [平台愿景](platform-vision) 解释了 Manifest V3 变化如何应对未来 web 平台发展。
+- [Manifest V3 概览](mv3-overview) 总结 Manifest V3 引入的技术变化。
+- [迁移指南](mv3-migration) 告诉你如何将 Manifest V2 插件升级到 Manifest V3。
 
-* [Platform vision](platform-vision) explains how the Manifest V3 changes fit into the big picture of where the platform is going.
-* [Overview of Manifest V3](mv3-overview) summarizes the technical changes introduced with Manifest V3.
-* [Migration guide](mv3-migration) tells you how to get started updating Manifest V2 extensions so they work in Manifest V3.
-
-We're excited about the improvements that Manifest V3 brings to the extensions
-platform. Look for further announcements on the [Chromium
-Blog](https://blog.chromium.org/) and the [Chromium Extensions
-forum](https://groups.google.com/a/chromium.org/g/chromium-extensions).
-
+我们对 Manifest V3 给插件平台带来的改进激动不已。可以查看 [Chromium 博客](https://blog.chromium.org/) 和 [Chromium 拓展论坛](https://groups.google.com/a/chromium.org/g/chromium-extensions) 查看更多公告。
