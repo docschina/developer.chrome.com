@@ -108,6 +108,10 @@ documentation:
 blog:
   en: 'Blog'
 
+articles:
+  en: 'Articles'
+  es: 'Artículos'
+
 skip_to_content:
   en: 'Skip to content'
   es: 'Saltar al contenido'
@@ -170,3 +174,6 @@ authors:
 
 website:
   en: Website
+
+featured:
+  en: Featured

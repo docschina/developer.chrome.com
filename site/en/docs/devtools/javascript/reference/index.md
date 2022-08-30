@@ -3,8 +3,9 @@ layout: "layouts/doc-post.njk"
 title: "JavaScript debugging reference"
 authors:
   - kaycebasques
+  - sofiayem
 date: 2017-01-04
-#updated: YYYY-MM-DD
+updated: 2022-05-30
 description:
   "Discover new debugging workflows in this comprehensive reference of Chrome DevTools debugging
   features."
@@ -22,6 +23,12 @@ See [Get Started With Debugging JavaScript In Chrome DevTools][1] to learn the b
 Set a breakpoint so that you can pause your code in the middle of its execution.
 
 See [Pause Your Code With Breakpoints][2] to learn how to set breakpoints.
+
+### Preview class/function properties on hover {: #properties }
+
+While the execution is paused, hover over a class or function name to preview its properties.
+
+{% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/wP0xZMDPcIGvz5xE8PAF.png", alt="Preview class/function properties on hover", width="800", height="629" %}
 
 ## Step through code {: #stepping }
 
@@ -195,6 +202,77 @@ represents which function DevTools is currently highlighting.
 
 {% endAside %}
 
+### Restart a frame (function) in a call stack {: #restart-frame }
+
+To observe the behavior of a function and re-run it without having to restart the entire debugging flow, you can restart the execution of a single function when this function is paused. In other words, you can restart the function's frame in the call stack.
+
+To restart a frame:
+
+1. [Pause function execution at a breakpoint](#breakpoints). The **Call Stack** pane records the order of function calls.
+1. In the **Call Stack** pane, right-click a function and select **Restart frame** from the drop-down menu.
+
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/h54JUoqTr2AvSNesZQI0.png", alt="Selecting Restart frame from the drop-down menu.", width="800", height="497" %}
+
+   {% Aside %}
+   **Note**: You can restart any function frame in the **Call Stack**, except WebAssembly, async, and generator functions.
+   {% endAside %}
+
+To understand how **Restart frame** works, consider the following code:
+
+```js
+function foo(value) {
+    console.log(value);
+    bar(value);
+}
+ 
+function bar(value) {
+    value++;
+    console.log(value);
+    debugger;
+}
+
+foo(0);
+```
+
+The `foo()` function takes `0` as an argument, logs it, and calls the `bar()` function. The `bar()` function, in turn, increments the argument.
+
+Try restarting the frames of both functions in the following way:
+
+1. Copy the code above to a [new snippet](/docs/devtools/javascript/snippets/#createsources) and [run it](/docs/devtools/javascript/snippets/#runsources). The execution stops at the `debugger` [line-of-code breakpoint](/docs/devtools/javascript/breakpoints/#debugger).
+   {% Aside 'caution' %}
+   When the execution is paused, don't programmatically change the order of the call stack frames. This may cause unexpected errors.
+   {% endAside %}
+1. Notice that the debugger shows you the current value next to function declaration: `value = 1`.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/i3Offlw9RToaew8APV4C.png", alt="The current value next to function declaration.", width="800", height="497" %}
+1. Restart the `bar()` frame.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/sMDXhnV3Ft02evS0PBQR.png", alt="Restarting the bar() frame.", width="800", height="497" %}
+1. Step through the value increment statement by pressing `F9`.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/jno28U2OaVMnc2s6xtRZ.png", alt="Incrementing current value.", width="800", height="497" %}
+   Notice that the current value increases: `value = 2`.
+1. Optionally, in the **Scope** pane, double-click the value to edit it and set the desired value.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/bduFchfauez6IjMrXOm3.png", alt="Editing the value in the Scopes pane.", width="800", height="497" %}
+1. Try restarting the `bar()` frame several more times. The value continues to increase.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/LGHUF27jZmP341zxOLZB.png", alt="Restarting the bar() frame again.", width="800", height="497" %}
+   
+   {% Aside 'gotchas' %}
+   Why is the value not reset to `0`?
+
+   Frame restart doesn't reset the arguments. In other words, the restart doesn't restore the initial state at function call. Instead, it simply moves the execution pointer to the start of the function. 
+
+   Therefore, the current argument value persists in memory across restarts of the same function.
+   {% endAside %}
+
+1. Now, restart the `foo()` frame in the **Call Stack**.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/Fo5JQWKNVhlXPMDkyh6F.png", alt="Restarting the foo() frame.", width="800", height="497" %}
+   Notice that the value is `0` again.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/ufMoE3upIrSCQRGMaeLI.png", alt="ALT_TEXT_HERE", width="800", height="497" %}
+   {% Aside 'gotchas' %}
+   Why is the value reset to `0`?
+
+   In JavaScript, changes to arguments are not visible (reflected) outside the function. Nested functions receive values, not their locations in memory.
+   {% endAside %}
+1. Resume script execution (`F8`) to complete this tutorial.
+
 ### Copy stack trace {: #copy-stack-trace }
 
 Right-click anywhere in the Call Stack pane and select **Copy stack trace** to copy the current call
@@ -318,6 +396,25 @@ To edit a script:
     {% Img src="image/admin/zOITyiLOZPasp6Zf30Xi.svg", alt="The Editor pane.", width="800", height="564" %}
 
     **Figure 17**. The Editor pane, outlined in blue
+
+## Search and replace text in a script {: #search }
+
+To search for text in a script:
+
+1.  Open the file in the **Editor** pane of the **Sources** panel.
+1. To open a built-in search bar, press <kbd>Command</kbd>+<kbd>F</kbd> (Mac) or <kbd>Ctrl</kbd>+<kbd>F</kbd> (Windows, Linux).
+1. In the bar, enter your query.
+    {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/2oRnZxCkZal6VxqryNTR.png", alt="Search.", width="800", height="354" %}
+    Optionally, you can:
+    - Click {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/egjnpBbgTvj6FDiIbfoc.png", alt="Match case.", width="25", height="20" %} **Match Case** to make your query case-sensitive.
+    - Click {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/97kuRQETaw1jnAfMHrbQ.png", alt="RegEx button.", width="17", height="18" %} **Use Regular Expression** to search using a RegEx expression.
+1. Press <kbd>Enter</kbd>. To jump to previous or next search result, press the up or down button.
+
+To replace the text you found:
+
+1. On the search bar, click the {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/vm7LAoTC4jArS8SjcMM5.png", alt="Replace.", width="22", height="23" %} **Replace** button.
+   {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/TWp9T4OsMCuxLPAvWmMo.png", alt="Replace.", width="800", height="342" %}
+1. Type the text to replace with, then click **Replace** or **Replace all**.
 
 ## Disable JavaScript {: #disable }
 

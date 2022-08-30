@@ -75,6 +75,7 @@ date: 2021-09-23
     <td><i>没有变更</i>
     </td>
     <td><ul>
+
       <li>即使使用企业策略，Manifest V2 扩展程序也不再在 Chrome 中运行 </li></ul>
     </td>
   </tr> 
