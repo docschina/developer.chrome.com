@@ -9,11 +9,11 @@ description: 手把手介绍如何创建 Chrome 拓展程序。
 {# TODO: Reword this intro. "Components" is probably not the best word to use here any more as "web
 components" are a cross-browser tech for creating reusable custom elements or "components". #}
 
-Chrome 拓展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [background scripts 后台脚本][1]，[content scripts 注入脚本][2]，一个 [options page 选项页面][3]，[UI elements UI 元素][4] 拓展程序由 web 开发者的技术栈制作：HTML/CSS/Javascript。拓展程序所需的组件取决于要实现的功能，不需要依赖每一项。
+Chrome 拓展由一堆不同（但彼此有联系）的组件组成的。组件包括 [后台脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。拓展由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。拓展所需的组件取决于要实现的功能，不一定包含所有内容。
 
-本教程会构建一个拓展程序，允许用户改变当前活动页面的背景颜色。它会使用拓展程序平台中的很多组件，演示彼此之间的关联。
+本教程会构建一个拓展，允许用户改变当前活动页面的背景颜色。它会使用拓展平台中的很多组件，演示彼此之间的关联。
 
-开始之前，创建一个新的目录来保存拓展程序的文件。
+开始之前，创建一个新的目录来保存拓展的文件。
 
 完成后的拓展程序可以在 [这里下载][6]。
 
@@ -32,31 +32,27 @@ Chrome 拓展程序由一堆不同（但彼此有联系）的组件组成的。�
 
 ### 加载已解压的拓展程序 {: #unpacked }
 
-在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个拓展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
+在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个拓展。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
 
 1.  导航到 `chrome://extensions` 打开拓展程序管理页面。
 
     - 或者，通过点击拓展程序菜单按钮，然后选择菜单底部的 **管理拓展程序** 打开此页面。
     - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **拓展程序** 打开此页面。
 
-2.  Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
-3.  Click the **Load unpacked** button and select the extension directory.
+2.  通过切换 **开发者模式** 按钮开启开发者模式。
+3.  点击 **加载已解压的扩展程序** 按钮，选择拓展文件夹。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="Loading an unpacked extension", width="563", height="355" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="加载一个已解压的拓展", width="563", height="355" %}
 
-Ta-da! The extension has been successfully installed. Because no icons were included in the
-manifest, a generic icon will be created for the extension.
+哈哈！拓展已经成功安装。因为没有在 manifest 中声明图标，所以会展示一个默认的拓展图标。
 
-## Add functionality {: #background }
+## 添加功能 {: #background }
 
-The extension is now installed, but it doesn't currently do anything because we haven't told it what
-to do or when to do it. Let's fix that by adding some code to store a background color value.
+这个拓展虽然安装成功，但是没有声明哪些功能可以执行。接下来我们添加一些代码实现存储背景颜色的功能。
 
-### Register the background script in the manifest {: #background-manifest }
+### 在 manifest 中注册后台脚本 background script {: #background-manifest }
 
-Background scripts, like many other important components, must be registered in the manifest.
-Registering a background script in the manifest tells the extension which file to reference, and how
-that file should behave.
+后台脚本 Background scripts 和其他组件一样需要首先在 manifest 中注册：声明拓展需要引用哪些文件，并编写对应代码：
 
 ```json/5-7
 {
@@ -70,16 +66,11 @@ that file should behave.
 }
 ```
 
-Chrome is now aware that the extension includes a service worker. When you reload the extension,
-Chrome will scan the specified file for additional instructions, such as important events it needs
-to listen for.
+Chrome 浏览器现在知道当前拓展包含一个 Service Worker 脚本。当你重新加载拓展时候，浏览器会扫描加载对应的文件，比如监听某些重要的事件。
 
-### Create the background script {: #background-script }
+### 创建后台脚本 {: #background-script }
 
-This extension will need information from a persistent variable as soon as it's installed. Start by
-including a listening event for [`runtime.onInstalled`][11] in the background script. Inside the
-`onInstalled` listener, the extension will set a value using the [storage][12] API. This will allow
-multiple extension components to access that value and update it. Inside the extension's directory create a file named `background.js` and add the following code.
+这个拓展安装后会立刻持久化存储一个变量。 首先在后台脚本中添加 [`runtime.onInstalled`][11] 事件监听器。在 `onInstalled` 监听器内部，通过[storage][12] API 声明一个值。这可以让其他拓展组件可以读取并更新该值。在拓展目录创建一个 `background.js` 文件，添加如下代码：
 
 ```js
 // background.js
@@ -92,10 +83,9 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 ```
 
-### Add the storage permission {: #storage-permission }
+### 添加 storage 权限 {: #storage-permission }
 
-Most APIs, including the [storage][12] API, must be registered under the `"permissions"` field in
-the manifest for the extension to use them.
+包括 [storage][12] API 在内的大多数 API，都必须在 manifest 中的 `"permissions"` 字段下声明注册，表示拓展会使用对应功能。
 
 ```json/8
 {
@@ -110,20 +100,18 @@ the manifest for the extension to use them.
 }
 ```
 
-### Inspect the background script {: #inspect-background }
+### 检查后台脚本是否生效 {: #inspect-background }
 
-Navigate back to the extension management page and click the **Reload** link. A new field, **Inspect
 views**, becomes available with a blue link, **service worker**.
+回到拓展管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 **service worker\*\* 页面。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="Inspect views", width="566", height="353" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图Inspect views", width="566", height="353" %}
 
-Click the link to view the background script's console log, "`Default background color set to green`"
+点击链接会打开后台脚本的控制台 console，会看到 “`Default background color set to green`” 日志提示。
 
-## Introduce a user interface {: #user_interface }
+## 引入用户界面 {: #user_interface }
 
-[User interfaces][4] for extensions can have many forms; this one will use a [popup][15]. Create and
-add a file named `popup.html` to the extension's directory. This extension uses a button to change
-the background color.
+[用户界面][4] 可以让拓展有更多形式。接下来会使用 [提示 popup][15] 功能。创建添加一个 `popup.html` 文件到目录中。页面中展示一个按钮，点击后会改变背景色。
 
 ```html
 <!DOCTYPE html>
@@ -137,9 +125,7 @@ the background color.
 </html>
 ```
 
-Like the background script, this file must be declared in the manifest in order for Chrome to
-present it in the extension's popup. To do this, add an [`action`][17] object to the manifest and
-set `popup.html` as the action's `default_popup`.
+和后台脚本一样，这个文件需要在 manifest 中声明，让浏览器能够识别。接下来在 manifest 中添加 [`action`][17] 对象，把 `default_popup` 设置为 `popup.html`。
 
 ```json/9-11
 {
@@ -157,8 +143,7 @@ set `popup.html` as the action's `default_popup`.
 }
 ```
 
-This popup's HTML references an external CSS file named `button.css`. Add another file to the
-extension's directory, name it appropriately, and add the following code.
+在 `popup.html` 中引用外部 css 文件： `button.css`。在目录中创建该文件，添加下面代码：
 
 ```css
 button {
@@ -175,9 +160,7 @@ button.current {
 }
 ```
 
-Designation for toolbar icons is also included under `action` in the `default_icon` field.
-Download the images folder [here][18], unzip it, and place it in the extension's directory. Update
-the manifest so the extension knows how to use the images.
+拓展在工具栏中展示的图标也需要再 `action` 中的 `default_icon` 字段设置。[点击这里][18]下载图片并解压，放入目录中。之后更新 manifest 设置如何使用这些图片：
 
 ```json/11-16
 {
@@ -201,8 +184,7 @@ the manifest so the extension knows how to use the images.
 }
 ```
 
-Extensions also display images on the extension management page, the permissions warning, and
-favicon. These images are designated in the manifest under [`icons`][19].
+拓展还会在拓展管理页面、权限告警、favicon 中展示图标。在 [`icons`][19] 字段添加这些内容：
 
 ```json/18-23
 {
@@ -232,7 +214,7 @@ favicon. These images are designated in the manifest under [`icons`][19].
 }
 ```
 
-By default, extensions appear in the extensions menu (the puzzle piece). Pinning the extension will display the icon in the toolbar.
+默认情况下，扩展显示在扩展程序菜单（拼图块）中。可以点击固定，扩展将在工具栏中显示该图标。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GdHNy255kS4hWD5vb1fc.png", alt="Pin the extension to the toolbar", width="502", height="278" %}
 
