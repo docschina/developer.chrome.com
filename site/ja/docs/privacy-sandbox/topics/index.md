@@ -2,154 +2,204 @@
 layout: 'layouts/doc-post.njk'
 title: 'Topics API'
 subhead: >
-  Enable interest-based advertising, without having to resort to tracking the sites a user visits.
+  ユーザーがアクセスしたサイトを追跡せずに、インタレストベース広告を可能にします。
 description: >
- A proposal for a mechanism to enable interest-based advertising without having to resort to tracking the sites a user visits.
-date: 2022-02-14
-updated: 2022-02-14
+  ユーザーがアクセスしたサイトを追跡せずに、インタレストベース広告を可能にするメカニズムの提案。
+date: 2022-01-25
+updated: 2022-07-18
 authors:
   - samdutton
 ---
 
-## 実装ステータス
+## 実装状況
 
-このドキュメントでは、インタレスト ベース広告に関する新しい提案「Topics API」の概要を説明します。
+このドキュメントでは、インタレストベース広告の新しい提案である Topics API について概説します。
 
--  [Topics API
-   の提案](https://github.com/jkarlin/topics)は、[公開での検討段階](https://github.com/jkarlin/topics/issues)にあります。
--  この提案についてフィードバックをお寄せください。ご協力いただける場合は、[「Topics API
-   の解説」リポジトリ](https://github.com/jkarlin/topics)で問題を作成するか、 
-   [「ウェブ広告ビジネスの改善」グループ](https://www.w3.org/community/web-adv/participants)で意見交換に参加してください。この解説には、さらなる定義が必要な[未解決の質問](https://github.com/jkarlin/topics/issues)が多く残っています。
--  この API はまだどのブラウザにも実装されていません。
--  [プライバシー サンドボックスのタイムライン](http://privacysandbox.com/timeline)では、Topics API や他のプライバシー
-   サンドボックスに関する提案の実装スケジュールをご確認いただけます。
+- [Topics APIの提案](https://github.com/jkarlin/topics)の[公開ディスカッション](https://github.com/jkarlin/topics/issues)が開始し、[オリジントライアル](#origin-trial)で利用できるようになりました。
+- この提案には皆さんからのフィードバックが必要です。コメントがある場合は、[Topics Explainer リポジトリ](https://github.com/jkarlin/topics)でイシューを作成するか、[Improving Web Advertising Business Group](https://www.w3.org/community/web-adv/participants)（ウェブ広告の改善ビジネスグループ）のディスカッションに参加してください。Explainer には、さらに定義が必要な[未解決の質問](https://github.com/jkarlin/topics/issues)が多数あります。
+- [プライバシーサンドボックスのタイムライン](http://privacysandbox.com/timeline)は、Topics API とその他のプライバシーサンドボックス提案の実装のタイミングを示しています。
 
-## この API が必要な理由
+---
 
-Topics API は、ユーザーがアクセスしたサイトをトラッキングせずにインタレスト ベースの広告を掲載できるようにする、[プライバシー
-サンドボックス](/docs/privacy-sandbox/overview/)に関連した提案です。
+## Topics オリジントライアルに参加する {: #origin-trial}
 
-{% Aside %}
+Topics、[FLEDGE](/docs/privacy-sandbox/fledge)、および [アトリビューション レポート](/docs/privacy-sandbox/attribution-reporting/) API に関するプライバシーサンドボックスの関連性と測定の[オリジントライアル](/blog/origin-trials/)が、デスクトップ版 Chrome Beta 101.0.4951.26 以降で利用できるようになりました。
 
-**インタレスト
-ベース広告（IBA）**は、パーソナライズド広告の一種で、ユーザーが最近アクセスしたサイトから推定される興味や関心に基づいて広告が選ばれます。これは、ユーザーが閲覧しているページの内容に合わせて表示されるコンテンツ
-ターゲット広告とは異なります。  
-IBA は、広告主が潜在顧客にリーチできる有効な手段です。パブリッシャーにとっては、コンテンツ ターゲット広告だけでは収益化が難しいサイトで資金を得る手段となります。また、IBA
-は現在のページのコンテキスト情報を補完し、ユーザーに関連性の高い広告を提供するうえでも役立ちます。  
+参加するには、[オリジントライアルトークンに登録](/origintrials/#/view_trial/771241436187197441)してください。
+
+トライアルに正しく登録できたら、有効なトライアルトークンを提供するページで Topics JavaScript API を試すことができます。
+
+- &lt;head&gt; のメタタグ:<br>
+
+    `<meta http-equiv="origin-trial" content="TOKEN_GOES_HERE">`
+
+- HTTP ヘッダー:<br>
+
+    `Origin-Trial: TOKEN_GOES_HERE`
+
+- プログラムでトークンを指定:<br>
+
+    ```javascript
+    const otMeta = document.createElement('meta');
+    otMeta.httpEquiv = 'origin-trial';
+    otMeta.content = 'TOKEN_GOES_HERE';
+    document.head.append(otMeta);
+    ```
+
+トピックを監視するための `document.browsingTopics()` 呼び出しなどの Topics コードを実行している iframe は、オリジンに一致するトークンを提供する必要があります。
+
+{% Aside 'caution' %}
+
+有効なトライアルトークンが提供されているページであっても、すべてのユーザーにプライバシーサンドボックスの関連性と測定のオリジントライアルを実施する資格があるわけではありません。
+
+「[プライバシーサンドボックス広告の関連性と測定 API をテストする](/blog/privacy-sandbox-unified-origin-trial#eligible-users)」には、その理由が説明されています。また、オリジントライアル機能を使用する前に、それが利用可能かどうかを検出する理由と方法が示されています。
 
 {% endAside %}
 
-Topics API
-は、ユーザーの最近の閲覧アクティビティに基づいて、関心を持ちそうなトピックを提供する手段を提案するものです。こうしたトピックは、コンテキスト情報と合わせて、関連性の高い広告の選択に使用できます。  
-Topics API は主に次の 3 つのタスクを行います。
+## `chrome://flags` または機能フラグを使ってテストする {: #feature-flags}
 
--  ウェブサイトのホスト名を、関心のあるトピックにマッピングする。たとえば、ヨガのウェブサイトは「フィットネス」に関するカテゴリに分類されます。
--  最近の閲覧アクティビティに基づいて、ユーザーが最も関心を持っているトピックを推定する。
--  JavaScript API により、現在ユーザーが関心を持っているトピックを返し、適切な広告を選択できるようにする。
+Topics API は、Chrome 101 以降を実行している単一のユーザーに対して試すことができます。
 
-Topics API は高度に分類された判読可能なトピックに基づいて構築されているため、ユーザーは詳細な管理が可能となります。Chrome
-では、個々のトピックの削除や、ブラウザに保存されているトピックの確認をできるようにする予定です。
+- コマンドラインから `--enable-features=PrivacySandboxAdsAPIsOverride` フラグを設定します。
+- `chrome://flags/#privacy-sandbox-ads-apis` を有効にします。
 
-## トピックの選定方法
+「[フラグを使用して Chromium を実行する](https://www.chromium.org/developers/how-tos/run-chromium-with-flags)」には、Chrome やその他の Chromium ベースのブラウザを実行する際にコマンドラインからフラグを設定する方法について説明されています。
 
-トピックは、「カントリー
-ミュージック」、「メイク、化粧品」、「ベジタリアン料理」などの[分類](https://github.com/jkarlin/topics/blob/main/taxonomy_v1.md)リストから選定されます。トピックはテストのため最初は
-Chrome
-で選定されますが、最終的には信頼できるエコシステムの協力者によるトピック分類の維持管理を目標としています。分類においては、各トピックにより多くのブラウザが関連付けられるよう、トピック数を必要最小限にする必要があります（現在は
-350 程度ですが、数百から数千の間になると想定しています）。デリケートなカテゴリが含まれないよう、トピックは公開され、判読可能で、常に更新される必要があります。テストのため Chrome
-により提供される最初の分類は、手動で選定され、[一般的にデリケートと考えられるカテゴリ](#sensitive-topics)（民族や性的指向など）は除外されます。
-  
-Topics API
-では、[機械学習](https://royalsociety.org/topics-policy/projects/machine-learning/what-is-machine-learning-infographic/)を使用して、ホスト名からトピックを推定します。この分類モデルは、最初の段階ではブラウザのベンダーや信頼できる第三者によって、手動で選定されたホスト名やトピックを使用してトレーニングされます。モデルはブラウザで配布されるため、自由に開発、使用できます。ユーザーのデバイスのブラウザでは、このモデルを使用し、最近アクセスしたサイトの[ホスト名](https://web.dev/same-site-same-origin/#origin)に基づいて、ユーザーが最も関心を持っているトピックを推定します。  
-以下の図は、Topics API がアドテック
-プラットフォームの適切な広告選択にどのように役立つかをわかりやすく示したものです。この例では、ウェブサイトのホスト名をトピックにマッピングするモデルがユーザーのブラウザに組み込み済みであることを前提としています。
+{% Aside %}
 
-{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/u9e1VvzblNVHCfyk1hRY.png",
-  alt="Diagram showing the stages in the Topics API lifecycle, from a user visiting websites to an ad
-  being displayed.", width="800", height="275" %}
+これは、初期テスト用の進行中の API バージョンであるため、機能が完全である、または最終的な実装を示すものと見なされるべきではありません。
 
-Topics API のライフサイクル:
-[拡大版を表示](https://wd.imgix.net/image/80mq7dk16vVEg8BBhsVe42n6zn82/u9e1VvzblNVHCfyk1hRY.png?auto=format&w=1600)
+[プライバシーサンドボックスのタイムライン](https://privacysandbox.com/timeline)には、FLEDGE とその他のプライバシーサンドボックス提案の実装時期に関する情報が提供されています。
+
+{% endAside %}
+
+## 機能サポートの検出
+
+APIを使用する前に、API がブラウザでサポートされており利用可能であるかを、ドキュメントで確認してください。
+
+```javascript
+'browsingTopics' in document && document.featurePolicy.allowsFeature('browsing-topics') ?
+  console.log('document.browsingTopics() is supported on this page') :
+  console.log('document.browsingTopics() is not supported on this page');
+```
+
+{% Aside 'caution' %}
+
+現在のページで機能がサポートされていても、API が使用可能であることは保証されません。ユーザーがブラウザの設定で API を無効にしたり、API の使用を妨げる他の設定が使用されていたりする可能性があるためです。ユーザーのプライバシーを保護する理由から、このことをプログラムでチェックする方法は存在しません。
+
+{% endAside %}
+
+---
+
+## この API が必要な理由
+
+Topics APIは、ユーザーがアクセスしたサイトを追跡せずに、インタレストベース広告を可能にするメカニズムに関する[プライバシーサンドボックス](/docs/privacy-sandbox/overview/)提案です。
+
+{% Aside %}
+
+**インタレストベース広告（IBA）** は、ユーザーが最近アクセスしたサイトから推測された、ユーザーの興味に基づいて広告が選択されるパーソナライズされた広告の形態です。これは、ユーザーがアクセスしているページのコンテンツと照合することを目的としたコンテンツターゲット広告とは異なります。
+
+IBA は、広告主が潜在的な顧客にリーチするのを支援し、コンテンツターゲット広告だけでサイトへのアクセスを簡単に収益化できない Web サイトに資金を提供するのに役立ちます。 IBA は、現在のページのコンテキスト情報を補足して、ユーザーにとって適切な広告を表示できるようにします。
+
+{% endAside %}
+
+Topics API は、ユーザーが現在関心を持っている可能性のあるトピックを、最近の閲覧アクティビティに基づいて提供する方法を提案します。 これらのトピックはコンテキスト情報を補足し、適切な広告を選択できるようにします。
+
+Topics API には、次の 3 つの主要なタスクがあります。
+
+- Web サイトのホスト名を関心のあるトピックにマッピングする。 たとえば、ヨガの Web サイトは、「フィットネス」に関連する項目 に分類されることが考えられます。
+- 最近の閲覧アクティビティに基づいて、ユーザーの上位のトピックを計算する。
+- ユーザーが現在関心を持っているトピックを提供し、適切な広告を選択できるようにする JavaScript API を提供します。
+
+Topics API は、人が認識可能かつハイレベルなトピックで構成されているため、堅牢なユーザー制御が容易に可能です。 Chrome では、個々のトピックを削除するオプションと、ブラウザーに保存されているトピックを表示するオプションを提供する予定です。
+
+## トピックの分類と選択の方法
+
+トピックは[分類体系](https://github.com/jkarlin/topics/blob/main/taxonomy_v1.md)から選択されます。これは、「カントリーミュージック」、「メークアップとコスメ」、「ベジタリアン料理」などの項目のリストです。これらのトピックは、当初、テスト用に Chrome で分類されますが、最終的には、トピックの分類は、エコシステムに貢献している信頼された組織によって管理されることを目指しています。多くのブラウザーが各トピックに関連付けられるように、分類に使用されるトピックの数はある程度絞る必要があります（現在の提案は約 350 ですが、最終的なトピックの数は数百から数千になると想定されています）。
+
+センシティブなカテゴリを避けるには、これらのトピックを公開し、人間が分類し、 最新の状態に保つ必要があります。Chrome のテスト用に提案された最初の分類は、民族性や性的指向など、[一般的にセンシティブと考えられるのカテゴリを除外](#sensitive-topics)するために人間が分類しています。
+
+Topics API では、[機械学習](https://royalsociety.org/topics-policy/projects/machine-learning/what-is-machine-learning-infographic/)を使用して、ホスト名からトピックを推測することを提案しています。このための分類器モデルは、最初は、ブラウザベンダーまたは信頼できるサードパーティによって、人間が分類するホスト名とトピックを使用してトレーニングされます。モデルはブラウザとともに配布されるため、オープンに開発され、自由に利用できます。するとユーザーのデバイスのブラウザは、このモデルを使用して、最近アクセスしたサイトの[ホスト名](https://web.dev/same-site-same-origin/#origin)に基づいて、ユーザーに最も関心のあるトピックを計算できるようになります。
+
+{% Aside %}
+[`chrome://topics internal` ページでは、](#view-inferred-topics)ホスト名について推測されたトピックを確認できます。
+{% endAside %}
+
+下の図は、アドテクプラットフォームが適切な広告を選択する方法を Topics API がどうサポートするかを単純化した例として示しています。この例では、ユーザーのブラウザに、ウェブサイトのホスト名をトピックにマッピングするための モデルが既に存在していることを前提としています。
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/u9e1VvzblNVHCfyk1hRY.png", alt="ユーザーが Web サイトにアクセスしてから広告 が表示されるまでの Topics API ライフサイクルのステージを示す図", width="800", height="275" %}
+
+Topics API のライフサイクル: [拡大版を表示](https://wd.imgix.net/image/80mq7dk16vVEg8BBhsVe42n6zn82/u9e1VvzblNVHCfyk1hRY.png?auto=format&w=1600)
 
 ## Topics API の仕組み
 
 {% Aside %}
 
-Topics API
-の提案は、エコシステムからフィードバックを集めて反映する、[最初の検討段階](/docs/privacy-sandbox/cds21-update/#discussion)にあります。
-API の設計は最終的なものではなく、以下の仕様は検討の過程で変わる可能性があります。  
+Topics API の提案は、エコシステムからフィードバックを収集し、そのフィードバックに基づいて行動するための[最初のディスカッションフェーズ](/docs/privacy-sandbox/cds21-update/#discussion)です。
+
+API 設計は最終段階ではなく、検討が進むにつれて次の詳細内容が変更されます。
 
 {% endAside %}
 
-Topics API のようなインタレスト ベース広告をサポートするメカニズムでは、関心のあるトピックが最新の状態に保たれている必要があります。  
+Topics APIなどのインタレストベース広告を容易にするメカニズムは、提供される興味/関心のトピックが最新の状態であることを保証する必要があります。
 
 {: #epoch}
 
-Topics API の提案では、ブラウザで_エポック_と呼ばれる一定期間（提案では現在 1
-週間）の閲覧アクティビティに基づいてユーザーのトピックを推定します。エポックごとに選ばれるトピックは、その期間にユーザーが最も関心を持っている 5
-つのトピックからランダムに抽出したものとなります。プライバシーを強化し、すべてのトピックが使用されるように、20 回に 1 回は分類に含まれる可能性があるすべてのトピックから無作為に選ばれます。  
-Topics JavaScript API には、`document.browsingTopics()` というメソッドがあり、最近の 3 つのエポックから 1
-つずつ選ばれたトピックをランダムな順序の配列で返します。  
-Topics API の解説では、`document.browsingTopics()` で返す配列の各トピック オブジェクトに次の 3 つのプロパティを含めることを提案しています。
+Topics API の提案では、ブラウザは、現時点では 1 週間と提案されている「*エポック*」と呼ばれる期間の閲覧行動に基づいて、ユーザーのトピックを推測します。エポックごとに選択されたトピックは、その期間におけるユーザーの上位 5 つのトピックからランダムに選択されます。プライバシーをさらに強化し、すべてのトピックが確実に表示されるようにするため、5% の確率で分類上のすべてのトピックからランダムに選択されます。
 
--  `id`: 分類におけるトピックの ID
--  `taxonomyVersion`: ブラウザで現在使用されているトピックのセット
--  `classifierVersion`: ホスト名からのサイトのトピックの推定に使用されている機械学習の分類システム
+Topics JavaScriptAPI には、`document.browsingTopics()` という 1 つのメソッドがあります。 これは、最大 3 つのトピック (直近の 3 つのエポックごとに 1 つずつ) をランダムに含む配列に解決される Promise を返します。
+
+Topics の Explainer では、`document.browsingTopics()` 返す配列のトピックオブジェクトごとに、3 つのプロパティが含まれることが提案されています。
+
+- `configVersion`: 現在の構成を識別する文字列
+- `modelVersion`: サイトの推測に使用される機械学習分類器を識別する文字列
+- `taxonomyVersion`: ブラウザーで現在使用されているトピックの集合を識別する文字列
+- `topic`: [分類体系](#how-would-topics-be-curated-and-selected)のトピックを識別する数値
+- `version`: `configVersion` と `modelVersion` を組み合わせた文字列
 
 {% Aside %}
 
-現在、Topics API の設計は、[解説](https://github.com/jkarlin/topics)として検討中で、標準化プロセスの最初の段階にあり、確定版ではありません。  
-この記事で説明したパラメータや API の詳細（分類トピックの数、1 週間に推定されるトピックの数、1 回の呼び出しで返されるトピックの数など）は、エコシステムからのフィードバックに基づく
-API の調整に伴い変わる可能性があります。
+現在、Topics API の設計は、[Explainer](https://github.com/jkarlin/topics) として議論されています。これは標準化プロセスの最初のステップに過ぎません。 API は確定されていません。
+
+この記事で説明するパラメーターと API の詳細 (分類サイズ、1 週間に計算されるトピック数、呼び出しごとに返されるトピック数など) は、エコシステムのフィードバックを取り入れ、API に反映させることを繰り返すため、変更される可能性があります。
 
 {% endAside %}
 
 {: #observed-topics}
 
-### API 呼び出し元は確認済みのトピックのみを受け取る
+### API 呼び出し元は観測したトピックのみを受信する
 
-Topics API の設計目標は、現在使用されているサードパーティの Cookie よりも情報を共有するエンティティの数を抑えて、インタレスト ベースの広告を可能とすることです。Topics API
-では、API 呼び出し元に返されるトピックは、その API 呼び出し元が限られた期間内にすでに確認しているトピックのみであるという仕組みを提唱しています。  
+Topics API の設計目標は、現在サードパーティ Cookie よりも少ない数のエンティティに情報を共有しながら、インタレスト ベース広告を実現することです。 Topics API では、制限された時間枠内で、すでにユーザーを観測した API 呼び出し元に対してのみ、そのユーザーのトピックを返すことを提案しています。
 
 {: #caller}
 
 {% Aside 'key-term' %}
 
-Topics API の**呼び出し元は**、`document.browsingTopics()` JavaScript
-メソッドを呼び出すエンティティであり、そのメソッドが返すトピックを使用して関連する広告を選択できるようにします。  
-通常、`document.browsingTopics()` の呼び出しは、アドテック
-プラットフォームなどサイトに含まれる第三者コードで行います。ブラウザは、現在のドキュメントのサイトから呼び出し元を判断します。そのため、ページ上の第三者コードから呼び出す場合は、ご自身のサイトの iframe
-上から API を呼び出すようにしてください。  
-`document.browsingTopics()` が 1
-つ以上のトピックを返すためには、それらのトピックが確認済みのサイトに存在したコードと同じオリジンのコードからメソッドが呼び出される必要があります。  
+トピック API の **呼び出し元** は、`document.browsingTopics()` JavaScript メソッドを「呼び出す」エンティティで、メソッドによって返されたトピックを使用して、関連する広告を選択できるようにします。 通常、 `document.browsingTopics()` の呼び出しは、アドテクプラットフォームなどのサードパーティのサイトに含まれているコードから実行されます。 ブラウザーが現在のドキュメントのサイトから呼び出し元を判定します。 そのため、ページのサードパーティである場合は、必ず自社サイトが所有する iframe から API を呼び出してください。
+
+`Document.browsingTopics ()` が 1 つ以上のトピックを返すには、それらのトピックが観測されたサイトのコードと同じオリジンのコードでこのメソッドが呼び出される必要があります。
 
 {% endAside %}
 
-API 呼び出し元が、あるユーザーについて特定のトピックを確認したとするためには、Topics API によってそのトピックがすでにマッピングされているサイトに含まれるコードから、`document.browsingTopics()` メソッドを呼び出している必要があります。次に例を示します。
+API呼び出し元は、Topics API がそのトピックにマッピングしたサイトに含まれるコードで `document.browsingTopics()` メソッドを呼び出した場合に、ユーザーのトピックを「観測」したとされます。 たとえば、次のようになります。
 
-1. Topics API がホスト名 `knitting.example` を「手芸」などのトピックにマッピングします。
-1. `adtech.example` のコードは `knitting.example` のページに含まれています。
-1. ユーザーが `knitting.example` にアクセスします。
-1. `adtech.example` のコードが `document.browsingTopics() を呼び出します。`
-1. ブラウザが knitting.example に対して推測したトピックの一つは「手芸」です。
-1. `adtech.example` は、そのユーザーについてトピック「手芸」を確認したことになります。
+1. Topics API は、ホスト名 `knitting.example` を「布&amp;織物製品」を含むトピックにマッピングします。
+2. `adtech.example` のコードは、`knitting.example` のページに含まれます。
+3. ユーザーが `knitting.example` にアクセスします。
+4. `adtech.example` のコードが `document.browsingTopics ()` を呼び出します。
+5. ブラウザーが `knitting.example` で推測したトピックの 1 つは、「 布&amp;織物製品」です。
+6. `adtech.example` は、そのユーザーの「布&amp;織物製品」というトピックを観測したとされます。
 
-Topics API の `document.browsingTopics()` メソッドは、直近の 3
-[エポック](#epoch)内に呼び出し元によってすでに確認されているトピックのみを提供します。これにより、ユーザーに関する情報が、Topics
-API が置き換える技術（サードパーティ Cookie を含む）よりも多くのエンティティで共有されることを防止できます。  
-`document.browsingTopics()`
-が返すトピックの数は、[API 呼び出し元](#caller)
-がすでに確認しているトピックの数、ユーザーについて利用できるトピックの数（データ累積週数など）によって異なり、0～3 個のトピックが返される可能性があります。
+API の `document.browsingTopics()` メソッドは、直近の 3 つの[エポック](#epoch)で呼び出し元によってすでに観測されたトピックのみを提供します。 これにより、ユーザーに関する情報が、API が取って代わるテクノロジー (サードパーティ Cookie を含む) よりも多くのエンティティと共有されるのを防ぐことができます。
 
-### Topics JavaScript API の例
+`document.browsingTopics()` によって返されるトピックの数は、[API 呼び出し元](#caller)が以前に観測したトピックの数と、ユーザーが利用できるトピックの数 (データが蓄積された週数など) によって異なります。 0 ～ 3 つのトピックが返される可能性があります。
 
-次のコードは、想定される基本的な API 使用例を示しています（簡単にするために、エラー処理は省略しています）。  
+### JavaScript APIを使用してトピックにアクセスする {: #access-topics}
+
+これは、現在のユーザーのトピックにアクセスするための API の使用方法として考えられる基本的な例です。単純さを維持するために、エラー処理を含めていません。
 
 {% Aside 'warning' %}
-
-このコード スニペットは、あくまでも Topics JavaScript API を例示するためのものです。API
-の設計は変更される可能性があり、このコードはすぐにブラウザで機能するものではありません。  
-
+このコードスニペットは、Topics JavaScript API の使用方法を示すためにのみ提供されています。API の設計は変更される可能性があります。
 {% endAside %}
 
 ```javascript
@@ -171,222 +221,359 @@ const creative = await response.json();
 // Display ad.
 ```
 
-### どの呼び出し元がどのトピックを確認できるのかを Topics API が判断する仕組み
+### Topics API でどの呼び出し元がどのトピックを表示できるのかを決定する方法
 
-Topics API 呼び出し元は最近確認したトピックのみを受け取り、ユーザーのトピックはエポックごとに 1 回更新されます。つまり Topics API
-には、特定の呼び出し元が特定のトピックを受け取ることができるローリング ウィンドウが存在します。  
-次の表は、非現実的なほど小規模ですが、あるユーザーの 1 つのエポックにおける仮想的な閲覧履歴の例です。ユーザーがアクセスしたサイトに関連するトピックと、各サイトに存在する API
-[呼び出し元](#caller)（サイトに含まれる
-JavaScript コードで `document.browsingTopics()` を呼び出すエンティティ）を示しています。
+API 呼び出し元は、最近観察したトピックのみを受け取り、ユーザーのトピックはエポックごとに 1 回更新されます。つまり、API には、特定の呼び出し元が特定のトピックを受け取る可能性のある周期があります。
+
+下の表は、1 つのエポックにおけるユーザーの仮説的な閲覧履歴の（非現実的に小さい）例をまとめたものです。ユーザーがアクセスしたサイトに関連付けられたトピックと、各サイトに存在する API [呼び出し元](#caller)（サイトに含まれる JavaScript コードで `document.browsingTopics()` を呼び出すエンティティ）が示されています。
 
 <table>
-<thead>
-<tr>
-<th style="text-align: left;"><strong>サイト</strong></th>
-<th style="text-align: left;"><strong>トピック</strong></th>
-<th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>yoga.example</td>
-<td>フィットネス</td>
-<td>adtech1.example adtech2.example</td>
-</tr>
-<tr>
-<td>knitting.example</td>
-<td>工芸品</td>
-<td>adtech1.example</td>
-</tr>
-<tr>
-<td>hiking-holiday.example</td>
-<td>フィットネス、<br>
-旅行、交通</td>
-<td>adtech2.example</td>
-</tr>
-<tr>
-<td>diy-clothing.example</td>
-<td>工芸品、ファッション、スタイル</td>
-<td>なし</td>
-</tr>
-</tbody>
+  <thead>
+  <tr>
+  <th style="text-align: left;"><strong>サイト</strong></th>
+  <th style="text-align: left;"><strong>トピック</strong></th>
+  <th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td>yoga.example</td>
+    <td>フィットネス</td>
+    <td>adtech1.example adtech2.example</td>
+    </tr>
+    <tr>
+    <td>knitting.example</td>
+    <td>手工芸</td>
+    <td>adtech1.example</td>
+    </tr>
+    <tr>
+    <td>hiking-holiday.example</td>
+    <td>フィットネス、旅行 &amp; 交通</td>
+    <td>adtech2.example</td>
+    </tr>
+    <tr>
+    <td>diy-clothing.example</td>
+    <td>手工芸、ファッション &amp; スタイル</td>
+    <td>[none]</td>
+    </tr>
+  </tbody>
 </table>
 
-エポック（現在は 1 週間）の最後に、Topics API はその週について、ブラウザの上位のトピックを生成します。
+エポックの終わり (現在の提案では 1 週間) に、Topics API はブラウザーの 1 週間の上位トピック を生成します。
 
--  adtech1.example は「フィットネス」と「工芸品」のトピックを受け取ることができます（yoga.example と knitting.example で確認したため）。
--  adtech1.example は、このユーザーについて「旅行、交通」トピックを受け取ることができません（このトピックに関連する、ユーザーが最近アクセスしたどのサイトにも存在しないため）。
--  adtech2.example は「フィットネス」と「旅行、交通」のトピックを確認していますが、「工芸品」トピックは確認していません。
+- adtech1.example は、yoga.example と knitting.example で観測されたため、「フィットネス」トピックと「手工芸」のトピックを受信する資格があります。
+- adtech1.example には、このユーザーの「旅行 &amp; 交通」トピックを受信する資格がありません。理由は、ユーザーが最近アクセスした「旅行 &amp; 交通」トピックに関連付けられたサイトに、adtech1.example が存在しないためです。
+- adtech2.example では「フィットネス」と「旅行 &amp; 交通」のトピックは見ていますが、「手工芸」のトピックは見ていません。
 
-ユーザーは「ファッション」のトピックがある diy-clothing.example にアクセスしましたが、そのサイトに Topics API
-の呼び出しはありませんでした。つまりこの時点では、どの呼び出し元に対しても API が「ファッション」トピックを返すことはありません。  
-第 2 週に、ユーザーが別のサイトにアクセスします。
+ユーザーは「ファッション &amp; スタイル」というトピックを持つ diy-clothing.example にアクセスしましたが、そのサイトで Topics API への呼び出しはありませんでした。 この時点で、どの呼び出し元に対する「ファッション &amp; スタイル」トピックも API によって返されません。
+
+第 2 週目に、ユーザーが別のサイトにアクセスします。
 
 <table>
-<thead>
-<tr>
-<th style="text-align: left;"><strong>サイト</strong></th>
-<th style="text-align: left;"><strong>トピック</strong></th>
-<th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sewing.example</td>
-<td>工芸品</td>
-<td>adtech2.example</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+    <th style="text-align: left;"><strong>サイト</strong></th>
+    <th style="text-align: left;"><strong>トピック</strong></th>
+    <th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td>sewing.example</td>
+    <td>手工芸</td>
+    <td>adtech2.example</td>
+    </tr>
+  </tbody>
 </table>
 
-また、adtech2.example のコードが diy-clothing.example に追加されます。
+さらに、adtech2.example のコードが diy-clothing.example に追加されます。
 
 <table>
-<thead>
-<tr>
-<th style="text-align: left;"><strong>サイト</strong></th>
-<th style="text-align: left;"><strong>トピック</strong></th>
-<th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>diy-clothing.example</td>
-<td>工芸品、ファッション、スタイル</td>
-<td>adtech2.example</td>
-</tr>
-</tbody>
+  <thead>
+    <tr>
+    <th style="text-align: left;"><strong>サイト</strong></th>
+    <th style="text-align: left;"><strong>トピック</strong></th>
+    <th style="text-align: left;"><strong>サイトの API 呼び出し元</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+    <td>diy-clothing.example</td>
+    <td>手工芸、ファッション &amp; スタイル</td>
+    <td>adtech2.example</td>
+    </tr>
+  </tbody>
 </table>
 
-第 1 週の「フィットネス」と「旅行、交通」と同様に、adtech2.example は後続のエポック（第 3
-週）から「工芸品」と「ファッション、スタイル」のトピックを受け取れるようになります。これにより、第三者がユーザーの過去（この場合、ファッションに興味があること）について、Cookie
-を使用した場合よりも詳細に把握することはできなくなります。  
-さらに 2 週間後、「フィットネス」と「旅行、交通」は、adtech2.example
-のコードが含まれる、これらのトピックを持つサイトにユーザーがアクセスしなかった場合、adtech2.example の対象トピックのリストから外れる可能性があります。
+これは、第 1 週の「フィットネス」と「旅行 &amp; 交通」に加えて、adtech2.example は「手工芸」と「ファッション &amp; スタイル」のトピックを受信できることを意味します。ただし、次のエポックである第 3 週目までは受信しません。 これにより、サードパーティが Cookie を使用する場合よりもユーザーの過去 (この場合はファッションへの関心) について得られる情報が限定的になることが担保されます。
 
-### API がサイトのトピックを推測する仕組み
+さらに 2 週間後、ユーザーが adtech2.example のコードを含むトピックのサイトにアクセスしなかった場合、「フィットネス」と「旅行 &amp; 交通」は adtech2.example が受信資格のあるトピックのリストから削除される可能性があります。
 
-Topics API の解説では、ウェブサイトの[ホスト名](https://web.dev/same-site-same-origin/#origin)を 0
-個以上のトピックにマッピングする[分類モデル](https://github.com/jkarlin/topics#:~:text=classifier)からトピックを導出することが提案されています。  
-追加の情報（完全な URL やページ コンテンツなど）を分析することで、広告の関連性が高まる可能性はありますが、プライバシーが損なわれるおそれもあります。  
-ホスト名をトピックにマッピングする分類モデルは一般公開されます。解説では、ブラウザのデベロッパー ツールを使用してサイトのトピックを表示できるようにすることが提案されています。マッピング
-モデルは定期的に更新されますが、頻度については現在検討中です。
+### API がサイトのトピックを推測する方法
 
-### ユーザーの上位 5 つのトピックが選ばれる仕組み
+Topis API の Explainer は、トピックは、ウェブサイトの[ホスト名](https://github.com/jkarlin/topics#:~:text=classifier)を 0 個以上のトピックにマッピングする[分類器モデル](https://web.dev/same-site-same-origin/#origin)から抽出されることが提案されています。
 
-API はエポックごとにトピックを 1 つ返します（最大 3 つ）。3 つ返される場合は、現在のエポックのトピックと、前 2 つのエポックのトピックが返されます。
+追加情報（完全な URL やページコンテンツなど）を分析すると、より関連性の高い広告が可能になる可能性がありますが、プライバシーが低下する可能性もあります。
 
-1. 各エポックの最後に、ブラウザは次の基準を満たすページのリストをコンパイルします。
-   1. 対象エポック中にユーザーによってアクセスされたページ。
-   1. `document.browsingTopics()` を呼び出すコードが含まれているページ。
-   1. API が有効になっている（たとえばユーザーまたは[レスポンス
-      ヘッダー](https://developer.mozilla.org/docs/Web/HTTP/Headers/Feature-Policy)によってブロックされていない）。
+ホスト名をトピックにマッピングするための分類器モデルは公開され、Explainer ではブラウザ開発者ツールを使用してサイトのトピックを表示できる可能性について提案しています。このモデルは長期的に進化し改善され、定期的に更新されることが期待されていますが、その頻度については未だ検討中です。
 
-1. ユーザーのデバイスで、ブラウザは Topics API が提供する分類モデルを使用して、各ページのホスト名をトピックのリストにマッピングします。
-1. ブラウザがトピックのリストを蓄積します。
-1. ブラウザが頻度別に上位 5 つのトピックのリストを生成します。
+#### 現在の分類器モデルはどこにありますか？
 
-次に、`document.browsingTopics()` メソッドは、エポックごとに上位 5 つの中からランダムにトピックを返します（トピックの全分類からランダムに選ばれる確率は 5%）。  
-Chrome では、ユーザーが個々のトピックを削除したり、閲覧履歴を消去したりすることで、API から返されるトピックの数を減らすこともできます。ユーザーは API
-をオプトアウトすることもできます（[ユーザーによるオプトアウト](#opt-out)をご覧ください）。
+トピックは 10,000 件の上位ドメインに対して手動で分類されており、この分類は分類器のトレーニングに使用されています。このリストは `override_list.pb.gz` にあり、`chrome://topics-internals/` の［Classifier］タブの現在のモデルから利用できます。リスト内のドメインとトピックの関連付けは、モデル自体の出力ではなく API によって使用されます。
 
-## Topics API で FLoC に関する懸念を解決する方法
+モデルを直接実行するには、[TensorFlow のモデルの実行ガイド](https://www.tensorflow.org/lite/guide/inference#running_a_model)をご覧ください。
 
-2021 年に行った [FLoC](https://github.com/WICG/floc) のオリジン トライアルでは、アドテックとウェブ
-エコシステムの参加者からさまざまなフィードバックがありました。特に、FLoC
-コホートがフィンガープリントのサーフェスとしてユーザーの識別に使用される可能性や、ユーザーとデリケートなカテゴリの関連付けが開示される可能性について懸念が寄せられました。また、FLoC
-の透明性を高め、ユーザーにわかりやすくする必要があるとの意見も挙がりました。  
-Topics API は、こうしたフィードバックを念頭に、透明性の改善、プライバシー保護の強化、デリケートなカテゴリに対するアプローチの変更などを行い、インタレスト
-ベース広告を新たな方法でサポートできるように設計されました。
+`override_list.pb.gz` ファイルを検査するには、以下のようにします。
+
+- 解凍します: `gunzip -c override_list.pb.gz > override_list.pb`
+- protoc を使用して検査します: `protoc --decode_raw < override_list.pb > output.txt`
+
+[ID を持つトピックの完全な分類体系は、GitHub で入手できます](https://github.com/patcg-individual-drafts/topics/blob/main/taxonomy_v1.md)。
+
+#### 分類器モデルに関するフィードバックまたは意見を提供するには？
+
+Topics 提案に関するフィードバックを提供するには、[いくつかのチャンネル](/docs/privacy-sandbox/feedback/)を使用できます。分類器モデルに関するフィードバックについては、[GitHub 課題を提出](https://github.com/patcg-individual-drafts/topics/issues)するか、既存の課題に返信することをお勧めします。たとえば、以下のようなイシューをご覧ください。
+
+- [長期的には、どのトピック分類体系を使用すべきですか？](https://github.com/patcg-individual-drafts/topics/issues/3)
+- [割り当てられたトピックにサイトが一致しない場合は？](https://github.com/patcg-individual-drafts/topics/issues/2)
+
+### ユーザーの上位 5 つのトピックが選ばれる方法
+
+API はエポックごとに 1 つのトピック、最大 3 つのトピックを返します。 3 つのトピックが返された場合、現在のエポックと前の 2 つのエポックのトピックが含まれます。
+
+1. 各エポックの終わりに、ブラウザーは以下の条件を満たすページのリストをコンパイルします。
+
+    - エポック中にユーザーがこのページにアクセスした。
+    - このページに `document.browsingTopics()` を呼び出すコードが含まれている。
+    - API が有効になっている (例: [ユーザーまたは応答ヘッダー](https://developer.mozilla.org/docs/Web/HTTP/Headers/Feature-Policy)によってブロックされていない)。
+
+2. ユーザーのデバイスのブラウザーは、Topics API によって提供される分類子モデルを使用して、各ページのホスト名としてトピックのリストにマッピングします。
+
+3. ブラウザーにはトピックのリストが蓄積されます。
+
+4. ブラウザーは、上位 5 つのトピックのリストを頻度に応じて生成します。
+
+`Document.browsingTopics()` メソッドは、エポックごとに上位 5 つのトピックからランダムにトピックを返します。トピックの完全な分類からこれらのいずれかがランダムに選択される確率は 5% です。 Chrome では、ユーザーが個々のトピックを削除したり、閲覧履歴をにクリアして API から返されるトピックの数を減らしたりすることもできます。 ユーザーは API をオプトアウトすることもできます。[ユーザーオプトアウト](#opt-out)を参照してください。
+
+{% Aside %}
+現在のエポック中に観察されたトピックに関する情報は、[`chrome://topics internal` ページ](#view-current-topics)に表示されます。
+{% endAside %}
+
+### API の使用箇所をデバッグするには？ {: #debug}
+
+[Topics API を有効にする](/docs/privacy-sandbox/topics/#feature-flags)と、Chrome Canary と Chrome Dev で `chrome://topics-internals` ページを利用できるようになります。このページには、現在のユーザーのトピック、ホスト名から推測されたトピック、および API の実装に関する技術情報が表示されます。
+
+{% Aside %}
+`chrome://topics-internals` は新しいページです！デザインと機能は現在議論中です。
+
+現在、開発者のフィードバックに基づいて設計のイテレーションと改善を行っています。[bugs.chromium.org](https://bugs.chromium.org/p/chromium/issues/entry?template=Defect+report+from+developer&components=Blink%3ETopicsAPI) でフィードバックを追加してください。
+{% endAside %}
+
+#### ブラウザに対して計算されたトピックを表示する {: #view-current-topics}
+
+現在および前のエポックにおいて、ブラウザに対して観察されたトピックに関する情報を表示できます。
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/M253GclVFDCnvPJlTSVR.png", alt="［Topics State］パネルが選択された chrome://topics-internal ページのスクリーンショット。", width="800", height="697" %}
+
+この例では、最近アクセスしたサイトに [topics-demo-cats.glitch.me](http://topics-demo-cats.glitch.me) と [cats-cats-cats-cats.glitch.me](cats-cats-cats-cats.glitch.me) が含まれています。これを基に、Topics API は、現在のエポックの上位トピックから `Pets` と `Cats` の 2 つを選択しました。残りの 3 つのトピックについては、5 つのトピックを提供するのに十分な閲覧履歴（トピックを観察するサイト上の履歴）がないため、[ランダムに選択](https://github.com/patcg-individual-drafts/topics#:~:text=random)されています。
+
+**Observed-by context domains (hashed)** 列には、トピックが観測されたホスト名のハッシュ値が表示されます。
+
+#### ホスト名について推測されたトピックを表示する {: #view-inferred-topics}
+
+1 つ以上のホスト名に対して Topics [分類器モデル](https://github.com/patcg-individual-drafts/topics#:~:text=classifier%20model)が推測したトピックを表示できます。
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/SOTuE2ljC55PaYll1UP1.png", alt="［Classifier］パネルが選択されている chrome://topics-internal ページのスクリーンショット。", width="800", height="695" %}
+
+{% Aside %}
+Topics API の現在の実装は、ホスト名からのみトピックを推測します。URL の他の部分からは推測しません。
+
+`chrome://topics-internals` の［Classifier］から推測されたトピックを表示するには、ホスト名のみ（プロトコルまたはパスを除外）を使用します。Host フィールドに「/」を含めると、`chrome://topics-internals` にエラーが表示されます。
+{% endAside %}
+
+#### tflite 分類器モデルファイルにアクセスする {: #access-tflite-file}
+
+`chrome://topics-internals` ページの［**Classifier**］タブには、Topics API で使用される tflite モデルのファイルパスも表示されます。
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/txujKqPgnQdbwmTfdPZT.png", alt="［Classifier］パネルが選択され tflite ファイルパスがハイライトされた chrome://topics-internal ページのスクリーンショット。", width="800", height="696" %}
+
+[Topics Model Execution Demo Colab](https://colab.sandbox.google.com/drive/1hIVoz8bRCTpllYvads51MV7YS3zi3prn) を使用すると、このファイルをダウンロードしてモデルを読み込むことができます。（Colab または Colaboratory は、コード、出力、および説明テキストを 1 つの共同ドキュメントに結合するデータ分析ツールです。）
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/OWOHUKsrvv7ZPtBP9i85.png", alt="Topics API Model Execution Demo Colab のスクリーンショット。", width="800", height="565" %}
+
+#### Topics API の表示を表示する {: #view-api-information}
+
+[分類体系](/docs/privacy-sandbox/topics/#taxonomy)のバージョンや[エポック](/docs/privacy-sandbox/topics/#epoch)期間など、Topics API の実装と設定に関する情報が提供されています。これらの値は、[コマンドラインから](#feature-flags)正常に設定された API またはパラメーターのデフォルト設定を反映します。この情報は、コマンドラインフラグが期待どおりに機能したことを確認するのに役立ちます。以下の例では、`time_period_per_epoch` が 15 秒（デフォルトは 7 日）に設定されています。
+
+{% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/7vFveJtxWgY6yB8gHnW3.png", alt="［Features and Parameters］パネルが選択されている chrome://topics-internal ページのスクリーンショット。", width="800", height="695" %}
+
+以下の表では、各パラメータの意味を説明しています。（すべての情報を見るには、水平方向にスクロールする必要があります！）
+
+パラメーターは、コマンドラインから Chrome を実行するときに設定されるフラグに対応しています。たとえば、[topics-demo.glitch.me](https://topics-demo.glitch.me/) のデモでは、次のフラグを使用することを推奨しています。
+
+```text
+--enable-features=BrowsingTopics:time_period_per_epoch/15s,PrivacySandboxAdsAPIsOverride,PrivacySandboxSettings3,OverridePrivacySandboxSettingsLocalTesting
+```
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left;"><strong>パラメーター</strong></th>
+      <th style="text-align: left;"><strong>デフォルト値</strong></th>
+      <th style="text-align: left;"><strong>意味</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>BrowsingTopics</code></td>
+      <td>有効</td>
+      <td>Topics API が有効であるかどうか。</td>
+    </tr>
+    <tr>
+      <td><code>PrivacySandboxAdsAPIsOverride</code></td>
+      <td>有効</td>
+      <td>広告の API（アトリビューション レポート、FLEDGE、Topics、Fenced Frames）を有効にします。</td>
+    </tr>
+    <tr>
+      <td><code>PrivacySandboxSettings3</code></td>
+      <td>無効</td>
+      <td>プライバシーサンドボックス UI 設定の 3 つ目のリリースを有効にします。</td>
+    </tr>
+    <tr>
+      <td><code>OverridePrivacySandboxSettingsLocalTesting</code></td>
+      <td>有効</td>
+      <td>有効である場合、プライバシーサンドボックス機能を有効にするためにブラウザの基本設定を有効にする必要がありません。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopicsBypassIPIsPubliclyRoutableCheck</code></td>
+      <td>無効</td>
+      <td>有効である場合、トピックの計算に含まれるページの適格性を判断する際に、IP アドレスがパブリックにルーティング可能かどうかのチェックがバイパスされます。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:number_of_epochs_to_expose</code></td>
+      <td>3</td>
+      <td>要求しているコンテキストに与えるトピックを計算する場所からのエポックの数。ブラウザは内部で最大 N+1 個のエポックを維持します。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:time_period_per_epoch</code></td>
+      <td style="white-space: nowrap;">7d-0h-0m-0s</td>
+      <td>各<a href="https://developer.chrome.com/docs/privacy-sandbox/topics/#:~:text=epoch">エポック</a>の期間。デバッグの場合、これをデフォルトの 7 日ではなく、（たとえば）15 秒に設定すると便利な場合があります。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:number_of_top_topics_per_epoch</code></td>
+      <td>5</td>
+      <td>エポックごとに計算されたトピックの数。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:use_random_topic_probability_percent</code></td>
+      <td>5</td>
+      <td>エポック内の個々のトピックが、トピックの<a href="https://developer.chrome.com/docs/privacy-sandbox/topics/#:~:text=taxonomy">分類体系</a>全体からランダムに返される確率。ランダム性は、エポックとサイトにスティッキーです。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:number_of_epochs_of_observation_data_to_use_for_filtering</code></td>
+      <td>3</td>
+      <td>呼び出し元のコンテキストに対してトピックをフィルタリングするために使用される API 使用状況データ（トピックの観測）のエポック数。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:max_number_of_api_usage_context_domains_to_keep_per_topic</code></td>
+      <td>1000</td>
+      <td>上位トピックごとに保持する、observed-by コンテキストドメインの最大数。使用中のメモリを制限するのが目的です。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:max_number_of_api_usage_context_entries_to_load_per_epoch</code></td>
+      <td>100000</td>
+      <td>API 使用状況コンテキストのクエリごとにデータベースから取得できるエントリの最大数。クエリは、トピックの計算時にエポックごとに 1 回発生します。ピークメモリ使用量を制限するのが目的です。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:max_number_of_api_usage_context_domains_to_store_per_page_load</code></td>
+      <td>30</td>
+      <td>ページの読み込みごとに保存できる API 使用状況コンテキストドメインの最大数。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:config_version</code></td>
+      <td>1</td>
+      <td>Topics API 構成パラメーターをエンコードします。各バージョン番号は、1 つの構成セットにのみマッピングされている必要があります。ローカルテストでは、通常、`config_version` を更新せずに構成パラメーターを更新することで問題ありませんが、状況によっては、`number_of_top_topics_per_epoch` が更新されるなど、ブラウザが一貫性のない状態になったり、ブラウザがクラッシュしたりする可能性があります。</td>
+    </tr>
+    <tr>
+      <td><code>BrowsingTopics:taxonomy_version</code></td>
+      <td>1</td>
+      <td>API で使用される<a href="https://developer.chrome.com/docs/privacy-sandbox/topics/#:~:text=taxonomy">分類体系</a>バージョン。</td>
+    </tr>
+  </tbody>
+</table>
+
+## FLoC に関する懸案事項に Topics API がどう対処するのか
+
+2021 年の [FLoC](https://github.com/WICG/floc) のオリジントライアルでは、アドテクおよび Web エコシステムのコントリビューターから幅広いフィードバックを受け取りました。 特に、ユーザーを識別するために FLoC コホートがフィンガープリント面として使用されたり、ユーザーとセンシティブなカテゴリとの関連付けが明らかにされたりする可能性があるという懸念がありました。 FLoC をユーザーにとってより透過的で理解しやすいものにするための喚起もありました。
+
+Topics API は、このフィードバックを念頭に置いて設計されており、透明性の向上、プライバシー保護の強化、センシティブなカテゴリに対するさまざまなアプローチによって、インタレストベース広告をサポートする他の方法を模索しています。
 
 ### フィンガープリントの削減
 
-Topics API は、複数のメカニズムを採用して、Topics API だけではサイト間で多数のユーザーを再識別できないようにすることを提案しています。
+Topics API では、Topics API だけを使用してサイト全体でかなりの数のユーザーの再識別を確実に防止するために、複数のメカニズムが提案されています。
 
--  Topics API の分類では、最初に 350 程度の大まかなトピックを使用し、対象ブラウザの全ユーザー数に基づき、各トピックに多数のユーザーが関連付けられるようにします。20 回に
-   1 回は無作為に抽出されたトピックが返されるため、トピックあたりのユーザー数は一定数以上となります。
--  トピックは、ユーザーが最も関心を持っている 5 つのトピックからランダムに返されます。
--  20 回に 1 回は、すべてのトピックから無作為に抽出されたトピックが返されます。
--  ユーザーが同じサイトを頻繁（たとえば毎週など）に利用する場合、サイト上で実行されるコードは週に最大 1 つのトピックしか新たに学習できません。
--  別のサイトでは、同じエポックで同じユーザーについて個別のトピックを受け取ります。あるサイトでユーザーについて返されたトピックが、別のサイトで返されたトピックと一致する可能性は 5 分の 1
-   しかありません。そのため、同じユーザーかどうかを判別することはより難しくなります。
--  ユーザーのトピックは週 1 回更新され、情報を共有できる頻度が制限されます。
--  トピックは、最近同じユーザーについて[同じトピックを取得した](#observed-topics)
-   API 呼び出し元にのみ返されます。このモデルにより、直接取得していないユーザーの関心に関する情報が学習または共有される可能性を制限できます。
+- Topics 分類は粒度の粗いトピックの集合を提供します (最初の分類の合計は約 350)。つまり、(特定のブラウザーの合計ユーザー数によりますが) 各トピックに多数のユーザーが存在する可能性を高めます。 実際、返されるトピックは 5％ の確率でランダムであるため、トピックごとのユーザーの最小数が保証されています。
+- トピックは、ユーザーの上位 5 つからランダムに返されます。
+- 5％ の確率で、ランダムなトピックが (全てのトピックセットから選択され) 提供されます。
+- ユーザーが同じサイトに頻繁に (毎週など) アクセスする場合、サイトで実行されているコードは、1 週間に最大 1 つの新しいトピックしか学習しません。
+- サイトが異なると、同じエポック内の同じユーザーでも受信するトピックが異なります。 あるサイトのユーザーに対して返されたトピックが別のサイトのユーザーに対して返されたトピックと一致する確率はわずか 5 分の 1 です。 このため、同じユーザーであるかどうかを判断するのがさらに難しくなります。
+- ユーザーのトピックは週に 1 回更新されるため、情報を共有できる確率が制限されます。
+- トピックは、最近同じユーザーに対して[同じトピックを観察した](#observed-topics) API 呼び出し元に対してのみ返されます。 このモデルは、エンティティが最初に観測していなかったユーザーの興味/関心に関する情報を知る (または共有する) 可能性を制限するのに役立ちます。
 
 {: #sensitive-topics}
 
-### デリケートなトピック
+### 注意が必要なトピック
 
-Topics API
-の[分類](https://github.com/jkarlin/topics/blob/main/taxonomy_v1.md)は公開され、デリケートなカテゴリが含まれないよう手動で選定されます。  
-また、サイトとユーザーは Topics API
-を[オプトアウト](#opt-out)できます。
+Topics [分類](https://github.com/jkarlin/topics/blob/main/taxonomy_v1.md)はセンシティブなカテゴリを避けるために人間が分類します。
+
+さらに、サイトとユーザーの両方が、Topics API を[オプトアウト](#opt-out)できます。
 
 {% Aside %}
 
-Topics API の提案の解説に次の記載があります:  「サードパーティの Cookie は、ユーザーに関するあらゆる情報のトラッキングに使用可能です。これには、ユーザーがアクセスした正確な URL やこれらのページの具体的なコンテンツだけでなく、デリケートな情報も無制限に含まれます。一方、Topics API では、トラッキングできる情報は人間が選定した分類トピックのみに制限されます。この分類トピックに他の情報を統計的に関連付けることが不可能なわけではなく、実際のところ可能です。しかしながら、Topics API は Cookie と比べて明確に進歩していると考えられます。」
+[Topics 提案の Explainer では以下のように述べられています](https://github.com/jkarlin/topics#meeting-the-privacy-goals)。
+
+「サードパーティ Cookie を使用すると、ユーザーがアクセスした正確な URL から、それらのページの正確なページコンテンツまで、ユーザーに関するあらゆる情報を追跡できます。これには、機密資料が無制限に含まれる可能性があります。一方、Topics API は、人間が分類するトピックの分類体系に制限されています。これは、他のものがその分類体系のトピックと統計的に相関できないということではありません。それは可能ではありますが、2 つを比較した場合、Topics の方が Cookie よりも明らかに改善されているように見受けられます。」
 
 {% endAside %}
 
+### ユーザー制御と透明性
 
-### ユーザー コントロールと透明性
+ユーザーは、Topics API の目的を理解し、ユーザーについて何が言われているのかを認識し、API がいつ使用されているかを把握し、それを有効または無効にするための制御方法が提供されている必要があります。
 
-ユーザーは、Topics API の目的とそれに対する意見を理解して、API がいつ使用されているかを把握し、API を有効または無効にする管理機能を使用できる必要があります。  
-この API では、判読可能な分類により、ユーザーはブラウザで提案される可能性のあるトピックを把握し管理することができます。広告表示を希望しないトピックは削除可能で、API
-とそれを有効または無効にする方法についてユーザーに説明するための UX も用意されています。Chrome では、Topics API の情報と設定を
-chrome://settings/privacySandbox で提供します。また、API の呼び出し元はシークレット
-モードの場合はトピックを取得できず、閲覧履歴が削除されるとトピックも消去されます。
+API の人間が認識できる分類により、人々はブラウザーによって関連付けられる可能性のあるトピックについて学習、管理できます。 ユーザーは、Topics API で広告主やパブリッシャーと共有したくない具体的なトピックを削除できます。また、API と API を有効または無効にする方法についてユーザーに通知するための UX も考えられます。 Chrome は chrome: //settings/privacySandbox で Topics API の情報と設定を提供します。 また、シークレットモードにある API 呼び出し元はトピックを使用できず、閲覧履歴がクリアされるとトピックもクリアされます。
 
 {: #opt-out}
 
+### サイトオプトアウト
 
-### サイトのオプトアウト
+Topics API を呼び出すコードを含むサイトのみが閲覧履歴に含まれ、トピック頻度計算の対象になります。API 呼び出し元は[観測したトピックのみを受信します](#observed-topics)。 つまり、サイトまたは組み込まれたコードが API を呼び出すアクションを実行しないかぎり、サイトはトピック頻度計算の対象にはなりません。
 
-Topics API を呼び出すコードを実装しているサイトのみが、トピックの頻度の推定対象の閲覧履歴に含められます。API
-の呼び出し元は、[そのサイトで取得したトピックのみ受け取ります](#observed-topics)。つまり、サイトや埋め込まれたサービスで
-API を呼び出す操作が行われないと、そのサイトはトピックの頻度の推定対象とはなりません。  
-また、Topics API の解説では、サイトに対して、次の
-[Permissions-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Feature-Policy)
-ヘッダーを使用して、ユーザーのトピックの推定を許可またはブロックできるようにすることを提案しています。  
+Topics の Explainer では、以下の [Permissions-Policy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Feature-Policy) ヘッダーを使用して、サイトが訪問者に対するトピックの計算をブロックできるようにすることも提案されています。
 
-```text  
+```text
 Permissions-Policy: browsing-topics=()
-````
+```
 
-{% Aside %}
+### ユーザーオプトアウト
 
-FLOC の既存の Permissions-Policy `interest-cohort=()` でもトピックの推定を禁止できます。
+Topics API の Explainer では、次の場合に返されるトピックのリストが空になることが[提案](https://github.com/jkarlin/topics#:~:text=empty)されています。
 
-{% endAside %}
+- ユーザーが chrome: //settings/privacySandbox のブラウザー設定を使用して Topics API をオプトアウトする。
+- ユーザーが (chrome://settings/privacySandbox のブラウザー設定を使用して) トピックをクリアしたか、[Cookie をクリア](https://support.google.com/accounts/answer/32050)した。
+- ブラウザーがシークレットモードである。
 
-### ユーザーのオプトアウト
-
-Topics API の解説では、次の場合に空のトピックリストを返すことを[提案](https://github.com/jkarlin/topics#:~:text=empty)しています。
-
--  ユーザーがブラウザの設定（chrome://settings/privacySandbox）で Topics API をオプトアウトしている。
--  ユーザーがブラウザの設定（chrome://settings/privacySandbox）でトピックまたは [Cookie
-   を消去](https://support.google.com/accounts/answer/32050)した。
--  ブラウザがシークレット モードになっている。
-
-API の解説では、[プライバシー目標の詳細](https://github.com/jkarlin/topics#:~:text=privacy%20goals)と API
-がその目標を達成する方法について詳しく説明しています。
+Explainer では、[プライバシー目標](https://github.com/jkarlin/topics#meeting-the-privacy-goals)と、API がどのようにプラバシー目標に対処しているのかについて、詳細を提供しています。
 
 ---
 
-## 意見交換とフィードバックの提供
+## 議論への参加とフィードバックの共有
 
--  **GitHub**:
-   [提案に関する解説](https://github.com/jkarlin/topics)を読み、[提案に関する問題のリポジトリ](https://github.com/jkarlin/topics/issues)で質問を投稿し、意見を交換してください。
--  **W3C**:
-   [「ウェブ広告ビジネスの改善」グループ](https://www.w3.org/community/web-adv/participants)で業界のユースケースについて意見を交換してください。
--  **Topics API に関するお知らせ**: メーリング
-   リスト（[groups.google.com/a/chromium.org/g/topics-api-annnounce](https://groups.google.com/a/chromium.org/g/topics-api-annnounce)）を購読またはご覧ください。
--  **プライバシー サンドボックスに関するデベロッパーのサポート**:   
-   [「プライバシー サンドボックス デベロッパー サポート」リポジトリ](https://github.com/GoogleChromeLabs/privacy-sandbox-dev-support)で質問を投稿し、意見を交換してください。
+- **GitHub**: [提案の Explainer](https://github.com/jkarlin/topics) を読み、質問を提起し、[提案リポジトリに関する問題](https://github.com/jkarlin/topics/issues)のディスカッションをフォローしてください。
+- **W3C**: [Web 広告事業の改善グループ](https://www.w3.org/community/web-adv/participants)で、業界ユースケースについて議論できます。
+- **Topics API の通知**: [groups.google.com/a/chromium.org/g/topics-api-announce](https://groups.google.com/a/chromium.org/g/topics-api-announce) でメーリングリストに参加するか、閲覧できます。
+- **プライバシーサンドボックス開発者サポート**: [プライバシーサンドボックス開発者サポートリポジトリ](https://github.com/GoogleChromeLabs/privacy-sandbox-dev-support)で質問をしたり、ディスカッションに参加します。
 
 ## 詳細
 
--  [Topics API の技術解説](https://github.com/jkarlin/topics)
--  [プライバシー サンドボックスの詳細](https://web.dev/digging-into-the-privacy-sandbox)  
-  
+- [Topics API 技術解説](https://github.com/jkarlin/topics)
+- [プライバシーサンドボックスを掘り下げる](https://web.dev/digging-into-the-privacy-sandbox)
