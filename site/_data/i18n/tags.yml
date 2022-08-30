@@ -1,6 +1,9 @@
 # The top-level keys in this file are used to generate tag pages under /tags/<tag>, presuming
 # they have at least one matching post.
 
+memory:
+  en: Memory
+
 news:
   en: News
   es: Noticias
@@ -20,6 +23,37 @@ autoplay:
 capabilities:
   en: Capabilities
 
+# DevTools-related tags
+css:
+  en: CSS
+
+javascript:
+  en: JavaScript
+
+get-started:
+  en: Get started
+
+prototype-fixes:
+  en: Prototype fixes
+
+find-issues:
+  en: Find issues
+
+emulate:
+  en: Emulate conditions
+
+test:
+  en: Test
+
+performance:
+  en: Performance
+
+storage:
+  en: Storage
+
+dom:
+  en: DOM
+
 # This is used for the title of the shared Chrome RSS feed that 'chrome-xx' posts create.
 # It does not need translation.
 chrome:
@@ -27,6 +61,9 @@ chrome:
 
 chromium-chronicle:
   en: Chromium Chronicle
+
+cws:
+  en: Chrome Web Store
 
 cookies:
   en: Cookies
@@ -91,6 +128,9 @@ security:
 devtools:
   en: DevTools
 
+devtools-tips:
+  en: DevTools Tips
+
 new-in-devtools:
   en: What's New in DevTools
   es: Qué hay de nuevo en DevTools
@@ -120,7 +160,7 @@ lighthouse:
 
 new-in-lighthouse:
   en: What's new in Lighthouse
-  
+
 chrome49:
   en: Chrome 49
 
@@ -159,21 +199,61 @@ chrome61:
 
 chrome64:
   en: Chrome 64
-  
+
 chrome65:
   en: Chrome 65
 
 chrome66:
   en: Chrome 66
- 
+
 chrome67:
   en: Chrome 67
-  
+
 chrome68:
   en: Chrome 68
-  
+
 chrome69:
   en: Chrome 69
 
 chrome70:
   en: Chrome 70
+
+insider:
+  en: Chrome Dev Insider
+
+web-vitals:
+  en: Web Vitals
+  zh: 网页指标
+
+crux:
+  en: CrUX
+
+aurora-project:
+  en: Aurora Project
+
+#####
+# These are for Privacy Sandbox
+
+proposal:
+  en: Proposal
+
+experiment:
+  en: Experimental
+
+chrome-stable:
+  en: Supported in Chrome stable
+
+cross-browser:
+  en: Supported cross-browser
+
+####
+# These are for collections
+
+payments:
+  en: Payments
+
+spc:
+  en: Secure Payment Confirmation
+
+webauthn:
+  en: WebAuthn

@@ -3,6 +3,83 @@
 Consulte a versão em inglês do <a href="/tags/new-in-devtools/" translate="no">What's New In DevTools</a> para uma lista completa dos recursos lançados. Abaixo estão alguns conteúdos que foram traduzidos para o português.
 
 
+### Chrome 105 {: #chrome105 }
+
+* [Replay passo a passo no Recorder](/pt/blog/new-in-devtools-105/#recorder)
+* [Suporte ao evento do mouse over no painel do Recorder](/pt/blog/new-in-devtools-105/#recorder-hover)
+* [Largest Contentful Paint (LCP) no painel de insights de desempenho](/pt/blog/new-in-devtools-105/#lcp)
+* [Identificação de flashes de texto (FOIT, FOUT) como possíveis causas-raiz para mudanças de layout](/pt/blog/new-in-devtools-105/#foit-fout)
+* [Selo da camada superior no painel Elementos](/pt/blog/new-in-devtools-105/#top-layer)
+* [Anexar informações de depuração do Wasm em tempo de execução](/pt/blog/new-in-devtools-105/#wasm)
+* [Suporta edição ao vivo durante a depuração](/pt/blog/new-in-devtools-105/#live-edit)
+* [Visualize e edite @scope em regras no painel Estilos](/pt/blog/new-in-devtools-105/#scope)
+* [Melhorias no Sourcemap](/pt/blog/new-in-devtools-105/#sourcemaps)
+* [Outras mudanças](/pt/blog/new-in-devtools-105/#misc)
+
+### Chrome 104 {: #chrome104 }
+
+* [Reinicialização de frame durante o debugging](/pt/blog/new-in-devtools-104/#restart-frame)
+* [Opção de replay lento no painel de gravação](/pt/blog/new-in-devtools-104/#recorder)
+* [Construa uma extensão para o painel de gravação](/pt/blog/new-in-devtools-104/#recorder-extension)
+* [Agrupar arquivos por Autoral/Publicado no painel Sources](/pt/blog/new-in-devtools-104/#authored-deployed)
+* [Nova trilha de Tempos de Usuários no painel de Performance insights](/pt/blog/new-in-devtools-104/#performance)
+* [Revelar o slot atribuído de um elemento](/pt/blog/new-in-devtools-104/#slot)
+* [Simular a concorrência de hardware para gravações de desempenho](/pt/blog/new-in-devtools-104/#simulate)
+* [Visualize valores de non-color ao preencher automaticamente as variáveis CSS](/pt/blog/new-in-devtools-104/#css-var)
+* [Identifique os quadros de bloqueio no painel de Back/forward cache](/pt/blog/new-in-devtools-104/#bfcache)
+* [Melhorias nas sugestões de autocomplete para objetos JavaScript](/pt/blog/new-in-devtools-104/#autocomplete)
+* [Melhorias em sourcemaps](/pt/blog/new-in-devtools-104/#sourcemaps)
+* [Outras melhorias](/pt/blog/new-in-devtools-104/#misc)
+
+
+### Chrome 103 {: #chrome103 }
+
+* [Gravação de eventos de clique duplo e clique com o botão direito do mouse](/pt/blog/new-in-devtools-103/#recorder)
+* [Novo intervalo de tempo e modo de instantâneo no painel Lighthouse](/pt/blog/new-in-devtools-103/#lighthouse)
+* [Controle de zoom aprimorado no painel Performance Insights](/pt/blog/new-in-devtools-103/#zoom)
+* [Confirmação para excluir uma gravação de apresentação](/pt/blog/new-in-devtools-103/#delete)
+* [Reordenar painéis no painel Elementos](/pt/blog/new-in-devtools-103/#reorder-pane)
+* [Escolhendo uma cor fora do navegador](/pt/blog/new-in-devtools-103/#color)
+* [Visualização aprimorada do valor inline durante a depuração](/pt/blog/new-in-devtools-103/#inline-preview)
+* [Suporte a blobs grandes para autenticadores virtuais](/pt/blog/new-in-devtools-103/#webauthn)
+* [Novos atalhos de teclado no painel Sources](/pt/blog/new-in-devtools-103/#shortcuts)
+* [Melhorias nos sourcemaps](/pt/blog/new-in-devtools-103/#sourcemaps)
+
+
+### Chrome 102 {: #chrome102 }
+
+* [Prévia de funcionalidade: Novo painel de insights de performance](/pt/blog/new-in-devtools-102/#perf)
+* [Novos atalhos para emular temas claros e escuros](/pt/blog/new-in-devtools-102/#emulation)
+* [Melhorias na segurança da aba de Visualização de Rede](/pt/blog/new-in-devtools-102/#network-preview)
+* [Melhorias no reload em breakpoints](/pt/blog/new-in-devtools-102/#debugger)
+* [Atualizações no Console](/pt/blog/new-in-devtools-102/#console)
+* [Cancelamento de gravações de fluxo de usuário no início](/pt/blog/new-in-devtools-102/#recorder)
+* [Veja pseudo-elementos herdados de seleção no painel de Estilos](/pt/blog/new-in-devtools-102/#pseudo)
+* [Outras novidades](/pt/blog/new-in-devtools-102/#misc)
+* [[Experimental] Copie mudanças de CSS](/pt/blog/new-in-devtools-102/#copy)
+* [[Experimental] Escolhendo cores fora do browser](/pt/blog/new-in-devtools-102/#color-picker)
+
+
+### Chrome 101 {: #chrome101 }
+
+* [Importe e exporte fluxos de usuário gravados como um arquivo JSON](/pt/blog/new-in-devtools-101/#recorder)
+* [Visualize cascade layers no painel Estilos](/pt/blog/new-in-devtools-101/#layer)
+* [Suporte para a função de cor hwb()](/pt/blog/new-in-devtools-101/#hwb)
+* [Melhoria na exibição de propriedades privadas](/pt/blog/new-in-devtools-101/#private-props)
+* [Destaques diversos](/pt/blog/new-in-devtools-101/#misc)
+* [[Experimental] Novos modos timespan e snapshot no painel Lighthouse](/pt/blog/new-in-devtools-101/#lighthouse)
+
+### Chrome 100 {: #chrome100 }
+
+* [Visualize e edite @supports em rules no painel Estilos](/pt/blog/new-in-devtools-100/#supports)
+* [Suporte a seletores comuns por padrão](/pt/blog/new-in-devtools-100/#selector)
+* [Personalize o seletor de gravação](/pt/blog/new-in-devtools-100/#customize-selector)
+* [Renomeação de gravação](/pt/blog/new-in-devtools-100/#recorder-rename)
+* [Visualização de propriedades de classe/função ao passar o mouse](/pt/blog/new-in-devtools-100/#properties)
+* [Quadros parcialmente apresentados no painel Desempenho](/pt/blog/new-in-devtools-100/#perf)
+* [Destaques diversos](/pt/blog/new-in-devtools-100/#misc)
+
+
 ### Chrome 99 {: #chrome99 }
 
 * [Limitando requests de WebSocket](/pt/blog/new-in-devtools-99/#websocket)

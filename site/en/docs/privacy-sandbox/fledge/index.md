@@ -2,13 +2,14 @@
 layout: 'layouts/doc-post.njk'
 title: 'FLEDGE API'
 subhead: >
-  FLEDGE is a Privacy Sandbox proposal to serve remarketing and custom audience use cases, designed so it cannot be used by third parties to track user browsing behavior across sites.
+  A proposal for on-device ad auctions to serve remarketing and custom audiences, without the need for cross-site third-party tracking.
 description: >
-  FLEDGE is a Privacy Sandbox proposal to serve remarketing and custom audience use cases, designed so it cannot be used by third parties to track user browsing behavior across sites. The API enables on-device auctions by the browser, to choose relevant ads from websites the user has previously visited.
+  A Privacy Sandbox proposal to serve remarketing and custom audience use cases, designed so it cannot be used by third-parties to track user browsing behavior across sites. The API enables on-device auctions by the browser, to choose relevant ads from websites the user has previously visited.
 date: 2022-01-27
-updated: 2022-01-31
+updated: 2022-08-23
 authors:
   - samdutton
+  - kevinkiklee
 ---
 
 {% YouTube
@@ -25,8 +26,8 @@ much technical detail.
 such as [advertiser](#advertiser) and [publisher](#publisher). [How does FLEDGE work?](#how) should
 still be useful.
 
-* If you're a **developer or software engineer**, the [FLEDGE API Developer Guide](/blog/fledge-api) provides more
-in-depth technical detail about the proposal.
+* If you're a **developer or software engineer**, the [FLEDGE API Developer Guide](/blog/fledge-api)
+provides more in-depth technical detail about the proposal.
 
 * [The FLEDGE demo](https://fledge-demo.glitch.me) provides a walkthrough of a basic FLEDGE
 deployment.
@@ -38,9 +39,7 @@ about how to [engage and share feedback](#engage).
 {% endAside %}
 
 
-{: #what}
-
-## What is FLEDGE?
+## What is FLEDGE? {: #what}
 
 FLEDGE is a [Privacy Sandbox](/docs/privacy-sandbox/overview) proposal to serve
 [remarketing](#remarketing) and custom audience use cases, designed so that it cannot be used by
@@ -55,18 +54,16 @@ FLEDGE is the first experiment to be implemented in Chromium within the
 information for FLEDGE and other Privacy Sandbox proposals.
 
 
-{: #overview}
-
-## FLEDGE in one minute
+## FLEDGE in one minute {: #overview}
 
 <br>
 
 <figure class="w-figure">
-  {% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/XLqHPEchhnDcrXGzbby6.png", alt="Illustration providing
+  {% Img src="image/hVf1flv5Jdag8OQKYqOcJgWUvtz1/zXKEk8OymLJp6KpOwwbk.png", alt="Illustration providing
   an overview of each stage of the FLEDGE lifecycle",
   width="800", height="366" %}
   <br>
-  <figcaption class="w-figcaption">The FLEDGE lifecycle: <a href="https://wd.imgix.net/image/80mq7dk16vVEg8BBhsVe42n6zn82/XLqHPEchhnDcrXGzbby6.png?auto=format&w=1600"
+  <figcaption class="w-figcaption">The FLEDGE lifecycle: <a href="https://wd.imgix.net/image/hVf1flv5Jdag8OQKYqOcJgWUvtz1/zXKEk8OymLJp6KpOwwbk.png?auto=format&w=1600"
 title="Click to view a larger version of image" target="_blank">view a larger version</a></figcaption>
 </figure>
 
@@ -108,7 +105,7 @@ When calling the `navigator.runAdAuction()` function, the seller provides code t
 `scoreAd()` function. This function is run for each bidder in the auction: to score each of the bids
 returned by `generateBid()`. During the ad auction, the bidding code run for each buyer
 (`generateBid()`) and the ad scoring code run for the seller (`scoreAd()`) can receive realtime data
-from a [trusted server](#trusted-server).
+from the [FLEDGE Key/Value service](#key-value-service).
 
 The bid with the highest score wins the auction. The ad associated with the bid is displayed in
 a [`<fencedframe>`](#fenced-frame) element, using the ad URL specified by the bid (which must be one of the ad URLs from the list provided in the interest group's configuration information).
@@ -117,31 +114,24 @@ To report the auction outcome, the seller's code can include a `reportResult()` 
 buyer's code can include a `reportWin()` function.
 
 
-{: #try-fledge}
+## How can I try FLEDGE? {: #try-fledge}
 
-## How can I try FLEDGE?
+* [FLEDGE API developer guide](/blog/fledge-api#try-fledge) describes how to take part in the
+Privacy Sandbox Relevance and Measurement origin trial and how to try out FLEDGE for a single user
+by setting Chrome flags.
 
 * [fledge-demo.glitch.me](https://fledge-demo.glitch.me/) provides a walkthrough of a basic FLEDGE
-deployment across a shopping, travel and publisher site.
+deployment across advertiser and publisher sites.
 
-* [FLEDGE API developer guide](/blog/fledge-api#try-fledge) describes how to try out
-FLEDGE by running Chrome from the command line using
-[feature flags](https://www.chromium.org/developers/how-tos/run-chromium-with-flags) to manually
-enable the API.
+* [The FLEDGE demo video](https://www.youtube.com/watch?v=znDD0gkdJyM&list=PLNYkxOF6rcICntazGfSVKSj5EwuR9w5Nv)
+explains how the demo code works, and shows how to use Chrome DevTools for FLEDGE debugging.
 
-{% Aside %}
+{% YouTube
+  id='znDD0gkdJyM'
+%}
 
-Plans for the first FLEDGE [origin trial](/blog/origin-trials/) are
-under discussion.
 
-[Proposed First FLEDGE Origin Trial Details](https://github.com/WICG/turtledove/blob/main/Proposed_First_FLEDGE_OT_Details.md)
-provides more details about the goals of the trial and what features are proposed for support.
-
-{% endAside %}
-
-{: #user-controls}
-
-## What browser configuration is available?
+## What browser configuration is available? {: #user-controls}
 
 Users can adjust their participation for Privacy Sandbox trials in Chrome by enabling or disabling
 the top-level setting in chrome://settings/privacySandbox.  During initial testing, people will be
@@ -157,10 +147,15 @@ In the future, we plan to offer more granular settings to manage FLEDGE and asso
 API callers can't access group membership when users browse in Incognito mode, and membership is
 removed when users clear their site data.
 
+{: #opt-out-site}
 
-{: #why}
+## How can I opt out of FLEDGE? {: #opt-out}
 
-## Why do we need FLEDGE?
+The FLEDGE API developer guide explains how you can [block access to the FLEDGE API](/blog/fledge-api#opt-out) 
+either as a site owner, or as an individual user.
+
+
+## Why do we need FLEDGE? {: #why}
 
 Understanding user interests can enable more relevant ads than simply choosing ads based on site
 content (contextual targeting) or by using information that the user provided to the site on which
@@ -181,17 +176,16 @@ of the FLEDGE API currently being tested in Chrome. The [FLEDGE API developer gu
 explains what FLEDGE features are currently available for testing in Chrome run from the command line
 using [feature flags](https://www.chromium.org/developers/how-tos/run-chromium-with-flags).
 
-We expect the features of FLEDGE will be added over time as work on implementation continues. Once
-the API reaches the origin trial stage, we'll provide a regularly-updated list of which parts are
-already implemented and what's still in progress.
+We expect the features of FLEDGE will be added over time as work on implementation continues. During
+the origin trial stage, we'll regularly update a list of which features are already
+implemented and what's still in progress.
 
 {% endAside %}
 
 <br>
 
-{: #how}
 
-## How does FLEDGE work?
+## How does FLEDGE work? {: #how}
 
 Here's an example of how a user's interest groups inform ad selection as the user visits different
 sites.
@@ -212,9 +206,8 @@ bike maker with a [remarketing](#remarketing) opportunity.
 
 <p style="color: #547fc0; font-size: 4rem; text-align: center;" aria-hidden="true">⬇︎</p>
 
-{: #joinAdInterestGroup}
 
-### 2. The user's browser is asked to add an interest group
+### 2. The user's browser is asked to add an interest group {: #joinAdInterestGroup}
 
 {% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/vF5beSa9j6VJBTtEcyC1.png",
   alt="Illustration showing a person viewing a site in a browser on their laptop. JavaScript
@@ -272,18 +265,17 @@ give it a score and choose the most desirable bid.
 
 <p style="color: #547fc0; font-size: 4rem; text-align: center;" aria-hidden="true">⬇︎</p>
 
-### 5. The seller and participating buyers receive realtime data from trusted servers
+### 5. The seller and participating buyers receive realtime data from the Key/Value service
 
 {% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/rn0slzXLZNSzGHMm6w7Y.png",
   alt="Illustration showing a person viewing a news website in a browser on their laptop. An ad
-  auction using the FLEDGE API is taking place, with a participant getting data from a trusted
-  server.", width="600", height="189" %}
+  auction using the FLEDGE API is taking place, with a participant getting data from the Key/Value service.", width="600", height="189" %}
 
 During the ad auction, the ad-space [seller](#seller) or bidding ad-space [buyers](#buyer) may need
 to access realtime data. For example, the seller may be required to check that [ad creatives](#creative)
 comply with publisher policies, or bidders may need to calculate the remaining budget in an ad
 campaign. To meet the privacy requirements of FLEDGE, this data is supplied using
-[trusted servers](#trusted-server).
+[Key/Value service](#key-value-service).
 
 <p style="color: #547fc0; font-size: 4rem; text-align: center;" aria-hidden="true">⬇︎</p>
 
@@ -330,6 +322,7 @@ see [Fenced Frames Ads Reporting](https://github.com/WICG/turtledove/blob/main/F
 
 {% DetailsSummary %}
 ## What is an interest group?
+
 {% endDetailsSummary %}
 
 A FLEDGE interest group represents a group of people with a common interest, corresponding to a
@@ -411,6 +404,7 @@ The table below provides examples of different types of FLEDGE interest group an
 
 {% DetailsSummary %}
 ## What is a buyer?
+
 {% endDetailsSummary %}
 
 In FLEDGE, a party that owns an [interest group](#interest-group) and bids in an ad [auction](#).
@@ -435,7 +429,7 @@ JavaScript function `navigator.joinAdInterestGroup()`) the buyer provides the br
 * A URL for bidding code, that will be used when the [seller](#seller) runs an [ad auction](#ad-auction).
 * Potentially, URLs for [ad creatives](#creative) for the interest group. (Ad URLs may be added
 later via an update.)
-* A list of data [keys](#key-value), and the URL of the buyer's [trusted server](#trusted-server),
+* A list of data [keys](#key-value) to be queried, and the URL of the buyer's [Key/Value service](#key-value-service),
 to enable bidding code to get realtime data during an auction.
 
 The buyer's code can also include a `reportWin()` function to report the auction outcome.
@@ -449,6 +443,7 @@ The buyer's code can also include a `reportWin()` function to report the auction
 
 {% DetailsSummary %}
 ## Who runs an ad auction?
+
 {% endDetailsSummary %}
 
 There are multiple parties that might run an auction to sell ad space.
@@ -477,17 +472,18 @@ auction by calling the JavaScript function `navigator.runAdAuction()`.
 
 {% DetailsSummary %}
 ## How does a FLEDGE ad auction work?
+
 {% endDetailsSummary %}
 
 <br>
 
 {: #auction-diagram}
 
-The diagram below outlines each stage of a FLEDGE ad auction: <a href="https://wd.imgix.net/image/80mq7dk16vVEg8BBhsVe42n6zn82/roes4NP2gaUcEFD2uVlW.png?auto=format&w=1600"
+The diagram below outlines each stage of a FLEDGE ad auction: <a href="https://wd.imgix.net/image/hVf1flv5Jdag8OQKYqOcJgWUvtz1/M8lyXt6JbwFncB16mTb0.png?auto=format&w=1600"
 title="Click to view a larger version of image" target="_blank">view a larger version</a>.
 
 <figure class="w-figure">
-  {% Img src="image/80mq7dk16vVEg8BBhsVe42n6zn82/roes4NP2gaUcEFD2uVlW.png", alt="Illustration providing
+  {% Img src="image/hVf1flv5Jdag8OQKYqOcJgWUvtz1/M8lyXt6JbwFncB16mTb0.png", alt="Illustration providing
   an overview of each stage of a FLEDGE ad auction",
   width="800", height="481" %}
 </figure>
@@ -506,7 +502,7 @@ owner of an interest group.
 The seller provides the browser with code to score bids, which includes each bid's value, the
 [ad creative](#creative) URL, and other data returned from each buyer. During the auction, bidding
 code from buyers and bid-scoring code from the seller can receive data from their
-[trusted servers](#trusted-server). Once an ad is chosen and displayed (in a
+[Key/Value services](#key-value-service). Once an ad is chosen and displayed (in a
 [fenced frame](#fenced-frame) to preserve privacy) the seller and the winning bidder can report the
 auction result.
 
@@ -525,9 +521,7 @@ sale and who can bid, and provides a URL for code that scores bids.
 As explained in [How does FLEDGE work?](#joinAdInterestGroup), each interest group owner provides a
 URL for code that can be used to bid in an ad auction, when the group owner called
 `navigator.joinAdInterestGroup()`. That code must include a `generateBid()` function, which returns
-a numerical bid and a URL for an [ad creative](#creative), along with other data. Bidding code can
-receive realtime data from each bidder's [trusted server](#trusted-server), such as remaining ad
-campaign budget.
+a numerical bid and a URL for an [ad creative](#creative), along with other data. Each bidding script can receive realtime data from its [Key/Value service](#key-value-service) that was defined in the interest group config. The Key/Value service can be queried for data such as remaining ad campaign budget.
 
 ### 4. The seller's code evaluates each buyer's bid
 
@@ -535,8 +529,8 @@ The `navigator.runAdAuction()` code (from step 2) must include a `scoreAd()` fun
 once for each ad and accompanying bid, to determine its desirability. The `scoreAd()` function is
 run for every candidate ad, in the auction logic JavaScript code provided by the seller. This
 function uses the bid value and other data returned by the `generateBid()` function in each buyer's
-code (in the previous step). The seller may also receive realtime data from its [trusted server]
-(#trusted-server).
+code (in the previous step). The seller may also receive realtime data from its
+[Key/Value service](#key-value-service).
 
 For each ad, the `scoreAd()` function returns a number indicating its desirability. The most
 desirable ad is the winner. Before an auction starts, the seller finds the best contextual ad for
@@ -565,25 +559,28 @@ A reporting mechanism for losing bidders is [under discussion](https://github.co
 {% endDetails %}
 
 
-{: #trusted-server-detail}
+{: #key-value-service-detail}
 
 {% Details %}
 
 {% DetailsSummary %}
-## What is a trusted server?
+## What is a FLEDGE Key/Value service?
+
 {% endDetailsSummary %}
 
-In the context of the Privacy Sandbox, a trusted server is a secure environment to enable access to
-data, while preserving privacy. A request to a trusted server cannot result in event-level logging,
-or have other side effects.
+FLEDGE Key/Value service allows adtechs to query for realtime data when a bid is made by the buyer, and for sellers to score ads while preserving privacy. FLEDGE Key/Value service is one of the [FLEDGE services](/blog/fledge-service-overview/). 
 
-To enable a party (such as a web browser during a FLEDGE auction) to ask questions that might reveal
-sensitive information, a trusted server must provide:
+The Key/Value service is deployed to the adtech's own cloud infrastructure, and the service runs on a [trusted execution environment](#trusted-execution-environment). A request to a Key/Value service cannot result in event-level logging or have other side effects. The Key/Value service will also support [user-defined functions (UDFs)](https://github.com/WICG/turtledove/blob/main/FLEDGE_Key_Value_Server_trust_model.md#support-for-user-defined-functions-udfs) that allow adtechs to execute their own custom logic within the Key/Value service. 
 
--  **Policy approaches** such as mandatory code audits, or usage of servers only from trusted
-   third parties.
--  **Technical guarantees** such as [secure multi-party computation](https://en.wikipedia.org/wiki/Secure_multi-party_computation)
-or [secure enclaves](https://support.apple.com/en-gb/guide/security/sec59b0b31ff/web).
+{: #key-value}
+
+A buyer or seller provides a list of 'keys' to specify the data they require from a FLEDGE Key/Value service. The Key/Value service responds with a value for each key.
+
+The FLEDGE Key/Value service code is now available in a [Privacy Sandbox GitHub repository](https://github.com/privacysandbox/fledge-key-value-service). This service can be used by Chrome and Android developers. 
+
+Check out the [announcement blog post](/blog/open-sourcing-fledge-key-value-service/) for the status update. Learn more about the FLEDGE Key/Value service from the [API explainer](https://github.com/WICG/turtledove/blob/main/FLEDGE_Key_Value_Server_API.md) and the [trust model explainer](https://github.com/privacysandbox/fledge-docs/blob/main/key_value_service_trust_model.md).  
+
+
 
 {% endDetails %}
 
@@ -592,23 +589,18 @@ or [secure enclaves](https://support.apple.com/en-gb/guide/security/sec59b0b31ff
 
 {% DetailsSummary %}
 ## How is realtime data incorporated into auctions?
+
 {% endDetailsSummary %}
 
 The [buyers](#buyer-detail) or [seller](#seller-detail) in an ad auction may need access to realtime
 data. For example, bidders may want to calculate the remaining budget in an ad campaign, or the
 seller may be required to check ad creatives against publisher policies.
 
-To meet the privacy requirements of FLEDGE, realtime data required during an ad auction is provided
-by [trusted servers](#trusted-server-detail). When each buyer calls `navigator.joinAdInterestGroup()`,
-the buyer specifies a trusted server URL and specifies the data it will require from the
-server during an auction. Likewise, when the seller runs an ad auction by calling
-`navigator.runAdAuction()`, the seller provides a URL for its trusted server, and specifies the
-data that will be required from the server.
+To meet the privacy requirements of FLEDGE, realtime data required during an ad auction is provided by the [Key/Value service](#key-value-service-detail). When each buyer calls `navigator.joinAdInterestGroup()`,the buyer specifies a Key/Value service URL and specifies the keys to be queried to the service during an auction. Likewise, when the seller runs an ad auction by calling `navigator.runAdAuction()`, the seller provides a URL for its Key/Value service. The seller's Key/Value service will be queried with the render URL of the creative.
 
-The role and the ownership of the trusted server is still under discussion, so initial testing of
-FLEDGE temporarily uses a ["Bring Your Own Server"](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#3-buyers-provide-ads-and-bidding-functions-byos-for-now)
-model.
+For initial testing, ["Bring Your Own Server"](https://github.com/WICG/turtledove/blob/main/FLEDGE.md#3-buyers-provide-ads-and-bidding-functions-byos-for-now) model is used. In the long-term, adtechs will need to use the open-source FLEDGE Key/Value services running in [trusted execution environments](https://github.com/privacysandbox/fledge-docs/blob/main/trusted_services_overview.md#trusted-execution-environment) for retrieving real-time data.
 
+To ensure that the ecosystem has sufficient time to test, we don’t expect to require the use of the open-source Key/Value services or TEEs until sometime after third-party cookie deprecation. We will provide substantial notice for developers to begin testing and adoption before this transition takes place.
 {% endDetails %}
 
 
@@ -621,6 +613,7 @@ model.
 
 {% DetailsSummary %}
 ## Glossary
+
 {% endDetailsSummary %}
 
 {: #ad-auction}
@@ -698,9 +691,11 @@ the user's browser to join their interest group.
 
 {: #publisher}
 
-### Key-value
+{: #key-value-service}
 
-See [Trusted server](#key-value).
+### Key/Value service
+
+The Key/Value service allows the buyers and sellers to receive realtime data when a bid is made or an ad is scored. See [FLEDGE Key/Value service](#key-value-service-detail) for details.
 
 ### Publisher
 
@@ -736,19 +731,13 @@ An adtech service used to automate selling ad inventory. SSPs allow publishers t
 inventory (empty rectangles where ads will go) to multiple ad exchanges, DSPs, and networks. This
 enables a wide range of potential buyers to bid for ad space.
 
-{: #trusted-server}
+{: #trusted-execution-environment}
 
-### Trusted server
+### Trusted execution environment
 
-A server used to provide data, but with major restrictions to safeguard privacy, backed by technical
-and policy guarantees. A request to a trusted server—such as a bidder in a FLEDGE ad auction
-checking on the remaining budget for an ad campaign—cannot result in event-level logging, or have
-other side effects.
+A [trusted execution environment (TEE)](https://confidentialcomputing.io/wp-content/uploads/sites/85/2021/03/confidentialcomputing_outreach_whitepaper-8-5x11-1.pdf) provides a level of assurance for data integrity, data confidentiality, and code integrity. Services for FLEDGE, including the Key/Value service, runs on a TEE.
 
-{: #key-value}
-
-When a buyer or seller makes a request to a trusted server, they specify the data they require from
-the server as a list of 'keys'. The trusted server responds with a value for each key.
+To learn more about TEE, see the [FLEDGE services explainer](https://github.com/privacysandbox/fledge-docs/blob/main/trusted_services_overview.md#trusted-execution-environment).
 
 {: #worklet}
 
@@ -776,15 +765,16 @@ JavaScript function.
 -  **Developer support**: Ask questions and join discussions on the
    [Privacy Sandbox Developer Support repo](https://github.com/GoogleChromeLabs/privacy-sandbox-dev-support).
 
-
 ## Find out more
 
 -  [FLEDGE API developer guide](/blog/fledge-api): reference guide to API usage.
 -  [FLEDGE demo](https://fledge-demo.glitch.me): walkthrough of a basic FLEDGE deployment.
+-  [The FLEDGE demo video](https://www.youtube.com/watch?v=znDD0gkdJyM&list=PLNYkxOF6rcICntazGfSVKSj5EwuR9w5Nv)
+explains how the demo code works, and shows how to use Chrome DevTools for FLEDGE debugging.
 -  [FLEDGE API technical explainer](https://github.com/WICG/turtledove/blob/master/FLEDGE.md)
 -  [Digging into the Privacy Sandbox](https://web.dev/digging-into-the-privacy-sandbox)
 -  [Intent to prototype](https://groups.google.com/a/chromium.org/g/blink-dev/c/w9hm8eQCmNI)
 
----
+<hr />
 
-Photo by [Ray Hennessy](https://unsplash.com/@rayhennessy) on [Unsplash](https://unsplash.com/photos/GL6ORxDMswI).
+_Photo by [Ray Hennessy](https://unsplash.com/@rayhennessy) on [Unsplash](https://unsplash.com/)._
