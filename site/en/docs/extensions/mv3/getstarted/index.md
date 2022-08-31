@@ -3,19 +3,19 @@ layout: 'layouts/doc-post.njk'
 title: 'Getting started'
 date: 2014-02-28
 updated: 2022-05-19
-description: 手把手介绍如何创建 Chrome 拓展程序。
+description: 手把手介绍如何创建 Chrome 扩展程序。
 ---
 
 {# TODO: Reword this intro. "Components" is probably not the best word to use here any more as "web
 components" are a cross-browser tech for creating reusable custom elements or "components". #}
 
-Chrome 拓展由一堆不同（但彼此有联系）的组件组成的。组件包括 [后台脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。拓展由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。拓展所需的组件取决于要实现的功能，不一定包含所有内容。
+Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [后台脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。扩展程序由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。扩展程序所需的组件取决于要实现的功能，不一定包含所有内容。
 
-本教程会构建一个拓展，允许用户改变当前活动页面的背景颜色。它会使用拓展平台中的很多组件，演示彼此之间的关联。
+本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台中的很多组件，演示彼此之间的关联。
 
-开始之前，创建一个新的目录来保存拓展的文件。
+开始之前，创建一个新的目录来保存扩展程序的文件。
 
-完成后的拓展程序可以在 [这里下载][6]。
+完成后的扩展程序可以在 [这里下载][6]。
 
 ## 创建 manifest 清单 {: #manifest }
 
@@ -30,29 +30,29 @@ Chrome 拓展由一堆不同（但彼此有联系）的组件组成的。组件�
 }
 ```
 
-### 加载已解压的拓展程序 {: #unpacked }
+### 加载已解压的扩展程序 {: #unpacked }
 
-在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个拓展。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
+在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
 
-1.  导航到 `chrome://extensions` 打开拓展程序管理页面。
+1.  导航到 `chrome://extensions` 打开扩展程序管理页面。
 
-    - 或者，通过点击拓展程序菜单按钮，然后选择菜单底部的 **管理拓展程序** 打开此页面。
-    - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **拓展程序** 打开此页面。
+    - 或者，通过点击扩展程序菜单按钮，然后选择菜单底部的 **管理扩展程序** 打开此页面。
+    - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **扩展程序** 打开此页面。
 
 2.  通过切换 **开发者模式** 按钮开启开发者模式。
-3.  点击 **加载已解压的扩展程序** 按钮，选择拓展文件夹。
+3.  点击 **加载已解压的扩展程序** 按钮，选择扩展程序文件夹。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="加载一个已解压的拓展", width="563", height="355" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="加载一个已解压的扩展程序", width="563", height="355" %}
 
-哈哈！拓展已经成功安装。因为没有在 manifest 中声明图标，所以会展示一个默认的拓展图标。
+哈哈！扩展程序已经成功安装。因为没有在 manifest 中声明图标，所以会展示一个默认的扩展程序图标。
 
 ## 添加功能 {: #background }
 
-这个拓展虽然安装成功，但是没有声明哪些功能可以执行。接下来我们添加一些代码实现存储背景颜色的功能。
+这个扩展程序虽然安装成功，但是没有声明哪些功能可以执行。接下来我们添加一些代码实现存储背景颜色的功能。
 
 ### 在 manifest 中注册后台脚本 background script {: #background-manifest }
 
-后台脚本 Background scripts 和其他组件一样需要首先在 manifest 中注册：声明拓展需要引用哪些文件，并编写对应代码：
+后台脚本 Background scripts 和其他组件一样需要首先在 manifest 中注册：声明扩展程序需要引用哪些文件，并编写对应代码：
 
 ```json/5-7
 {
@@ -66,11 +66,11 @@ Chrome 拓展由一堆不同（但彼此有联系）的组件组成的。组件�
 }
 ```
 
-Chrome 浏览器现在知道当前拓展包含一个 Service Worker 脚本。当你重新加载拓展时候，浏览器会扫描加载对应的文件，比如监听某些重要的事件。
+Chrome 浏览器现在知道当前扩展程序包含一个 Service Worker 脚本。当你重新加载扩展程序时候，浏览器会扫描加载对应的文件，比如监听某些重要的事件。
 
 ### 创建后台脚本 {: #background-script }
 
-这个拓展安装后会立刻持久化存储一个变量。 首先在后台脚本中添加 [`runtime.onInstalled`][11] 事件监听器。在 `onInstalled` 监听器内部，通过[storage][12] API 声明一个值。这可以让其他拓展组件可以读取并更新该值。在拓展目录创建一个 `background.js` 文件，添加如下代码：
+这个扩展程序安装后会立刻持久化存储一个变量。 首先在后台脚本中添加 [`runtime.onInstalled`][11] 事件监听器。在 `onInstalled` 监听器内部，通过[storage][12] API 声明一个值。这可以让其他扩展程序组件可以读取并更新该值。在扩展程序目录创建一个 `background.js` 文件，添加如下代码：
 
 ```js
 // background.js
@@ -85,7 +85,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 ### 添加 storage 权限 {: #storage-permission }
 
-包括 [storage][12] API 在内的大多数 API，都必须在 manifest 中的 `"permissions"` 字段下声明注册，表示拓展会使用对应功能。
+包括 [storage][12] API 在内的大多数 API，都必须在 manifest 中的 `"permissions"` 字段下声明注册，表示扩展程序会使用对应功能。
 
 ```json/8
 {
@@ -102,7 +102,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 ### 检查后台脚本是否生效 {: #inspect-background }
 
-回到拓展管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 \*\*service worker\*\* 页面。
+回到扩展程序管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 \*\*service worker\*\* 页面。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图查看视图Inspect views", width="566", height="353" %}
 
@@ -110,7 +110,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 ## 引入用户界面 {: #user_interface }
 
-[用户界面][4] 可以让拓展有更多形式。接下来会使用 [提示 popup][15] 功能。创建添加一个 `popup.html` 文件到目录中。页面中展示一个按钮，点击后会改变背景色。
+[用户界面][4] 可以让扩展程序有更多形式。接下来会使用 [提示 popup][15] 功能。创建添加一个 `popup.html` 文件到目录中。页面中展示一个按钮，点击后会改变背景色。
 
 ```html
 <!DOCTYPE html>
@@ -159,7 +159,7 @@ button.current {
 }
 ```
 
-拓展在工具栏中展示的图标也需要再 `action` 中的 `default_icon` 字段设置。[点击这里][18]下载图片并解压，放入目录中。之后更新 manifest 设置如何使用这些图片：
+扩展程序在工具栏中展示的图标也需要再 `action` 中的 `default_icon` 字段设置。[点击这里][18]下载图片并解压，放入目录中。之后更新 manifest 设置如何使用这些图片：
 
 ```json/11-16
 {
@@ -183,7 +183,7 @@ button.current {
 }
 ```
 
-拓展还会在拓展管理页面、权限告警、favicon 中展示图标。在 [`icons`][19] 字段添加这些内容：
+扩展程序还会在扩展程序管理页面、权限告警、favicon 中展示图标。在 [`icons`][19] 字段添加这些内容：
 
 ```json/18-23
 {
@@ -247,7 +247,7 @@ chrome.storage.sync.get('color', ({color}) => {
 </html>
 ```
 
-重新加载拓展，可以看到绿色的按钮。
+重新加载扩展程序，可以看到绿色的按钮。
 
 ## 逻辑层 Layer logic {: #logic }
 
