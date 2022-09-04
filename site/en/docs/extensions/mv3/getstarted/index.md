@@ -1,6 +1,6 @@
 ---
 layout: 'layouts/doc-post.njk'
-title: 'Getting started'
+title: '入门指导'
 date: 2014-02-28
 updated: 2022-05-19
 description: 手把手介绍如何创建 Chrome 扩展程序。
@@ -11,7 +11,7 @@ components" are a cross-browser tech for creating reusable custom elements or "c
 
 Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [背景页脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。扩展程序由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。扩展程序所需的组件取决于要实现的功能，不一定包含所有内容。
 
-本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台中的很多组件，演示彼此之间的关联。
+本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台提供的的很多能力组件，来演示彼此之间的关联。
 
 开始之前，创建一个新的目录来保存扩展程序的文件。
 
@@ -19,7 +19,7 @@ Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。�
 
 ## 创建 manifest 清单 {: #manifest }
 
-先创建 [manifest][7]。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
+先从 [manifest][7] 开始。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
 
 ```json
 {
@@ -32,7 +32,7 @@ Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。�
 
 ### 加载已解压的扩展程序 {: #unpacked }
 
-在开发者模式中，如果文件夹中包含 mainfest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
+在开发者模式中，如果文件夹中包含 manifest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
 
 1.  导航到 `chrome://extensions` 打开扩展程序管理页面。
 
@@ -102,7 +102,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 ### 检查背景页脚本是否生效 {: #inspect-background }
 
-回到扩展程序管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 \*\*service worker\*\* 页面。
+回到扩展程序管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 **service worker** 页面。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图查看视图Inspect views", width="566", height="353" %}
 
@@ -124,7 +124,7 @@ chrome.runtime.onInstalled.addListener(() => {
 </html>
 ```
 
-和背景页脚本一样，这个文件需要在 manifest 中声明，让浏览器能够识别。接下来在 manifest 中添加 [`action`][17] 对象，把 `default_popup` 设置为 `popup.html`。
+和背景页脚本一样，这个文件需要在 manifest 中声明，让浏览器能够展示。接下来在 manifest 中添加 [`action`][17] 对象，把 `default_popup` 设置为 `popup.html`。
 
 ```json/9-11
 {
@@ -183,7 +183,7 @@ button.current {
 }
 ```
 
-扩展程序还会在扩展程序管理页面、权限告警、favicon 中展示图标。在 [`icons`][19] 字段添加这些内容：
+扩展程序会在管理页面、权限告警、图标中展示这些图标。在 [`icons`][19] 字段添加这些内容：
 
 ```json/18-23
 {
@@ -288,7 +288,6 @@ manifest 需要使用 `activeTab`][25] 权限来允许扩展临时访问当前�
 现在扩展已经可以正常运行了，重新加载扩展，刷新当前页面，点击图标，点击弹窗中的按钮，会把背景改成绿色！用户可能想把背景色改成其他颜色。
 
 {% Aside 'gotchas' %}
-Extensions can not inject content scripts on internal Chrome pages like "chrome://extensions". Be sure to try out the extension on a real webpage like [https://google.com](https://google.com).
 
 扩展无法在内部 Chrome 网页（如 “chrome://extensions” ）上注入内容脚本。请务必在真实的网页上试用该扩展，例如[https://google.com](https://google.com）。
 
@@ -370,7 +369,7 @@ function constructOptions(buttonColors) {
         button.classList.add(selectedClassName);
       }
 
-      // ...注册一个侦听器，单击该按钮时触发
+      // ...注册一个监听器，单击该按钮时触发
 
       button.addEventListener('click', handleButtonClick);
       page.appendChild(button);
@@ -382,7 +381,7 @@ function constructOptions(buttonColors) {
 constructOptions(presetButtonColors);
 ```
 
-提供四个颜色选项，然后在选项页面上生成按钮，注册 onclick 事件侦听器。当用户单击按钮时，它会更新扩展存储中的颜色值。由于扩展的所有文件都从此存储中提取颜色信息，因此不需要更新其他值。
+提供四个颜色选项，然后在选项页面上生成按钮，注册 onclick 事件监听器。当用户单击按钮时，它会更新扩展存储中的颜色值。由于扩展的所有文件都从此存储中提取颜色信息，因此不需要更新其他值。
 
 ## 再进一步 {: #next-steps }
 
