@@ -6,7 +6,7 @@ layout: 'layouts/doc-post.njk'
 title: 欢迎
 
 # This appears below the title and is an optional teaser
-subhead: '了解如何开发 Chrome 拓展.'
+subhead: '了解如何开发 Chrome 扩展程序。'
 
 # This appears in the ToC of the project landing page at
 # /docs/[project-name]/. It also appears in the <meta description> used in
@@ -24,14 +24,14 @@ date: 2020-11-09
 
 这些页面包含指南和 API 索引，为 Chrome 浏览器扩展程序的开发者提供信息。如果您不确定从哪里开始，看看以下起始页：
 
-- [什么是拓展？](/docs/extensions/mv3/overview/) 介绍拓展的基础信息。
+- [什么是扩展程序？](/docs/extensions/mv3/overview/) 介绍扩展程序的基础信息。
 - [入门指南](/docs/extensions/mv3/getstarted/) 将从简单 `hello, world` 开始引导。
 
 处置之外，你可以在这些页面中找到有用的链接入口：
 
-- 在 [拓展开发概述](/docs/extensions/mv3/devguide/) 中了解大纲内容。
-- 阅读 [samples page](https://github.com/GoogleChrome/chrome-extensions-samples) 页面，尝试安装该拓展，并且开始修改内容。
-- 寻找常见问题 [拓展 FAQ 页面](/docs/extensions/mv3/faq/)。
+- 在 [扩展程序开发概述](/docs/extensions/mv3/devguide/) 中了解大纲内容。
+- 阅读 [samples page](https://github.com/GoogleChrome/chrome-extensions-samples) 页面，尝试安装该扩展程序，并且开始修改内容。
+- 寻找常见问题 [扩展程序 FAQ 页面](/docs/extensions/mv3/faq/)。
 
 {% Aside %}
 
@@ -47,4 +47,4 @@ date: 2020-11-09
 - [Chromium extensions](https://groups.google.com/a/chromium.org/g/chromium-extensions) Google Group。
 - Stack Overflow 网站有关 [google-chrome extension](https://stackoverflow.com/tags/google-chrome-extension/info) 的标签。
 
-感谢成为拓展开发者，欢迎你！
+感谢成为扩展程序开发者，欢迎你！
