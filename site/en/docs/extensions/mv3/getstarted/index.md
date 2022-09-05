@@ -1,31 +1,25 @@
 ---
-layout: "layouts/doc-post.njk"
-title: "Getting started"
+layout: 'layouts/doc-post.njk'
+title: '入门指导'
 date: 2014-02-28
 updated: 2022-05-19
-description: Step-by-step instructions on how to create a Chrome Extension.
+description: 手把手介绍如何创建 Chrome 扩展程序。
 ---
 
 {# TODO: Reword this intro. "Components" is probably not the best word to use here any more as "web
 components" are a cross-browser tech for creating reusable custom elements or "components". #}
 
-Extensions are made of different, but cohesive, components. Components can include [background
-scripts][1], [content scripts][2], an [options page][3], [UI elements][4] and various logic files.
-Extension components are created with web development technologies: HTML, CSS, and JavaScript. An
-extension's components will depend on its functionality and may not require every option.
+Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [背景页脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。扩展程序由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。扩展程序所需的组件取决于要实现的功能，不一定包含所有内容。
 
-This tutorial will build an extension that allows the user to change the background color of the
-currently focused page. It will use many of the extension platform's components to give an
-introductory demonstration of their relationships.
+本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台提供的的很多能力组件，来演示彼此之间的关联。
 
-To start, create a new directory to hold the extension's files.
+开始之前，创建一个新的目录来保存扩展程序的文件。
 
-The completed extension can be downloaded [here][6].
+完成后的扩展程序可以在 [这里下载][6]。
 
-## Create the manifest {: #manifest }
+## 创建 manifest 清单 {: #manifest }
 
-Extensions start with their [manifest][7]. Create a file called `manifest.json` and include the
-following code.
+先从 [manifest][7] 开始。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
 
 ```json
 {
@@ -36,34 +30,29 @@ following code.
 }
 ```
 
-### Load an unpacked extension {: #unpacked }
+### 加载已解压的扩展程序 {: #unpacked }
 
-The directory holding the manifest file can be added as an extension in developer mode in its
-current state. To load an unpacked extension in developer mode, follow these steps:
+在开发者模式中，如果文件夹中包含 manifest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
 
-1.  Open the Extension Management page by navigating to `chrome://extensions`.
-    - Alternatively, open this page by clicking on the Extensions menu button and selecting **Manage
-      Extensions** at the bottom of the menu.
-    - Alternatively, open this page by clicking on the Chrome menu, hovering over **More Tools**
-      then selecting **Extensions**
-2.  Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
-3.  Click the **Load unpacked** button and select the extension directory.
+1.  导航到 `chrome://extensions` 打开扩展程序管理页面。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="Loading an unpacked extension", width="563", height="355" %}
+    - 或者，通过点击扩展程序菜单按钮，然后选择菜单底部的 **管理扩展程序** 打开此页面。
+    - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **扩展程序** 打开此页面。
 
-Ta-da! The extension has been successfully installed. Because no icons were included in the
-manifest, a generic icon will be created for the extension.
+2.  通过切换 **开发者模式** 按钮开启开发者模式。
+3.  点击 **加载已解压的扩展程序** 按钮，选择扩展程序文件夹。
 
-## Add functionality {: #background }
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="加载一个已解压的扩展程序", width="563", height="355" %}
 
-The extension is now installed, but it doesn't currently do anything because we haven't told it what
-to do or when to do it. Let's fix that by adding some code to store a background color value.
+哈哈！扩展程序已经成功安装。因为没有在 manifest 中声明图标，所以会展示一个默认的扩展程序图标。
 
-### Register the background script in the manifest {: #background-manifest }
+## 添加功能 {: #background }
 
-Background scripts, like many other important components, must be registered in the manifest.
-Registering a background script in the manifest tells the extension which file to reference, and how
-that file should behave.
+这个扩展程序虽然安装成功，但是没有声明哪些功能可以执行。接下来我们添加一些代码实现存储背景颜色的功能。
+
+### 在 manifest 中注册背景页脚本 background script {: #background-manifest }
+
+背景页脚本 Background scripts 和其他组件一样需要首先在 manifest 中注册：声明扩展程序需要引用哪些文件，并编写对应代码：
 
 ```json/5-7
 {
@@ -77,16 +66,11 @@ that file should behave.
 }
 ```
 
-Chrome is now aware that the extension includes a service worker. When you reload the extension,
-Chrome will scan the specified file for additional instructions, such as important events it needs
-to listen for.
+Chrome 浏览器现在知道当前扩展程序包含一个 Service Worker 脚本。当你重新加载扩展程序时候，浏览器会扫描加载对应的文件，比如监听某些重要的事件。
 
-### Create the background script {: #background-script }
+### 创建背景页脚本 {: #background-script }
 
-This extension will need information from a persistent variable as soon as it's installed. Start by
-including a listening event for [`runtime.onInstalled`][11] in the background script. Inside the
-`onInstalled` listener, the extension will set a value using the [storage][12] API. This will allow
-multiple extension components to access that value and update it. Inside the extension's directory create a file named `background.js` and add the following code.
+这个扩展程序安装后会立刻持久化存储一个变量。 首先在背景页脚本中添加 [`runtime.onInstalled`][11] 事件监听器。在 `onInstalled` 监听器内部，通过[storage][12] API 声明一个值。这可以让其他扩展程序组件可以读取并更新该值。在扩展程序目录创建一个 `background.js` 文件，添加如下代码：
 
 ```js
 // background.js
@@ -94,15 +78,14 @@ multiple extension components to access that value and update it. Inside the ext
 let color = '#3aa757';
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ color });
+  chrome.storage.sync.set({color});
   console.log('Default background color set to %cgreen', `color: ${color}`);
 });
 ```
 
-### Add the storage permission {: #storage-permission }
+### 添加 storage 权限 {: #storage-permission }
 
-Most APIs, including the [storage][12] API, must be registered under the `"permissions"` field in
-the manifest for the extension to use them.
+包括 [storage][12] API 在内的大多数 API，都必须在 manifest 中的 `"permissions"` 字段下声明注册，表示扩展程序会使用对应功能。
 
 ```json/8
 {
@@ -117,27 +100,23 @@ the manifest for the extension to use them.
 }
 ```
 
-### Inspect the background script {: #inspect-background }
+### 检查背景页脚本是否生效 {: #inspect-background }
 
-Navigate back to the extension management page and click the **Reload** link. A new field, **Inspect
-views**, becomes available with a blue link, **service worker**.
+回到扩展程序管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 **service worker** 页面。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="Inspect views", width="566", height="353" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图查看视图Inspect views", width="566", height="353" %}
 
-Click the link to view the background script's console log, "`Default background color set to
-green`"
+点击链接会打开背景页脚本的控制台 console，会看到 “`Default background color set to green`” 日志提示。
 
-## Introduce a user interface {: #user_interface }
+## 引入用户界面 {: #user_interface }
 
-[User interfaces][4] for extensions can have many forms; this one will use a [popup][15]. Create and
-add a file named `popup.html` to the extension's directory. This extension uses a button to change
-the background color.
+[用户界面][4] 可以让扩展程序有更多形式。接下来会使用 [提示 popup][15] 功能。创建添加一个 `popup.html` 文件到目录中。页面中展示一个按钮，点击后会改变背景色。
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="button.css" />
   </head>
   <body>
     <button id="changeColor"></button>
@@ -145,9 +124,7 @@ the background color.
 </html>
 ```
 
-Like the background script, this file must be declared in the manifest in order for Chrome to
-present it in the extension's popup. To do this, add an [`action`][17] object to the manifest and
-set `popup.html` as the action's `default_popup`.
+和背景页脚本一样，这个文件需要在 manifest 中声明，让浏览器能够展示。接下来在 manifest 中添加 [`action`][17] 对象，把 `default_popup` 设置为 `popup.html`。
 
 ```json/9-11
 {
@@ -165,8 +142,7 @@ set `popup.html` as the action's `default_popup`.
 }
 ```
 
-This popup's HTML references an external CSS file named `button.css`. Add another file to the
-extension's directory, name it appropriately, and add the following code.
+在 `popup.html` 中引用外部 css 文件： `button.css`。在目录中创建该文件，添加下面代码：
 
 ```css
 button {
@@ -179,14 +155,11 @@ button {
 }
 
 button.current {
-  box-shadow: 0 0 0 2px white,
-              0 0 0 4px black;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
 }
 ```
 
-Designation for toolbar icons is also included under `action` in the `default_icon` field.
-Download the images folder [here][18], unzip it, and place it in the extension's directory. Update
-the manifest so the extension knows how to use the images.
+扩展程序在工具栏中展示的图标也需要再 `action` 中的 `default_icon` 字段设置。[点击这里][18]下载图片并解压，放入目录中。之后更新 manifest 设置如何使用这些图片：
 
 ```json/11-16
 {
@@ -210,8 +183,7 @@ the manifest so the extension knows how to use the images.
 }
 ```
 
-Extensions also display images on the extension management page, the permissions warning, and
-favicon. These images are designated in the manifest under [`icons`][19].
+扩展程序会在管理页面、权限告警、图标中展示这些图标。在 [`icons`][19] 字段添加这些内容：
 
 ```json/18-23
 {
@@ -241,30 +213,26 @@ favicon. These images are designated in the manifest under [`icons`][19].
 }
 ```
 
-By default, extensions appear in the extensions menu (the puzzle piece). Pinning the extension will display the icon in the toolbar.
+默认情况下，扩展显示在扩展程序菜单（拼图块）中。可以点击固定，扩展将在工具栏中显示该图标。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GdHNy255kS4hWD5vb1fc.png", alt="Pin the extension to the toolbar", width="502", height="278" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GdHNy255kS4hWD5vb1fc.png", alt="在工具栏中钉住扩展", width="502", height="278" %}
 
-If the extension is reloaded at this stage, it will include the provided icon rather than the
-default placeholder, and clicking the action will open a popup that displays a button showing the default color.
+现在重新加载扩展，将会展示图标而不是之前的默认图标了，点击图标将会弹出一个窗口，其中有一个显示默认颜色的按钮。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/ku5Z8MMssgw6MKctpJVI.png", alt="Popup", width="187", height="153" %}
 
-The last step for the popup UI is adding color to the button. Create and add a file named
-`popup.js` with the following code to the extension's directory.
+最后一步，给按钮设定颜色。在目录中创建 `popup.js` 文件添加下面代码：
 
 ```js
 // Initialize button with user's preferred color
-let changeColor = document.getElementById("changeColor");
+let changeColor = document.getElementById('changeColor');
 
-chrome.storage.sync.get("color", ({ color }) => {
+chrome.storage.sync.get('color', ({color}) => {
   changeColor.style.backgroundColor = color;
 });
 ```
 
-This code grabs the button from `popup.html` and requests the color value from storage. It then
-applies the color as the background of the button. Include a script tag to `popup.js` in
-`popup.html`.
+`popup.html` 中的按钮将会获取按钮元素，从存储中获取颜色值，并设置为按钮的背景色。在 `popup.html` 中添加一个脚本 `popup.js`:
 
 ```html/7
 <!DOCTYPE html>
@@ -279,42 +247,34 @@ applies the color as the background of the button. Include a script tag to `popu
 </html>
 ```
 
-Reload the extension to view the green button.
+重新加载扩展程序，可以看到绿色的按钮。
 
-## Layer logic {: #logic }
+## 逻辑层 Layer logic {: #logic }
 
-The extension now has a custom icon and a popup, and it colors the popup button based on a value
-saved to the extension's storage. Next, it needs logic for further user interaction. Update
-`popup.js` by adding the following to the end of the file.
+现在扩展可以展示自定义图标，弹出窗口，获取存储的值，把按钮设置背景色。接下来，我们进一步完善交互逻辑。更新 `popup.js` 文件添加下面代码：
 
 ```js
-// When the button is clicked, inject setPageBackgroundColor into current page
-changeColor.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+// 单击按钮时，注入 setPageBackgroundColor 变量到页面中
+changeColor.addEventListener('click', async () => {
+  let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
 
   chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: setPageBackgroundColor,
+    target: {tabId: tab.id},
+    function: setPageBackgroundColor,
   });
 });
 
-// The body of this function will be executed as a content script inside the
-// current page
+// 函数体会作为一个内容脚本在当前页面执行
 function setPageBackgroundColor() {
-  chrome.storage.sync.get("color", ({ color }) => {
+  chrome.storage.sync.get('color', ({color}) => {
     document.body.style.backgroundColor = color;
   });
 }
 ```
 
-The updated code adds a `click` event listener to the button, which triggers a [programmatically
-injected content script][24]. This turns the background color of the page the same color as the
-button. Using programmatic injection allows for user-invoked content scripts, instead of auto
-inserting unwanted code into web pages.
+更新后的代码给按钮添加了 `click` 事件监听器，会触发 [程序注入内容改脚本][24]。这会让当前页面的背景色和按钮颜色相同。使用程序注入的方式允许用户手动触发脚本内容，而不是自动插入当前页面用户不知情的代码。
 
-The manifest will need the [`activeTab`][25] permission to allow the extension temporary access to
-the current page, and the [`scripting`][26] permission to use the Scripting API's
-[`executeScript`][27] method.
+manifest 需要使用 `activeTab`][25] 权限来允许扩展临时访问当前页面，同时还需要 [`scripting`][26] 权限才能使用 [`executeScript`][27] 方法。
 
 ```json/3
 {
@@ -325,32 +285,28 @@ the current page, and the [`scripting`][26] permission to use the Scripting API'
 }
 ```
 
-The extension is now fully functional! Reload the extension, refresh this page, open the popup and
-click the button to turn it green! However, some users may want to change the background to a
-different color.
+现在扩展已经可以正常运行了，重新加载扩展，刷新当前页面，点击图标，点击弹窗中的按钮，会把背景改成绿色！用户可能想把背景色改成其他颜色。
 
 {% Aside 'gotchas' %}
-Extensions can not inject content scripts on internal Chrome pages like "chrome://extensions". Be
-sure to try out the extension on a real webpage like [https://google.com](https://google.com).
+
+扩展无法在内部 Chrome 网页（如 “chrome://extensions” ）上注入内容脚本。请务必在真实的网页上试用该扩展，例如[https://google.com](https://google.com）。
+
 {% endAside %}
 
-## Give users options {: #options }
+## 允许用户修改选项 {: #options }
 
-The extension currently only allows users to change the background to green. Including an options
-page gives users more control over the extension's functionality, further customizing their browsing
-experience.
+该扩展目前仅允许用户将背景更改为绿色。通过添加**选项页 Options Page**，用户可以更好地控制扩展的功能，从而进一步自定义其浏览体验。
 
-Start by creating a file in the directory named `options.html` and include the following code.
+首先在目录中创建 `options.html` 文件，并包含以下代码：
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="button.css">
+    <link rel="stylesheet" href="button.css" />
   </head>
   <body>
-    <div id="buttonDiv">
-    </div>
+    <div id="buttonDiv"></div>
     <div>
       <p>Choose a different background color!</p>
     </div>
@@ -359,7 +315,7 @@ Start by creating a file in the directory named `options.html` and include the f
 </html>
 ```
 
-Then register the options page in the manifest,
+然后再 manifest 中注册选项页面：
 
 ```json/3
 {
@@ -369,22 +325,21 @@ Then register the options page in the manifest,
 }
 ```
 
-Reload the extension and right-click the extension icon in the toolbar then select **Options**. Alternatively, click DETAILS and scroll down the details page and select **Extension options**.
+重新加载扩展并右键单击工具栏中的扩展图标，然后选择 **选项**”。或者，单击 “详细信息” 并向下滚动到详细信息页面，然后选择 **扩展程序选项**。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/aV46PP8KCjEqqenSJxxp.png", alt="Right click to open the options page", width="248", height="260" %}
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/aV46PP8KCjEqqenSJxxp.png", alt="单击右键打开选项页面", width="248", height="260" %}
 
-The last step is to add the options logic. Create a file named `options.js` in the extension's
-directory with the following code.
+最后一步是添加选项逻辑。在扩展的目录中创建一个名为 `options.js` 的文件，添加下面代码：
 
 ```js
-let page = document.getElementById("buttonDiv");
-let selectedClassName = "current";
-const presetButtonColors = ["#3aa757", "#e8453c", "#f9bb2d", "#4688f1"];
+let page = document.getElementById('buttonDiv');
+let selectedClassName = 'current';
+const presetButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
 
-// Reacts to a button click by marking the selected button and saving
-// the selection
+// 按钮点击会标记所选按钮并保存选择
 function handleButtonClick(event) {
-  // Remove styling from the previously selected color
+  // 从先前选择的颜色中删除样式
+
   let current = event.target.parentElement.querySelector(
     `.${selectedClassName}`
   );
@@ -392,58 +347,52 @@ function handleButtonClick(event) {
     current.classList.remove(selectedClassName);
   }
 
-  // Mark the button as selected
+  // 标记选中的按钮
   let color = event.target.dataset.color;
   event.target.classList.add(selectedClassName);
-  chrome.storage.sync.set({ color });
+  chrome.storage.sync.set({color});
 }
 
-// Add a button to the page for each supplied color
+// 为页面添加每种提供颜色的按钮
 function constructOptions(buttonColors) {
-  chrome.storage.sync.get("color", (data) => {
+  chrome.storage.sync.get('color', data => {
     let currentColor = data.color;
-    // For each color we were provided…
+    // 提供的每种颜色...
     for (let buttonColor of buttonColors) {
-      // …create a button with that color…
-      let button = document.createElement("button");
+      // …创建按钮并设定颜色…
+      let button = document.createElement('button');
       button.dataset.color = buttonColor;
       button.style.backgroundColor = buttonColor;
 
-      // …mark the currently selected color…
+      // …标记当前选中的颜色…
       if (buttonColor === currentColor) {
         button.classList.add(selectedClassName);
       }
 
-      // …and register a listener for when that button is clicked
-      button.addEventListener("click", handleButtonClick);
+      // ...注册一个监听器，单击该按钮时触发
+
+      button.addEventListener('click', handleButtonClick);
       page.appendChild(button);
     }
   });
 }
 
-// Initialize the page by constructing the color options
+// 通过构造颜色选项初始化页面
 constructOptions(presetButtonColors);
 ```
 
-Four color options are provided then generated as buttons on the options page with onclick event
-listeners. When the user clicks a button, it updates the color value in the extension's storage.
-Since all of the extension's files pull the color information from this storage, no other values
-need to be updated.
+提供四个颜色选项，然后在选项页面上生成按钮，注册 onclick 事件监听器。当用户单击按钮时，它会更新扩展存储中的颜色值。由于扩展的所有文件都从此存储中提取颜色信息，因此不需要更新其他值。
 
-## Take the next step {: #next-steps }
+## 再进一步 {: #next-steps }
 
-Congratulations! The directory now holds a fully-functional, albeit simplistic, Chrome extension.
+祝贺！该目录现在包含一个功能齐全但功能简单的 Chrome 扩展程序。
 
-What's next?
+接下来做什么？
 
-- The [Chrome Extension Overview][30] backs up a bit, and fills in a lot of detail about the
-  Extensions architecture in general, and some specific concepts developers will want to be familiar
-  with.
-- Learn about the options available for debugging Extensions in the [debugging tutorial][31].
-- Chrome Extensions have access to powerful APIs above and beyond what's available on the open web.
-  The [chrome.\* APIs documentation][32] will walk through each API.
-- The [developer's guide][33] has dozens of additional links to pieces of documentation relevant to
-  advanced extension creation.
+- [Chrome 扩展概述][30] 备份了一点，并补充了有关扩展程序架构的大量细节，以及开发人员希望熟悉的一些特定概念。
+- 在 [调试教程][31] 中了解可用于调试扩展的选项。
+- Chrome 扩展程序可以访问功能强大的 API，而不仅仅是开放网络上可用的 API。[chrome.\* API 文档][32] 将介绍每个 API。
+- [开发人员指南][33] 有几十个额外的链接，指向如何创建高级扩展。
 
 [1]: /docs/extensions/mv3/background_pages
 [2]: /docs/extensions/mv3/content_scripts
