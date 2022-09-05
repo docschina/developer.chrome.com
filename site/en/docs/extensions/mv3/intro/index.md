@@ -33,8 +33,6 @@ Manifest V3 代表了扩展程序平台自十年前推出以来最重要的版�
 
 ## Manifest V3 资源
 
-Manifest V3 is part of a shift in the philosophy behind user security and privacy. The following articles provide an overview of Manifest V3, the reasons behind it, and how to approach it:
-
 Manifest V3 是用户安全和隐私背后的理念转变的部分体现。下文展示了 Manifest V3 概述、它出现的原因以及如何掌握它：
 
 [平台愿景][platform-vision]：解释了 Manifest V3 变化如何应对未来 web 平台发展。
@@ -50,9 +48,5 @@ Manifest V3 是用户安全和隐私背后的理念转变的部分体现。下�
 自 2022 年 1 月 17 日起，Chrome 网上应用店已停止接受新的 Manifest V2 扩展程序。我们强烈建议尽快将扩展迁移到 Manifest V3。在 2023 年 [Manifest V2 逐步淘汰][mv2-sunset] 之后成为强制性的。
 
 ## 紧跟最新消息
-
-We're excited about the improvements that Manifest V3 brings to the platform. Look for new
-announcements in [What's new in Chrome Extensions][doc-new] and the [Chrome Developer
-Blog][devs-blog].
 
 我们对 Manifest V3 给插件平台带来的改进激动不已。可以查看 [Chromium 博客](https://blog.chromium.org/) 和 [Chromium 拓展论坛](https://groups.google.com/a/chromium.org/g/chromium-extensions) 查看更多公告。
