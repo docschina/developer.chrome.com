@@ -6,51 +6,45 @@ layout: 'layouts/doc-post.njk'
 title: 欢迎
 
 # This appears below the title and is an optional teaser
-subhead: '了解如何开发 Chrome 拓展.'
+subhead: '了解如何开发 Chrome 扩展程序。'
 
 # This appears in the ToC of the project landing page at
-# /docs/[project-name]/. It also appears in the <meta description> used in 
+# /docs/[project-name]/. It also appears in the <meta description> used in
 # Google Search.
 description: 'Documentation for Chrome extensions developers.'
 
 # The publish date
 date: 2020-11-09
-
 # An optional updated date
 # updated: 2020-10-16
 
 # A list of authors. These usernames correspond to the keys in the
 # _data/authorsData.json file.
-
 ---
 
-These pages contain guides and reference information for developers who want to
-create extensions for the Chrome browser. If you're not sure where to begin,
-have a look at the following starting pages:
+这些页面包含指南和 API 索引，为 Chrome 浏览器扩展程序的开发者提供信息。如果您不确定从哪里开始，看看以下起始页：
 
-* [What are extensions?](/docs/extensions/mv3/overview/) to help you understand just what an extension is.
-* The [Getting started tutorial](/docs/extensions/mv3/getstarted/) if you're ready for hello, world.
+- [什么是扩展程序？](/docs/extensions/mv3/overview/) 介绍扩展程序的基础信息。
+- [入门指南](/docs/extensions/mv3/getstarted/) 将从简单 `hello, world` 开始引导。
 
-Beyond that, you might find useful entry points in these pages:
+处置之外，你可以在这些页面中找到有用的链接入口：
 
-* Learn the scope of things in the [Extension development overview](/docs/extensions/mv3/devguide/)
-* Pick something from the [samples page](https://github.com/GoogleChrome/chrome-extensions-samples), install it, and start hacking on it.
-* Look for answers in the [Extensions FAQ page](/docs/extensions/mv3/faq/)
+- 在 [扩展程序开发概述](/docs/extensions/mv3/devguide/) 中了解大纲内容。
+- 阅读 [samples page](https://github.com/GoogleChrome/chrome-extensions-samples) 页面，尝试安装该扩展程序，并且开始修改内容。
+- 寻找常见问题 [扩展程序 FAQ 页面](/docs/extensions/mv3/faq/)。
 
 {% Aside %}
-Now that Manifest V3 has launched, we've changed the default documentation to
-be for Manifest V3. If you are maintaining a legacy Manifest V2 extension, see the [Manifest V2
-documentation](/docs/extensions/mv2).
+
+现在 Manifest V3 已经发布，我们已经将默认文档修改为 V3 版本。如果要访问旧版 V2 内容，请参阅 [Manifest V2 文档](/docs/extensions/mv2)。
 {% endAside %}
 
 {% Aside 'warning' %}
-As Manifest V3 approaches full feature parity with V2, we will be phasing out
-Manifest V2. See [Manifest V2 support timeline](/docs/extensions/mv3/mv2-sunset) for details.
+随着 V3 版本的功能完全替代 V2，我们会逐步淘汰 V2 版本。 阅读 [Manifest V2 支持时间线](/docs/extensions/mv3/mv2-sunset) 获取更多内容。
 {% endAside %}
 
-In addition to the documentation here, many developers find helpful community content at:
+除了此处的文档，开发者还可以访问下面的社区内容：
 
-* The [Chromium extensions](https://groups.google.com/a/chromium.org/g/chromium-extensions) Google Group.
-* The Stack Overflow [google-chrome extension](https://stackoverflow.com/tags/google-chrome-extension/info) tag.
+- [Chromium extensions](https://groups.google.com/a/chromium.org/g/chromium-extensions) Google Group。
+- Stack Overflow 网站有关 [google-chrome extension](https://stackoverflow.com/tags/google-chrome-extension/info) 的标签。
 
-Thank you for being a member of the extension developer community. We're glad you are here!
+感谢成为扩展程序开发者，欢迎你！
