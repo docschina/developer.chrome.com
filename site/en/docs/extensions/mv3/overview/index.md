@@ -83,7 +83,7 @@ Chrome 网络商店上的扩展程序必须遵守 [Chrome Web 商店政策][cws-
 }
 ```
 
-Every extension requires a manifest, though most extensions will not do much with just the manifest. For this quick start, the extension has a popup file and icon declared under the [`action`][action-field] field:
+每个扩展程序都需要 manifest ，尽管对大多数扩展程序来说，只有 manifest 做不了什么。回到这个示例，扩展程序有一个弹出窗口和图标，需要在 [‘action‘][action-field] 字段下声明：
 
 ```json/5-8
 {
@@ -98,7 +98,7 @@ Every extension requires a manifest, though most extensions will not do much wit
 }
 ```
 
-Download [`hello_extensions.png` here][hello-uploader] and then create a file titled `hello.html`:
+下载 [`hello_extensions.png`][hello-uploader]，创建 `hello.html` 文件：
 
 ```html
 <html>
@@ -108,7 +108,7 @@ Download [`hello_extensions.png` here][hello-uploader] and then create a file ti
 </html>
 ```
 
-The extension now displays `hello.html` when the icon is clicked. The next step is to include a command in the `manifest.json` that enables a keyboard shortcut. This step is fun, but not necessary:
+扩展程序现在点击图标会展示 `hello.html` 页面。接下来在 `manifest.json` 中声明启用快捷键。这个步骤很有趣，也是可选的：
 
 ```json/9-17
 {
@@ -132,20 +132,19 @@ The extension now displays `hello.html` when the icon is clicked. The next step 
 }
 ```
 
-The last step is to install the extension on your local machine.
+最后一步是在本机上安装扩展程序。
 
-1.  Navigate to `chrome://extensions` in your browser. You can also access this page by clicking on
-    the Chrome menu on the top right side of the Omnibox, hovering over **More Tools** and selecting **Extensions**.
-2.  Check the box next to **Developer Mode**.
-3.  Click **Load Unpacked Extension** and select the directory for your "Hello Extensions" extension.
+1. 在浏览器中打开 `chrome://extensions` 页面。也可以点击浏览器右上角的菜单按钮，选择 **更多工具** 选项中的 **扩展程序**。
+2. 打开右上角的 **开发者模式**。
+3. 点击 **加载已解压的扩展程序**，然后选择 `Hello Extensions` 扩展程序所在的文件夹。
 
-Congratulations! You can now use your popup-based extension by clicking the `hello_world.png` icon or by pressing `Ctrl+Shift+F` on your keyboard.
+恭喜！你现在可以通过点击 `hello_world.png` 图标或者 `Ctrl+Shift+F` 快捷键打开扩展程序的弹出窗口。
 
-## What next? {: #How-do-I-start }
+## 下一步做什么？ {: #How-do-I-start }
 
-1.  Follow the [Getting Started tutorial][getstarted-tut]
-1.  Explore the [extension samples]
-1.  Subscribe to the [chromium-extensions Google group][crx-group]
+1. 访问 [入门指导教程][getstarted-tut]
+1. 探索 [扩展程序案例][extension samples]
+1. 订阅 [chromium-extensions Google group][crx-group]
 
 [amp-validator]: https://chrome.google.com/webstore/detail/amp-validator/nmoffdblmcmgeicmolmhobpoocbbmknc
 [action-field]: /docs/extensions/reference/action
