@@ -11,7 +11,7 @@ subhead: 'Manifest V3 的主要变化和新增功能'
 # This appears in the ToC of the project landing page at
 # /docs/[project-name]/. It also appears in the <meta description> used in
 # Google Search.
-description: 'A description of the features and changes introduced by Manifest V3.'
+description: '介绍 Manifest V3 引入的功能新增和变更。'
 
 # The publish date
 date: 2020-11-09
@@ -23,41 +23,29 @@ updated: 2021-10-03
 # _data/authorsData.json file.
 
 ---
+Manifest V3 是我们迈向[拓展平台愿景](/docs/extensions/mv3/intro/platform-vision/)的重要一步。Manifest V3 专注于愿景的三大支柱：隐私性，安全性和性能，并保持和提高基础能力和"实现 Web 化"（指用 Web 技术实现扩展程序）。
 
-Manifest V3 (Manifest V3) is a major step forward in steering towards our
-[vision for the extensions platform](/docs/extensions/mv3/intro/platform-vision/).
-Manifest V3 focuses on the three pillars of that vision: privacy, security, and
-performance, while preserving and improving our foundation of capability and
-webbiness.
+本文总结了 Manifest V3 引入的功能新增和变更。
+为了帮助大家迁移 Manifest V2 扩展程序到 Manifest V3 或者更好地理解这些变化的结构影响，请看[Manifest V3 迁移指南](/docs/extensions/mv3/intro/mv3-migration/).
 
-This article summarizes the features and major changes introduced by Manifest V3. For
-help migrating Manifest V2 extensions to Manifest V3, or to better understand the
-architectural impact of these changes, see also the [Manifest V3 migration
-guide](/docs/extensions/mv3/intro/mv3-migration/).
+Manifest V3 在 Chrome
+[88](https://chromiumdash.appspot.com/schedule) 就可以使用了，以及 Chrome Web Store 在 2021 年 1 月开始支持 Manifest V3 的插件。
 
-Manifest V3 is available beginning with Chrome
-[88](https://chromiumdash.appspot.com/schedule), and the Chrome Web Store
-begins accepting Manifest V3 extensions in January 2021.
-
-New features and changes will continue to be added to Manifest V3, just as they have
-been in earlier manifest versions.
+新增功能以及变更会持续地添加到 Manifest V3 中，同时和 Manifest V2 保持表现一致。
 
 
-## Feature summary {: #feature-summary }
+## 功能汇总 {: #feature-summary }
 
-There are a number of new features and functional changes for extensions using Manifest V3:
+下面是一些 Manifest 支持的功新增和变更的功能：
 
-* [Service workers](#service-workers) replace background pages.
-* [Network request modification](#network-request-modification) is now handled with the new [declarativeNetRequest](/docs/extensions/reference/declarativeNetRequest) API.
-* [Remotely hosted code](#remotely-hosted-code) is no longer allowed; an extension can only execute JavaScript that is included within its package.
-* [Promise](#promises) support has been added to many methods, though callbacks are still supported as an alternative. (We will eventually support promises on all appropriate methods.)
-* A number of other, relatively [minor feature changes](#other-features) are also introduced in
-  Manifest V3.
+* [Service workers](#service-workers) 代替背景页。
+* [修改网络请求](#network-request-modification) 目前使用 [declarativeNetRequest](/docs/extensions/reference/declarativeNetRequest) API 处理。
+* [远程加载代码](#remotely-hosted-code) 不再被支持；插件只允许加载自己代码文件里面的 Javascript。
+* [Promise](#promises) 支持被添加到很多方法中，但仍然支持回调作为可选方案。（我们最终会在所有合适的方法中支持 promises）
+* 还在 Manifest V3 中引入了一些其他相对来说比较 [小的功能](#other-features)。
+后续的段落会总结每一个变更。
 
-Each of these changes is summarized in the sections below.
-
-
-## Major features {: #major-features }
+## 核心功能 {: #major-features }
 
 This section introduces the most important and impactful features of Manifest V3.
 
@@ -133,7 +121,7 @@ promises immediately.
 Some scenarios, such as event listeners, will still require callbacks.
 
 
-## Other features {: #other-features }
+## 其他功能 {: #other-features }
 
 There are a number of other changes introduced in Manifest V3:
 
