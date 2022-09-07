@@ -3,10 +3,10 @@ layout: 'layouts/doc-post.njk'
 
 # The page title. This appears at the top of the doc and as the page name
 # in Google Search.
-title: Overview of Manifest V3
+title: Manifest V3 概述
 
 # This appears below the title and is an optional teaser
-subhead: 'Key changes and features of Manifest V3.'
+subhead: 'Manifest V3 的主要变化和新增功能'
 
 # This appears in the ToC of the project landing page at
 # /docs/[project-name]/. It also appears in the <meta description> used in
