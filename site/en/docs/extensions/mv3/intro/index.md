@@ -1,6 +1,5 @@
 ---
 layout: 'layouts/doc-post.njk'
-<<<<<<< HEAD
 
 # The page title. This appears at the top of the doc and as the page name
 # in Google Search.
@@ -17,7 +16,6 @@ description: 'Manifest V3 介绍'
 # The publish date
 date: 2020-11-09
 updated: 2022-09-02
-
 ---
 
 本站介绍了 Manifest V3，也就是 Manifest Version 3，它是 Chrome 扩展程序平台的最新迭代。介绍引入 Manifest V3 的背景和原因，以及平台未来的愿景，以及如何迁移的资源。
