@@ -3,14 +3,14 @@ layout: 'layouts/doc-post.njk'
 title: '什么是扩展程序？'
 date: 2013-02-21
 updated: 2021-03-12
-description: An overview of the purpose of Chrome Extensions and how they're developed.
+description: 概述 Chrome 扩展程序的目的，以及它们是如何开发的。
 ---
 
 本文简要介绍了 Chrome 扩展程序，并创建一个 Hello, World! 扩展程序。
 
 ## 关于扩展程序 {: #intro }
 
-扩展程序是一个可以定制浏览器浏览体验的小型软件程序。它允许用户以多种方式定制 Chrome 的功能和行为，比如：
+扩展程序是一种可以定制浏览器浏览体验的小型软件程序。它允许用户以多种方式定制 Chrome 的功能和行为，比如：
 
 - 生产力工具
 - 丰富网页内容
@@ -40,9 +40,9 @@ Also shown in the diagram is an extension "plugged into" the Chrome browser. The
 
 **扩展 API** - [extensions API](/docs/extensions/reference/) 允许扩展程序访问浏览器本身的功能：激活选项卡、修改网络请求等。
 
-要创建扩展程序，你需要组装一些资源： Manifest、JavaScript 和 HTML 文件、图像等来构建扩展程序。对于开发和测试，你可以使用 [扩展程序开发者模式][devmode] 将这些“解压缩的扩展程序”加载到 Chrome 中。一旦扩展开发完成，您可以 [打包并分发给用户][cws publish]。
+要创建扩展程序，你需要组装一些资源： Manifest、JavaScript 和 HTML 文件、图像等来构建扩展程序。对于开发和测试，你可以使用 [扩展程序开发者模式][devmode] 将这些“解压缩的扩展程序”加载到 Chrome 中。一旦扩展开发完成，您可以 [打包并分发给用户][cws-publish]。
 
-### 用户如何获得扩展程序？ {: #getting-extensions }
+### 用户如何获取扩展程序？ {: #getting-extensions }
 
 大多数 Chrome 用户从 [Chrome 网络商店][cws] 获得扩展。全球各地的开发者在 Chrome 网络商店中发布他们的扩展程序，审核之后提供给最终用户。
 
