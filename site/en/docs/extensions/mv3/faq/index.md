@@ -1,9 +1,9 @@
 ---
 layout: "layouts/doc-post.njk"
-title: "Frequently asked questions"
+title: "常见问题"
 date: 2014-02-28
 updated: 2020-11-20
-description: Frequently asked questions about Chrome Extensions.
+description: 有关 Chrome 扩展程序的常见问题。
 ---
 
 If you don't find an answer to your question here, try the [Chrome Web Store FAQ][1], the
