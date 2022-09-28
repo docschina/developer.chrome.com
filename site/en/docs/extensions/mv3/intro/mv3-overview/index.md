@@ -18,11 +18,10 @@ date: 2020-11-09
 
 # An optional updated date
 updated: 2021-10-03
-
 # A list of authors. These usernames correspond to the keys in the
 # _data/authorsData.json file.
-
 ---
+
 Manifest V3 是我们迈向[拓展平台愿景](/docs/extensions/mv3/intro/platform-vision/)的重要一步。Manifest V3 专注于愿景的三大支柱：隐私性，安全性和性能，并保持和提高基础能力和"实现 Web 化"（指用 Web 技术实现扩展程序）。
 
 本文总结了 Manifest V3 引入的特性新增和变更。
@@ -33,35 +32,28 @@ Manifest V3 在 Chrome
 
 新增特性以及变更会持续地添加到 Manifest V3 中，同时和 Manifest V2 保持表现一致。
 
-
 ## 特性汇总 {: #feature-summary }
 
 下面是一些 Manifest 支持的功新增和变更的特性：
 
-* [Service workers](#service-workers) 代替背景页。
-* [修改网络请求](#network-request-modification) 目前使用 [declarativeNetRequest](/docs/extensions/reference/declarativeNetRequest) API 处理。
-* [远程加载代码](#remotely-hosted-code) 不再被支持；插件只允许加载自己代码文件里面的 Javascript。
-* [Promise](#promises) 支持被添加到很多方法中，但仍然支持回调作为可选方案。（我们最终会在所有合适的方法中支持 promises）
-* 还在 Manifest V3 中引入了一些相对来说比较 [小的特性](#other-features)。
-后续的段落会总结每一个变更。
+- [Service workers](#service-workers) 代替背景页。
+- [修改网络请求](#network-request-modification) 目前使用 [declarativeNetRequest](/docs/extensions/reference/declarativeNetRequest) API 处理。
+- [远程加载代码](#remotely-hosted-code) 不再被支持；插件只允许加载自己代码文件里面的 Javascript。
+- [Promise](#promises) 支持被添加到很多方法中，但仍然支持回调作为可选方案。（我们最终会在所有合适的方法中支持 promises）
+- 还在 Manifest V3 中引入了一些相对来说比较 [小的特性](#other-features)。
+  后续的段落会总结每一个变更。
 
 ## 核心特性 {: #major-features }
+
 本段落将介绍 Manifest V3 最为重要和最有影响力的特性。
 
 ### Service workers {: #service-workers }
 
-Manifest V3 使用 service works 代替背景页。
+Manifest V3 使用 service works 代替了原来的背景页。
 
-liang
-
-Like their web page counterparts, extension service workers listen for and
-respond to events in order to enhance the end user's experience. For web
-service workers this typically means managing cache, preloading resources, and
-enabling offline web pages. While extension service workers can still do all of
-this, the extension package already contains a bundle of resources that can be
-accessed offline. As such, extension service workers tend to focus on reacting
-to relevant browser events exposed by Chrome's extensions APIs.
-
+和网页的其他模块一样，扩展程序 service workers 的监听和响应都是为增强终端用户体验服务的。
+提到网页 service workers ，我们一般会想到缓存管理，预加载资源和支持离线网页。
+虽然扩展程序的 service workers 也可以实现这些功能——扩展程序包已经包括了一系列可被离线访问的资源。但扩展程序的 service workers 还是倾向专注于增强 Chrome API 暴露出来的浏览器相关的事件反应能力。
 
 ### Network request modification {: #network-request-modification }
 
@@ -70,8 +62,8 @@ a new [declarativeNetRequest](/docs/extensions/reference/declarativeNetRequest)
 API which lets extensions modify and block network requests in a
 privacy-preserving and performant way. The essence of this API is:
 
-*   Rather than intercepting a request and modifying it procedurally, the extension asks Chrome to evaluate and modify requests on its behalf.
-*   The extension declares a set of rules: patterns to match requests and actions to perform when matched. The browser then modifies network requests as defined by these rules.
+- Rather than intercepting a request and modifying it procedurally, the extension asks Chrome to evaluate and modify requests on its behalf.
+- The extension declares a set of rules: patterns to match requests and actions to perform when matched. The browser then modifies network requests as defined by these rules.
 
 Using this declarative approach dramatically reduces the need for persistent host permissions.
 
@@ -87,13 +79,12 @@ The blocking version of the
 API is restricted to force-installed extensions in Manifest V3. This is because of
 issues with the blocking webRequest approach:
 
-*   **Privacy**: This requires excessive access to user data, because extensions need to read each network request made for the user.
-*   **Performance**: Serializing & deserializing data across multiple process hops & the C++/JS boundary adds up.
-*   **Compatibility**: Does not work well with event-based background execution as it requires the service worker to be running to handle every request.
+- **Privacy**: This requires excessive access to user data, because extensions need to read each network request made for the user.
+- **Performance**: Serializing & deserializing data across multiple process hops & the C++/JS boundary adds up.
+- **Compatibility**: Does not work well with event-based background execution as it requires the service worker to be running to handle every request.
 
 This means that developers can implement many common use cases, such as content
 blocking functionality, without requiring any host permissions.
-
 
 ### Remotely hosted code {: #remotely-hosted-code }
 
@@ -105,7 +96,6 @@ Store. Specifically, all logic must be included in the extension's package.
 Instead of remote code, we recommend the use of remote configuration files. See
 the [migration guide](/docs/extensions/mv3/intro/mv3-migration#remotely-hosted-code)
 for more about how to work with this change.
-
 
 ### Promises {: #promises }
 
@@ -120,22 +110,21 @@ promises immediately.
 
 Some scenarios, such as event listeners, will still require callbacks.
 
-
 ## 其他功能 {: #other-features }
 
 There are a number of other changes introduced in Manifest V3:
 
-* [Action API consolidation](/docs/extensions/mv3/intro/mv3-migration#action-api-unification):
+- [Action API consolidation](/docs/extensions/mv3/intro/mv3-migration#action-api-unification):
   The Browser Action and Page Action APIs are unified into a single Action API.
-* [Web accessible resources](/docs/extensions/mv3/intro/mv3-migration#web-accessible-resources): These resources are now available only to specified sites and extensions.
-* [Content security policy (CSP)](/docs/extensions/mv3/intro/mv3-migration#content-security-policy): You now specify separate CSP for different execution contexts in a single object, and certain policies are disallowed.
-* [executeScript() changes](/docs/extensions/mv3/intro/mv3-migration#executing-arbitrary-strings): Extensions can no longer execute arbitrary strings, only script files and functions. This method is also migrating from the Tabs API to the new Scripting API.
+- [Web accessible resources](/docs/extensions/mv3/intro/mv3-migration#web-accessible-resources): These resources are now available only to specified sites and extensions.
+- [Content security policy (CSP)](/docs/extensions/mv3/intro/mv3-migration#content-security-policy): You now specify separate CSP for different execution contexts in a single object, and certain policies are disallowed.
+- [executeScript() changes](/docs/extensions/mv3/intro/mv3-migration#executing-arbitrary-strings): Extensions can no longer execute arbitrary strings, only script files and functions. This method is also migrating from the Tabs API to the new Scripting API.
 
 The following features will be added to Manifest V3 soon:
 
-* **Dynamic content scripts:** the new [Scripting API][1] lets extensions register and unregister content scripts at runtime.
-* **New favicon API:** this new JavaScript API replaces "chrome://favicons" and gives  developers a way to retrieve websites' favicons.
-* **In-memory storage:** a new StorageArea on the Storage API that can be used to store values in memory across service worker restarts.
+- **Dynamic content scripts:** the new [Scripting API][1] lets extensions register and unregister content scripts at runtime.
+- **New favicon API:** this new JavaScript API replaces "chrome://favicons" and gives developers a way to retrieve websites' favicons.
+- **In-memory storage:** a new StorageArea on the Storage API that can be used to store values in memory across service worker restarts.
 
 Look for announcements of these and other Manifest V3 features as they become available.
 
