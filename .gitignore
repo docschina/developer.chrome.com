@@ -29,3 +29,7 @@ dist
 # External source files
 external/data/
 external/local-build-flag
+
+
+.npmrc
+pnpm-lock.yaml
