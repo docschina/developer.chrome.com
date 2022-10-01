@@ -6,8 +6,7 @@ updated: 2020-11-20
 description: 有关 Chrome 扩展程序的常见问题。
 ---
 
-如果您在此处找不到问题的答案，请尝试 [Chrome 网上应用店常见问题解答][1]，[Stack Overflow 上的 \[google-chrome-extension\] 标签][2]、[chromium-extensions 组][3] 或
-[商店帮助][4]。
+如果您在此处找不到问题的答案，请尝试 [Chrome 网上应用店常见问题解答][1]，[Stack Overflow 上的 \[google-chrome-extension\] 标签][2]、[chromium-extensions 组][3] 或 [商店帮助][4]。
 
 ## 概要 {: #general }
 
