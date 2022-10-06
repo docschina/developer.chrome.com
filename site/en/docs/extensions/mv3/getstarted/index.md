@@ -1,14 +1,22 @@
 ---
 layout: 'layouts/doc-post.njk'
+<<<<<<< HEAD
 title: '入门指导'
 date: 2014-02-28
 updated: 2022-05-19
 description: 手把手介绍如何创建 Chrome 扩展程序。
+=======
+title: 'Welcome'
+subhead: 'Welcome to the Getting Started Guides.'
+description: 'Welcome to the Getting Started Guides.'
+date: 2022-10-04
+# updated: 2022-06-13
+>>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
 ---
 
-{# TODO: Reword this intro. "Components" is probably not the best word to use here any more as "web
-components" are a cross-browser tech for creating reusable custom elements or "components". #}
+Welcome to the Getting Started Guides! The purpose of this page is to describe each article and how to share your feedback.
 
+<<<<<<< HEAD
 Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [背景页脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。扩展程序由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。扩展程序所需的组件取决于要实现的功能，不一定包含所有内容。
 
 本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台提供的的很多能力组件，来演示彼此之间的关联。
@@ -20,16 +28,28 @@ Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。�
 ## 创建 manifest 清单 {: #manifest }
 
 先从 [manifest][7] 开始。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
+=======
+## Extension development concepts {: #concepts }
 
-```json
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3
-}
-```
+[Extensions 101][doc-ext-101]
+: Briefly covers some fundamental concepts of Chrome Extension development like web technologies and commonly used extension components. In addition, it includes what to be aware of when designing and distributing an extension in the Chrome Web Store. 
 
+[Development Basics][doc-dev-basics]
+: Introduces the extension development workflow by creating a _Hello, Extensions_ example. It walks through loading the extension during development, locating logs and errors, choosing a project structure, and using Typescript.
+
+## Extension tutorials {: #tutorial } 
+
+[Reading time][tut-reading-time]
+: It’s nice to know how much time we need to finish reading an article. Reading time teaches you how to insert an element containing the estimated reading time on every extension documentation page.
+
+[Focus mode][tut-focus-mode]
+: Removing extra clutter from a page allows our minds to concentrate on the most relevant information. Focus mode demonstrates how to change the style of extension documentation pages and hides a few distracting elements.
+>>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
+
+[Tabs manager][tut-tabs-manager]
+: While researching extension development, you can end up with many documentation tabs across multiple windows. Tabs Manager organizes your Chrome extension and Chrome Web store documentation tabs.
+
+<<<<<<< HEAD
 ### 加载已解压的扩展程序 {: #unpacked }
 
 在开发者模式中，如果文件夹中包含 manifest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
@@ -415,3 +435,35 @@ constructOptions(presetButtonColors);
 [31]: /docs/extensions/mv3/tut_debugging
 [32]: /docs/extensions/reference
 [33]: /docs/extensions/mv3/devguide
+=======
+These tutorials not only teach you how to build real-world extensions but also strive to share development tips and best practices. In addition, using these extensions will improve your experience while reading the extension documentation.
+
+Each tutorial includes the following sections:
+
+- The task the extension will perform. 
+- The lessons that will be covered.
+- What you need to know before starting.
+- Step-by-step instructions on how to build the extension. 
+- How to load and test the extension.
+
+If you are up for a challenge, we included a section with a few ideas on how to customize or add other features to your extension.
+
+## Share your feedback {: #share-feedback}
+
+We are excited to hear from you! Here are two ways you can contribute:
+
+Improve the existing tutorials
+: If you see something wrong or unclear, report a bug on our [GitHub repository][github-ext-doc-issue].
+
+Request a beginner tutorial
+: If you have an idea for another beginner tutorial, create an issue on our [GitHub repository][github-ext-doc-issue], choose "Extension tutorial request", and fill out the form.
+
+We hope the new Getting Started guides help you feel confident and supported as you embark on your extension development journey.
+
+[doc-ext-101]: /docs/extensions/mv3/getstarted/extensions-101
+[doc-dev-basics]: /docs/extensions/mv3/getstarted/development-basics
+[github-ext-doc-issue]: https://github.com/GoogleChrome/developer.chrome.com/issues/new/choose
+[tut-focus-mode]: /docs/extensions/mv3/getstarted/tut-focus-mode
+[tut-reading-time]: /docs/extensions/mv3/getstarted/tut-reading-time
+[tut-tabs-manager]: /docs/extensions/mv3/getstarted/tut-tabs-manager
+>>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
