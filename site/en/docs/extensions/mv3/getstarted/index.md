@@ -1,464 +1,50 @@
 ---
 layout: 'layouts/doc-post.njk'
-<<<<<<< HEAD
-title: '入门指导'
-date: 2014-02-28
-updated: 2022-05-19
-description: 手把手介绍如何创建 Chrome 扩展程序。
-=======
-title: 'Welcome'
-subhead: 'Welcome to the Getting Started Guides.'
-description: 'Welcome to the Getting Started Guides.'
+title: '欢迎'
+subhead: '欢迎开始阅读入门指导。'
+description: '欢迎开始阅读入门指导。'
 date: 2022-10-04
 # updated: 2022-06-13
->>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
 ---
 
-Welcome to the Getting Started Guides! The purpose of this page is to describe each article and how to share your feedback.
+欢迎阅读入门指南！本文的目的是描述每篇文章内容以及如何分享您的反馈。
 
-<<<<<<< HEAD
-Chrome 扩展程序由一堆不同（但彼此有联系）的组件组成的。组件包括 [背景页脚本 background scripts][1]，[注入脚本 content scripts][2]，一个 [选项页面 options page][3]，[UI 元素 UI elements][4] 组成。扩展程序由 web 开发者熟悉的技术栈制作：HTML/CSS/Javascript。扩展程序所需的组件取决于要实现的功能，不一定包含所有内容。
+## 扩展程序开发的概念 {: #concepts }
 
-本教程会构建一个扩展程序，允许用户改变当前活动页面的背景颜色。它会使用扩展程序平台提供的的很多能力组件，来演示彼此之间的关联。
+[扩展程序开发 101][doc-ext-101]：简要介绍 Chrome Extension 开发的一些基本概念，如 Web 技术和常用的扩展组件。此外，它还包括在 Chrome Web Store 中设计和分发扩展时需要注意的事项。
 
-开始之前，创建一个新的目录来保存扩展程序的文件。
+[Development Basics][doc-dev-basics]：通过创建“Hello，Extensions”示例介绍扩展开发程序工作流。它介绍了在开发者模式加载扩展、定位日志和错误、选择项目结构以及使用 Typescript。
 
-完成后的扩展程序可以在 [这里下载][6]。
+## Extension 案例介绍 {: #tutorial }
 
-## 创建 manifest 清单 {: #manifest }
+[预估阅读时长 Reading Time][tut-reading-time]：评估我们读完一篇文章大概需要多少时间。“预估阅读时长”教您如何在每个扩展文档页面上插入包含估计阅读时间的元素。
 
-先从 [manifest][7] 开始。创建一个叫做 `manifest.json` 的文件，包含下面的代码。
-=======
-## Extension development concepts {: #concepts }
+[专注模式 Focus Mode][tut-focus-mode]：去除页面上多余的杂乱内容，可以让我们的头脑集中在最相关的信息上。专注模式演示了如何改变扩展文档页面的样式，并隐藏一些分散注意力的元素。
 
-[Extensions 101][doc-ext-101]
-: Briefly covers some fundamental concepts of Chrome Extension development like web technologies and commonly used extension components. In addition, it includes what to be aware of when designing and distributing an extension in the Chrome Web Store. 
+[标签管理器 Tabs manager][tut-tabs-manager]：在研究扩展程序开发时，您可能会在多个窗口中出现许多文档标签。标签管理器可以组织您的 Chrome 扩展程序和 Chrome Web store 的标签。
 
-[Development Basics][doc-dev-basics]
-: Introduces the extension development workflow by creating a _Hello, Extensions_ example. It walks through loading the extension during development, locating logs and errors, choosing a project structure, and using Typescript.
+这些教程不仅教您如何构建真实的扩展程序，还努力分享开发技巧和最佳实践。此外，在阅读扩展文档时，使用这些扩展程序将改善您的体验。
 
-## Extension tutorials {: #tutorial } 
+每个教程都包括以下部分：
 
-[Reading time][tut-reading-time]
-: It’s nice to know how much time we need to finish reading an article. Reading time teaches you how to insert an element containing the estimated reading time on every extension documentation page.
+- 扩展将执行的任务。
 
-[Focus mode][tut-focus-mode]
-: Removing extra clutter from a page allows our minds to concentrate on the most relevant information. Focus mode demonstrates how to change the style of extension documentation pages and hides a few distracting elements.
->>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
+- 将要涵盖的课程。
 
-[Tabs manager][tut-tabs-manager]
-: While researching extension development, you can end up with many documentation tabs across multiple windows. Tabs Manager organizes your Chrome extension and Chrome Web store documentation tabs.
+- 开始之前你需要知道什么。
 
-<<<<<<< HEAD
-### 加载已解压的扩展程序 {: #unpacked }
+- 关于如何构建扩展的分步说明。 -如何加载和测试扩展。
 
-在开发者模式中，如果文件夹中包含 manifest 文件就可以视为一个扩展程序。如果要在开发模式中加载已解压的 extension ，按照下面步骤操作：
+如果您准备迎接挑战，我们会提供一个部分，介绍如何定制或向扩展添加其他功能。
 
-1.  导航到 `chrome://extensions` 打开扩展程序管理页面。
+## 发送你的反馈 {: #share-feedback}
 
-    - 或者，通过点击扩展程序菜单按钮，然后选择菜单底部的 **管理扩展程序** 打开此页面。
-    - 或者，点击 Chrome 菜单，选择 **更多工具** 下面的 **扩展程序** 打开此页面。
+我们很高兴收到你的反馈！你可以通过以下两种方式做出贡献：
 
-2.  通过切换 **开发者模式** 按钮开启开发者模式。
-3.  点击 **加载已解压的扩展程序** 按钮，选择扩展程序文件夹。
+- 改进现有的教程：如果你发现错误或者不清楚的地方， 在[GitHub repository][github-ext-doc-issue] 上报告你发现的问题
+- 申请发布一个入门教程：如果你有做一个新的入门教程的想法，请在 [GitHub repository][github-ext-doc-issue] 上创建一个 issue，选择“请求扩展教程 Extension tutorial request” 分类，然后填写表单。
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vOu7iPbaapkALed96rzN.png", alt="加载一个已解压的扩展程序", width="563", height="355" %}
-
-哈哈！扩展程序已经成功安装。因为没有在 manifest 中声明图标，所以会展示一个默认的扩展程序图标。
-
-## 添加功能 {: #background }
-
-这个扩展程序虽然安装成功，但是没有声明哪些功能可以执行。接下来我们添加一些代码实现存储背景颜色的功能。
-
-### 在 manifest 中注册背景页脚本 background script {: #background-manifest }
-
-背景页脚本 Background scripts 和其他组件一样需要首先在 manifest 中注册：声明扩展程序需要引用哪些文件，并编写对应代码：
-
-```json/5-7
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  }
-}
-```
-
-Chrome 浏览器现在知道当前扩展程序包含一个 Service Worker 脚本。当你重新加载扩展程序时候，浏览器会扫描加载对应的文件，比如监听某些重要的事件。
-
-### 创建背景页脚本 {: #background-script }
-
-这个扩展程序安装后会立刻持久化存储一个变量。 首先在背景页脚本中添加 [`runtime.onInstalled`][11] 事件监听器。在 `onInstalled` 监听器内部，通过[storage][12] API 声明一个值。这可以让其他扩展程序组件可以读取并更新该值。在扩展程序目录创建一个 `background.js` 文件，添加如下代码：
-
-```js
-// background.js
-
-let color = '#3aa757';
-
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({color});
-  console.log('Default background color set to %cgreen', `color: ${color}`);
-});
-```
-
-### 添加 storage 权限 {: #storage-permission }
-
-包括 [storage][12] API 在内的大多数 API，都必须在 manifest 中的 `"permissions"` 字段下声明注册，表示扩展程序会使用对应功能。
-
-```json/8
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage"]
-}
-```
-
-### 检查背景页脚本是否生效 {: #inspect-background }
-
-回到扩展程序管理页面，点击 **更新** 按钮。会出现一个新字段 **查看视图**，并且蓝色链接可打开 **service worker** 页面。
-
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/dx9EpIKK949olhe8qraK.png", alt="查看视图查看视图Inspect views", width="566", height="353" %}
-
-点击链接会打开背景页脚本的控制台 console，会看到 “`Default background color set to green`” 日志提示。
-
-## 引入用户界面 {: #user_interface }
-
-[用户界面][4] 可以让扩展程序有更多形式。接下来会使用 [提示 popup][15] 功能。创建添加一个 `popup.html` 文件到目录中。页面中展示一个按钮，点击后会改变背景色。
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="button.css" />
-  </head>
-  <body>
-    <button id="changeColor"></button>
-  </body>
-</html>
-```
-
-和背景页脚本一样，这个文件需要在 manifest 中声明，让浏览器能够展示。接下来在 manifest 中添加 [`action`][17] 对象，把 `default_popup` 设置为 `popup.html`。
-
-```json/9-11
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage"],
-  "action": {
-    "default_popup": "popup.html"
-  }
-}
-```
-
-在 `popup.html` 中引用外部 css 文件： `button.css`。在目录中创建该文件，添加下面代码：
-
-```css
-button {
-  height: 30px;
-  width: 30px;
-  outline: none;
-  margin: 10px;
-  border: none;
-  border-radius: 2px;
-}
-
-button.current {
-  box-shadow: 0 0 0 2px white, 0 0 0 4px black;
-}
-```
-
-扩展程序在工具栏中展示的图标也需要再 `action` 中的 `default_icon` 字段设置。[点击这里][18]下载图片并解压，放入目录中。之后更新 manifest 设置如何使用这些图片：
-
-```json/11-16
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
-    }
-  }
-}
-```
-
-扩展程序会在管理页面、权限告警、图标中展示这些图标。在 [`icons`][19] 字段添加这些内容：
-
-```json/18-23
-{
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
-  "version": "1.0",
-  "manifest_version": 3,
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage"],
-  "action": {
-    "default_popup": "popup.html",
-    "default_icon": {
-      "16": "/images/get_started16.png",
-      "32": "/images/get_started32.png",
-      "48": "/images/get_started48.png",
-      "128": "/images/get_started128.png"
-    }
-  },
-  "icons": {
-    "16": "/images/get_started16.png",
-    "32": "/images/get_started32.png",
-    "48": "/images/get_started48.png",
-    "128": "/images/get_started128.png"
-  }
-}
-```
-
-默认情况下，扩展显示在扩展程序菜单（拼图块）中。可以点击固定，扩展将在工具栏中显示该图标。
-
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GdHNy255kS4hWD5vb1fc.png", alt="在工具栏中钉住扩展", width="502", height="278" %}
-
-现在重新加载扩展，将会展示图标而不是之前的默认图标了，点击图标将会弹出一个窗口，其中有一个显示默认颜色的按钮。
-
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/ku5Z8MMssgw6MKctpJVI.png", alt="Popup", width="187", height="153" %}
-
-最后一步，给按钮设定颜色。在目录中创建 `popup.js` 文件添加下面代码：
-
-```js
-// Initialize button with user's preferred color
-let changeColor = document.getElementById('changeColor');
-
-chrome.storage.sync.get('color', ({color}) => {
-  changeColor.style.backgroundColor = color;
-});
-```
-
-`popup.html` 中的按钮将会获取按钮元素，从存储中获取颜色值，并设置为按钮的背景色。在 `popup.html` 中添加一个脚本 `popup.js`:
-
-```html/7
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="button.css">
-  </head>
-  <body>
-    <button id="changeColor"></button>
-    <script src="popup.js"></script>
-  </body>
-</html>
-```
-
-重新加载扩展程序，可以看到绿色的按钮。
-
-## 逻辑层 Layer logic {: #logic }
-
-现在扩展可以展示自定义图标，弹出窗口，获取存储的值，把按钮设置背景色。接下来，我们进一步完善交互逻辑。更新 `popup.js` 文件添加下面代码：
-
-```js
-// 单击按钮时，注入 setPageBackgroundColor 变量到页面中
-changeColor.addEventListener('click', async () => {
-  let [tab] = await chrome.tabs.query({active: true, currentWindow: true});
-
-  chrome.scripting.executeScript({
-    target: {tabId: tab.id},
-    function: setPageBackgroundColor,
-  });
-});
-
-// 函数体会作为一个内容脚本在当前页面执行
-function setPageBackgroundColor() {
-  chrome.storage.sync.get('color', ({color}) => {
-    document.body.style.backgroundColor = color;
-  });
-}
-```
-
-更新后的代码给按钮添加了 `click` 事件监听器，会触发 [程序注入内容改脚本][24]。这会让当前页面的背景色和按钮颜色相同。使用程序注入的方式允许用户手动触发脚本内容，而不是自动插入当前页面用户不知情的代码。
-
-manifest 需要使用 `activeTab`][25] 权限来允许扩展临时访问当前页面，同时还需要 [`scripting`][26] 权限才能使用 [`executeScript`][27] 方法。
-
-```json/3
-{
-  "name": "Getting Started Example",
-  ...
-  "permissions": ["storage", "activeTab", "scripting"],
-  ...
-}
-```
-
-现在扩展已经可以正常运行了，重新加载扩展，刷新当前页面，点击图标，点击弹窗中的按钮，会把背景改成绿色！用户可能想把背景色改成其他颜色。
-
-{% Aside 'gotchas' %}
-
-扩展无法在内部 Chrome 网页（如 “chrome://extensions” ）上注入内容脚本。请务必在真实的网页上试用该扩展，例如[https://google.com](https://google.com）。
-
-{% endAside %}
-
-## 允许用户修改选项 {: #options }
-
-该扩展目前仅允许用户将背景更改为绿色。通过添加**选项页 Options Page**，用户可以更好地控制扩展的功能，从而进一步自定义其浏览体验。
-
-首先在目录中创建 `options.html` 文件，并包含以下代码：
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="button.css" />
-  </head>
-  <body>
-    <div id="buttonDiv"></div>
-    <div>
-      <p>Choose a different background color!</p>
-    </div>
-    <script src="options.js"></script>
-  </body>
-</html>
-```
-
-然后再 manifest 中注册选项页面：
-
-```json/3
-{
-  "name": "Getting Started Example",
-  ...
-  "options_page": "options.html"
-}
-```
-
-重新加载扩展并右键单击工具栏中的扩展图标，然后选择 **选项**”。或者，单击 “详细信息” 并向下滚动到详细信息页面，然后选择 **扩展程序选项**。
-
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/aV46PP8KCjEqqenSJxxp.png", alt="单击右键打开选项页面", width="248", height="260" %}
-
-最后一步是添加选项逻辑。在扩展的目录中创建一个名为 `options.js` 的文件，添加下面代码：
-
-```js
-let page = document.getElementById('buttonDiv');
-let selectedClassName = 'current';
-const presetButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-
-// 按钮点击会标记所选按钮并保存选择
-function handleButtonClick(event) {
-  // 从先前选择的颜色中删除样式
-
-  let current = event.target.parentElement.querySelector(
-    `.${selectedClassName}`
-  );
-  if (current && current !== event.target) {
-    current.classList.remove(selectedClassName);
-  }
-
-  // 标记选中的按钮
-  let color = event.target.dataset.color;
-  event.target.classList.add(selectedClassName);
-  chrome.storage.sync.set({color});
-}
-
-// 为页面添加每种提供颜色的按钮
-function constructOptions(buttonColors) {
-  chrome.storage.sync.get('color', data => {
-    let currentColor = data.color;
-    // 提供的每种颜色...
-    for (let buttonColor of buttonColors) {
-      // …创建按钮并设定颜色…
-      let button = document.createElement('button');
-      button.dataset.color = buttonColor;
-      button.style.backgroundColor = buttonColor;
-
-      // …标记当前选中的颜色…
-      if (buttonColor === currentColor) {
-        button.classList.add(selectedClassName);
-      }
-
-      // ...注册一个监听器，单击该按钮时触发
-
-      button.addEventListener('click', handleButtonClick);
-      page.appendChild(button);
-    }
-  });
-}
-
-// 通过构造颜色选项初始化页面
-constructOptions(presetButtonColors);
-```
-
-提供四个颜色选项，然后在选项页面上生成按钮，注册 onclick 事件监听器。当用户单击按钮时，它会更新扩展存储中的颜色值。由于扩展的所有文件都从此存储中提取颜色信息，因此不需要更新其他值。
-
-## 再进一步 {: #next-steps }
-
-祝贺！该目录现在包含一个功能齐全但功能简单的 Chrome 扩展程序。
-
-接下来做什么？
-
-- [Chrome 扩展概述][30] 备份了一点，并补充了有关扩展程序架构的大量细节，以及开发人员希望熟悉的一些特定概念。
-- 在 [调试教程][31] 中了解可用于调试扩展的选项。
-- Chrome 扩展程序可以访问功能强大的 API，而不仅仅是开放网络上可用的 API。[chrome.\* API 文档][32] 将介绍每个 API。
-- [开发人员指南][33] 有几十个额外的链接，指向如何创建高级扩展。
-
-[1]: /docs/extensions/mv3/background_pages
-[2]: /docs/extensions/mv3/content_scripts
-[3]: /docs/extensions/mv3/options
-[4]: /docs/extensions/mv3/user_interface
-[6]: https://storage.googleapis.com/web-dev-uploads/file/WlD8wC6g8khYWPJUsQceQkhXSlv1/SVxMBoc5P3f6YV3O7Xbu.zip
-[7]: /docs/extensions/mv3/manifest
-[11]: /docs/extensions/reference/runtime#event-onInstalled
-[12]: /docs/extensions/reference/storage
-[15]: /docs/extensions/mv3/user_interface#popup
-[17]: /docs/extensions/reference/action
-[18]: https://storage.googleapis.com/web-dev-uploads/file/WlD8wC6g8khYWPJUsQceQkhXSlv1/wy3lvPQdeJn4iqHmI0Rp.zip
-[19]: /docs/extensions/mv3/user_interface#icons
-[20]: /docs/extensions/reference/declarativeContent
-[24]: /docs/extensions/mv3/content_scripts/#programmatic
-[25]: /docs/extensions/mv3/manifest/activeTab
-[26]: /docs/extensions/reference/scripting
-[27]: /docs/extensions/reference/scripting#method-executeScript
-[30]: /docs/extensions/mv3/overview
-[31]: /docs/extensions/mv3/tut_debugging
-[32]: /docs/extensions/reference
-[33]: /docs/extensions/mv3/devguide
-=======
-These tutorials not only teach you how to build real-world extensions but also strive to share development tips and best practices. In addition, using these extensions will improve your experience while reading the extension documentation.
-
-Each tutorial includes the following sections:
-
-- The task the extension will perform. 
-- The lessons that will be covered.
-- What you need to know before starting.
-- Step-by-step instructions on how to build the extension. 
-- How to load and test the extension.
-
-If you are up for a challenge, we included a section with a few ideas on how to customize or add other features to your extension.
-
-## Share your feedback {: #share-feedback}
-
-We are excited to hear from you! Here are two ways you can contribute:
-
-Improve the existing tutorials
-: If you see something wrong or unclear, report a bug on our [GitHub repository][github-ext-doc-issue].
-
-Request a beginner tutorial
-: If you have an idea for another beginner tutorial, create an issue on our [GitHub repository][github-ext-doc-issue], choose "Extension tutorial request", and fill out the form.
-
-We hope the new Getting Started guides help you feel confident and supported as you embark on your extension development journey.
+我们希望新的入门指南能帮助你在开发拓展程序时候感到自信和支持。
 
 [doc-ext-101]: /docs/extensions/mv3/getstarted/extensions-101
 [doc-dev-basics]: /docs/extensions/mv3/getstarted/development-basics
@@ -466,4 +52,3 @@ We hope the new Getting Started guides help you feel confident and supported as 
 [tut-focus-mode]: /docs/extensions/mv3/getstarted/tut-focus-mode
 [tut-reading-time]: /docs/extensions/mv3/getstarted/tut-reading-time
 [tut-tabs-manager]: /docs/extensions/mv3/getstarted/tut-tabs-manager
->>>>>>> 40add5e31dcf82f2d1249da9fe59a97b350c8214
