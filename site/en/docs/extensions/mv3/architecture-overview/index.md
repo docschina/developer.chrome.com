@@ -1,35 +1,29 @@
 ---
 layout: "layouts/doc-post.njk"
-title: "Architecture overview"
+title: "架构概述"
 date: 2012-09-18
 updated: 2022-05-13
-description: A high-level explanation of the software architecture of Chrome Extensions.
-subhead: A high-level explanation of the components and structure of a Chrome Extension.
+description: Chrome 扩展程序的软件架构的高级解释。
+subhead: Chrome 扩展程序的软件架构的高级解释。
 ---
 
-Extensions are zipped bundles of HTML, CSS, JavaScript, images, and other files used in the web
-platform. Extensions can modify web content that users see and interact with. They can also extend
-and change the behavior of the browser itself. 
+扩展程序是 HTML、CSS、JavaScript、图像和 Web 平台中使用的其他文件的压缩包。扩展程序可以修改用户看到并与之交互的 Web 内容。扩展程序还可以扩展和更改浏览器本身的行为。
 
-This page briefly describes the files that could form part of an extension, how to access these
-files, how to use Chrome APIs, how extension files communicate, and how to store
-data.
+本页简要介绍了可能构成扩展程序的一部分的文件、如何访问这些文件、如何使用 Chrome API、扩展文件如何通信以及如何存储数据。
 
-## Architecture {: #arch }
+## 架构 {: #arch }
 
-An extension's architecture will depend on its functionality, but all extensions must have a
-[manifest][section-manifest]. The following are other components an extension can include: 
+扩展程序的架构将取决于其功能，但所有扩展都必须包含 [清单][部分清单] 中所包含的内容。扩展程序可以包含的其他组件如下：
 
-- [Service worker][section-bg]
-- [Toolbar icon][section-icons]
-- [UI elements][section-ui]
-- [Content script][section-cs]
-- [Options page][section-options]
+- [服务人员][section-bg]
+- [工具栏图标][section-icons]
+- [UI 元素][section-ui]
+- [内容脚本][section-cs]
+- [选项页面][section-options]
 
-### The manifest {: #manifest }
+### 清单{: #manifest }
 
-The manifest file, titled `manifest.json`, gives the browser information about the extension, such
-as the most important files and the capabilities the extension might use.
+名为 `manifest.json` 的清单文件为浏览器提供了有关扩展的信息，例如哪些文件是最重要的文件和扩展可能使用的功能。
 
 ```json
 {
@@ -54,67 +48,53 @@ as the most important files and the capabilities the extension might use.
 }
 ```
 
-### Toolbar icon {: #icons }
+### 工具栏图标{: #icons }
 
-Extensions must have an icon that sits in the browser toolbar. Toolbar icons allow easy access and
-keep users aware of which extensions are installed. Most users will interact with an extension that
-uses a [popup][docs-popup] by clicking the icon, like in the [getting started
-example][sample-getting-started].
+扩展程序必须有一个位于浏览器工具栏中的图标。工具栏图标使得用户能够轻松访问并使用户知道安装了哪些扩展程序。大多数用户将通过单击图标与使用 [popup][docs-popup] 的扩展程序进行交互，例如 [快速入门示例][sample-getting-started]。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/ku5Z8MMssgw6MKctpJVI.png", alt="Getting started
 popup", width="187", height="153" %}
-<!-- TODO: Show examples of the MV3 getting started tutorial extensions -->
+<!-- TODO: 展示 MV3 入门教程扩展示例 -->
 
-### Service worker {: #background_script }
+### 服务人员{: #background_script }
 
-The extension service worker is the extension's event handler; it contains listeners for browser
-events that are important to the extension. It lies dormant until an event is fired then performs
-the instructed logic; it is only loaded when it is needed and unloaded when it goes idle. The
-service worker has access to all the [Chrome APIs][section-apis], as long it declares the
-required permissions in the `manifest.json`.
+Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么久可以访问所有 [Chrome API][section-apis]。
 
-See [Manage events with service workers][docs-service-worker] to learn more. 
+请参阅 [使用 Service Workers][docs-service-worker] 了解更多信息。
 
-### Content scripts {: #contentScripts }
+### 内容脚本{: #contentScripts }
 
-Content scripts allow extensions to inject logic into a page in order to read and modify its
-contents. A content script contains JavaScript that executes in the context of a page that has
-been loaded into the browser.
+内容脚本允许扩展程序将逻辑注入页面以读取和修改其内容。内容脚本包含在已加载到浏览器中的页面上下文中执行的 JavaScript。
 
-Content scripts can communicate with their parent extension by exchanging [messages][docs-messages]
-and storing values using the [storage][api-storage] API.
+内容脚本可以通过交换 [messages][docs-messages] 和使用 [storage][api-storage] API 存储值，以与其父扩展程序进行通信。
 
 {% Img src="image/BrQidfK9jaQyIHwdw91aVpkPiib2/466ftDp0EXB4E1XeaGh0.png", alt="Shows a communication
 path between the content script and the parent extension", height="316", width="388" %}
 
-See [Understanding content scripts][docs-content-scripts] to learn more.
+请参阅 [了解内容脚本][docs-content-scripts] 了解更多信息。
 
-### UI elements {: #pages }
+### UI 元素{: #pages }
 
-An extension's user interface should be purposeful and minimal. The UI should customize or enhance
-the browsing experience without distracting from it. 
+扩展程序的用户界面应该是有目的性的，并且尽量小。UI 应该自定义或增强浏览体验而不会分散注意力。
 
-The following is a list of the most common UI examples:
+以下是最常见的 UI 示例列表：
 
-- An [action click][docs-click] event.
-- A [popup][docs-popup].
-- A [context menu][docs-context-menu].
-- An [omnibox][docs-omnibox].
-- A [keyboard shortcut][docs-commands].
-- Desktop [notifications][api-notif].
-- [Text-to-speech][api-tts].
-- A custom UI injected [into a page][docs-content-scripts].
+- [action click][docs-click] 事件。
+- [popup][docs-popup]。
+- [上下文菜单][docs-context-menu]。
+- [omnibox][docs-omnibox]。
+- [键盘快捷键][文档命令]。
+- 桌面 [通知][api-notif]。
+- [文字转语音][api-tts]。
+- 自定义 UI 注入 [页面][docs-content-scripts]。
 
-See [Design the UI of a Chrome extension][docs-ui], to learn more.
+请参阅 [设计 Chrome 扩展程序的 UI][docs-ui]，了解更多信息。
 
-### Options page {: #optionsPage }
+### 选项页面{: #optionsPage }
 
-Just as extensions allow users to customize the Chrome browser, the options page enables
-customization of the extension. Options can be used to enable features and allow users to choose
-what functionality is relevant to their needs.
+正如扩展程序允许用户自定义 Chrome 浏览器一样，选项页面也支持自定义扩展程序。选项页面可用于启用功能并允许用户选择与其需求相关的功能。
 
-Users can access the options page via [direct link][docs-link-options] or in the context menu of the
-extension toolbar. The following is an example of the Google Dictionary extension. 
+用户可以通过 [direct link][docs-link-options] 或在扩展工具栏的上下文菜单中访问选项页面。以下是 Google Dictionary 扩展程序的示例。
 
 {% Columns %}
 
@@ -145,44 +125,37 @@ alt="Context Menu Options page", width="357", height="222" %}
 
 {% endColumns %}
 
-See [Give users options][docs-options] to learn more.
+请参阅 [选项页面][docs-options] 了解更多信息。
 
-### Additional HTML files {: #html-files}
+### 其他 HTML 文件{: #html-files}
 
-You can display other HTML files present in the extension that are not declared in the manifest.
-These HTML files can access the same [Chrome APIs][section-apis] as the popup or other extension
-files. 
+您可以展示未在清单中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
 
-You can open these pages using the web api [window.open()][mdn-window-open], the Chrome APIs
-[windows.create()][api-window-create], or [tabs.create()][api-create-tab].
+您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
 
-## Extension files {: #files }
+## 扩展程序文件{: #files }
 
-### Referencing extension files {: #ref-files }
+### 引用扩展程序文件{: #ref-files }
 
-Just as HTML pages on the web can include files on the same site with _relative URLs_, **extension
-pages** can also reference extension assets using relative paths.
+就像 Web 上的 HTML 页面可以包含具有相对 URL 的同一站点上的文件一样，扩展程序页面也可以使用相对路径引用扩展资源。
 
 ```html
 <img src="images/my_image.png">
 ```
 
-To access an extension file from a **content script**, you can call
-[`chrome.runtime.getURL()`][api-get-url] to get the _absolute URL_ of your extension asset.
+要从**内容脚本**访问扩展程序文件，您可以调用 [`chrome.runtime.getURL()`][api-get-url] 来获取扩展程序的绝对 URL。
 
 ``` js
 let image = chrome.runtime.getURL("images/my_image.png")
 ```
 
-To access an extension file from a **website**, you will have to construct the URL as follows:
+要从 **网站** 访问扩展文件，您必须按如下方式构建 URL：
 
 ```text
 chrome-extension://EXTENSION_ID/RELATIVE_PATH
 ```
 
-You can find the <code><var>EXTENSION_ID</var></code> in the Extension management page
-**chrome://extensions**. The <code><var>RELATIVE_PATH</var></code> is the file path relative to the
-extension's top folder.
+您可以在扩展管理页面 **chrome://extensions** 中找到 `<code><var>EXTENSION_ID</var></code>`。 `<code><var>RELATIVE_PATH</var></code>` 是相对于扩展程序的顶部文件夹。
 
 {% Aside 'key-term' %}
 
