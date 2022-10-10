@@ -159,28 +159,23 @@ chrome-extension://EXTENSION_ID/RELATIVE_PATH
 
 {% Aside 'key-term' %}
 
-The **extension ID** is a 32-character alpha string that identifies an extension in the browser and
-on the Chrome Web Store.
+**扩展程序 ID** 是一个 32 个字符的字母字符串，用于标识浏览器和 Chrome 网上应用店中的扩展程序。
 
 {% endAside %}
 
-During development, a new ID is generated when an [_unpacked extension_][docs-unpacked] is loaded,
-unless the `"key"` property is [set in the manifest][docs-key].
+除非 [在清单中设置][docs-key] `"key"` 属性，否则在开发过程中，加载 [_unpacked extension_][docs-unpacked] 时会生成一个新 ID。
 
 {% Aside 'caution' %}
 
-All assets that content scripts and websites want to access must be declared under
-[`web_accessible_resources`][section-web-res] key in the manifest.
+内容脚本和网站想要访问的所有资产必须在清单中的 [`web_accessible_resources`][section-web-res] 键下声明。
 
 {% endAside %}
 
-### Web-accesible resources {: #web-resources }
+### 可通过网络访问的资源{: #web-resources }
 
-Web-accessible resources are files (images, HTML, CSS, Javascript) inside an extension that can be
-accessed by a content script, web pages, or other extensions. 
+Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Javascript），可由内容脚本、网页或其他扩展程序访问。
 
-You can declare which resources are exposed and to what origins in the
-manifest:
+您可以在清单中声明哪些资源被公开以及对应的来源：
 
 ```json
 {
@@ -195,38 +190,30 @@ manifest:
 }
 ```
 
-See [Web-accesible resources][docs-web-acc-res] for usage information.
+请参阅 [Web 可访问资源][docs-web-acc-res] 了解更多信息。
 
-## Using Chrome APIs {: #apis }
+## 使用 Chrome API{: #apis }
 
-In addition to having access to the same [web APIs][mdn-web-apis] as web pages, extensions can also
-use [extension-specific APIs][api-reference] that create tight integration with the browser. For
-example, both extensions and webpages can access the standard [`window.open()`][mdn-window-open]
-method to open a URL, but extensions can specify which window that URL should be displayed in by
-using [chrome.tabs.create()][api-create-tab] instead.
+除了可以访问与网页相同的 [web APIs][mdn-web-apis] 之外，扩展程序还可以使用与浏览器紧密集成的 [extension-specific APIs][api-reference]。 例如，扩展程序和网页都可以访问标准的 [`window.open()`][mdn-window-open] 方法来打开 URL，但扩展程序可以通过使用 [chrome. tabs.create()][api-create-tab] 代替。
 
-For more information, explore the [Chrome API reference docs][api-reference].
+请参阅 [Chrome API 参考文档][api-reference] 了解更多信息。
 
-### Asynchronous vs. synchronous methods {: #async-sync }
+### 异步 vs 同步方法{: #async-sync }
 
-#### Callbacks {: #callbacks }
+#### 回调 {: #callbacks }
 
-Most Chrome API methods are asynchronous: they return immediately without waiting for the operation
-to finish. If an extension needs to know the outcome of an asynchronous operation it can pass a
-callback function into the method. The callback is executed later, potentially much later, after the
-method returns.
+大多数 Chrome API 方法都是异步的：它们会立即返回，而无需等待操作完成。如果扩展程序需要知道异步操作的结果，它可以将回调函数传递给方法。在方法返回之后，回调会稍后执行，但是也可能更晚。
 
-A method is asynchronous when the callback parameter is available in its signature.
+当回调参数在其签名中可用时，方法是异步的。
 
 ```js
 // Signature for an asynchronous method
 chrome.tabs.query(object queryInfo, function callback)
 ```
 
-If the extension needed to navigate the user's currently selected tab to a new URL, it would need to
-get the current tab's ID and then update that tab's address to the new URL.
+如果扩展程序需要将用户当前选择的选项卡导航到新 URL，则需要获取当前选项卡的 ID，然后将该选项卡的地址更新为新 URL。
 
-If the [tabs.query][api-tabs-query] method were synchronous, it may look something like below.
+如果 [tabs.query][api-tabs-query] 方法是同步的，它可能如下所示。
 
 {% Compare 'worse' %}
 ```js
@@ -236,14 +223,13 @@ someOtherFunction();
 ```
 {% CompareCaption %}
 
-This approach will fail because `query()` is **asynchronous**. It returns without waiting for the
-work to complete, and does not return a value.
+这种方法会失败，因为 `query()` 是 **异步方法**：它在不等待工作完成的情况下返回，并且不返回值。
 
 {% endCompareCaption %}
 
 {% endCompare %}
 
-To correctly query a tab and update its URL the extension must use the callback parameter.
+要正确查询选项卡并更新其 URL，扩展程序必须使用回调参数。
 
 {% Compare 'better' %}
 ```js
@@ -255,17 +241,11 @@ someOtherFunction();
 
 {% endCompare %}
 
-In the above code, the lines are executed in the following order: 1, 4, 2. The callback function
-specified to `query()` is called and then executes line 2, but only after information about the
-currently selected tab is available. This happens sometime after `query()` returns. Although
-`update()` is asynchronous the code doesn't use a callback parameter, since the extension doesn't do
-anything with the results of the update.
+在上面的代码中，这些行按以下顺序执行：1、4、2。首先调用指定给 `query()` 的回调函数，然后只有在有关当前选定选项卡的信息可用之后，才会执行第 2 行。这会在 `query()` 返回后的某个时间发生。 尽管 `update()` 是异步的，但代码不使用回调参数，因为扩展程序不会对更新结果做任何事情。
 
-#### Promises {: #async }
+#### 期约{: #async }
 
-With the introduction of Manifest V3, many extension API methods now return promises. Not all
-methods in extensions APIs support promises. You can verify whether a method supports promises by
-checking its API reference page.
+随着 Manifest V3 的引入，许多扩展程序的 API 都开始返回 Promise，但是并非扩展程序 API 中的所有方法都支持 Promise。您可以通过检查其 API 参考页面来验证方法是否支持 Promise。
 
 ```js
 // Promise
@@ -283,52 +263,40 @@ async function queryTab() {
 }
 ```
 
-See [Using promises][docs-promises] to learn more.
+请参阅 [使用 Promise][api-reference] 了解更多信息。
 
-#### Synchronous methods {: #sync }
+#### 同步方法{: #sync }
 
 ```js
 // Synchronous methods have no callback
 const imgUrl = chrome.runtime.getURL("images/icon.png")
 ```
 
-This method synchronously returns the URL as a `string` and performs no other asynchronous work.
+此方法将 URL 作为“字符串”同步返回，并且不执行其他异步工作。
 
-## Communication between pages {: #pageComm }
+## 页面间通信{: #pageComm }
 
-Different components in an extension can communicate with each other using [message
-passing][docs-messages]. Either side can listen for messages sent from the other end, and respond on
-the same channel. 
+扩展程序中的不同组件可以使用 [消息传递][docs-messages] 相互通信。任何一方都可以侦听从另一端发送的消息，并在同一通道上响应。
 
-## Saving data {: #data}
+## 数据保存{: #data}
 
-The chrome storage API has been optimized to meet the specific storage needs of extensions. For
-example, whenever data is updated, you can use the `onChanged()` event to track these changes. All
-extension components have access to this API. An extension can also store data using the web API
-[indexedDB][mdn-indexeddb].
+Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储需求。例如，每当数据更新时，您都可以使用 `onChanged()` 事件来跟踪这些更改。所有扩展程序组件都可以访问此 API。扩展程序还可以使用 Web API [indexedDB][mdn-indexeddb] 存储数据。
 
-See [storage API][api-storage] for usage and examples.
+请参阅 [storage API][api-reference] 了解更多信息。
 
-## Incognito mode {: #incognito}
+## 隐身模式{: #incognito}
 
-Extensions don't run in incognito windows unless the user manually allows it in the extension's
-settings page. By default, normal and incognito windows run in a single shared process. However,
-extensions can run incognito windows in their own separate process or not support incognito windows
-at all. You can specify this behavior in the ["incognito"][manifest-incognito] key in the manifest.
+除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在清单中的 ["incognito"][manifest-incognito] 键中指定此行为。
 
-See [Saving data in incognito mode][incognito-data] to understand how to protect user privacy.
+请参阅 [隐身模式保存数据][incognito-data] 了解更多信息。
 
-## Take the next step {: #next-steps }
+## 下一步{: #next-steps }
 
-After reading the overview and completing the [Getting started][docs-get-started] tutorial, you
-should be ready to start writing your own extensions! Dive deeper into the world of custom Chrome
-with the following resources:
+阅读概述并完成 [入门][docs-get-started] 教程后，您应该准备好开始编写自己的扩展程序了！使用以下资源深入了解自定义 Chrome 的世界：
 
-- Learn how to debug Extensions in the [debugging tutorial][docs-debugging].
-- Chrome Extensions have access to powerful APIs above and beyond what's available on the open web.
-  The [chrome APIs documentation][api-reference] will walk through each API.
-- The [developer's guide][docs-dev-guide] has dozens of additional links to pieces of documentation
-  relevant to advanced extension creation.
+- 在 [调试教程][docs-debugging] 中了解如何调试扩展程序。
+- Chrome 扩展程序可以访问强大的 API，这些 API 超出了开放网络上可用的 API。[Chrome APIs 文档][api-reference] 将介绍每个 API。
+- [开发人员指南][docs-dev-guide] 有几十个附加链接，指向与创建高级扩展程序相关的文档。
 
 [api-action]: /docs/extensions/reference/action/
 [api-create-tab]: /docs/extensions/reference/tabs#method-create
