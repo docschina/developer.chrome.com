@@ -13,17 +13,17 @@ subhead: Chrome 扩展程序的软件架构的高级解释。
 
 ## 架构 {: #arch }
 
-扩展程序的架构将取决于其功能，但所有扩展都必须包含 [清单][部分清单] 中所包含的内容。扩展程序可以包含的其他组件如下：
+扩展程序的架构将取决于其功能，但所有扩展都必须包含 [manifest][section-manifest] 中所包含的内容。扩展程序可以包含的其他组件如下：
 
-- [服务人员][section-bg]
+- [Service worker][section-bg]
 - [工具栏图标][section-icons]
 - [UI 元素][section-ui]
 - [内容脚本][section-cs]
 - [选项页面][section-options]
 
-### 清单{: #manifest }
+### Manifest {: #manifest }
 
-名为 `manifest.json` 的清单文件为浏览器提供了有关扩展的信息，例如哪些文件是最重要的文件和扩展可能使用的功能。
+名为 `manifest.json` 的清单文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
 
 ```json
 {
