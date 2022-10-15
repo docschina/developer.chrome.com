@@ -3,8 +3,8 @@ layout: "layouts/doc-post.njk"
 title: "架构概述"
 date: 2012-09-18
 updated: 2022-05-13
-description: Chrome 扩展程序的软件架构的高级解释。
-subhead: Chrome 扩展程序的软件架构的高级解释。
+description: Chrome 扩展程序的软件架构的高水平解释。
+subhead: Chrome 扩展程序的软件架构的高水平解释。
 ---
 
 扩展程序是 HTML、CSS、JavaScript、图像和 Web 平台中使用的其他文件的压缩包。扩展程序可以修改用户看到并与之交互的 Web 内容。扩展程序还可以扩展和更改浏览器本身的行为。
@@ -23,7 +23,7 @@ subhead: Chrome 扩展程序的软件架构的高级解释。
 
 ### Manifest {: #manifest }
 
-名为 `manifest.json` 的清单文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
+名为 `manifest.json` 的文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
 
 ```json
 {
@@ -56,11 +56,11 @@ subhead: Chrome 扩展程序的软件架构的高级解释。
 popup", width="187", height="153" %}
 <!-- TODO: 展示 MV3 入门教程扩展示例 -->
 
-### 服务人员{: #background_script }
+### Service worker {: #background_script }
 
 Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么久可以访问所有 [Chrome API][section-apis]。
 
-请参阅 [使用 Service Workers][docs-service-worker] 了解更多信息。
+请参阅 [使用 Service Workers 处理事件][docs-service-worker] 了解更多信息。
 
 ### 内容脚本{: #contentScripts }
 
@@ -81,12 +81,12 @@ path between the content script and the parent extension", height="316", width="
 
 - [action click][docs-click] 事件。
 - [popup][docs-popup]。
-- [上下文菜单][docs-context-menu]。
+- [context menu][docs-context-menu]。
 - [omnibox][docs-omnibox]。
-- [键盘快捷键][文档命令]。
-- 桌面 [通知][api-notif]。
-- [文字转语音][api-tts]。
-- 自定义 UI 注入 [页面][docs-content-scripts]。
+- [keyboard shortcut][文档命令]。
+- Desktop [notifications][api-notif].
+- [Text-to-speech][api-tts]。
+- A custom UI injected [into a page][docs-content-scripts].
 
 请参阅 [设计 Chrome 扩展程序的 UI][docs-ui]，了解更多信息。
 
@@ -129,7 +129,7 @@ alt="Context Menu Options page", width="357", height="222" %}
 
 ### 其他 HTML 文件{: #html-files}
 
-您可以展示未在清单中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
+您可以展示未在 Manifest 中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
 
 您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
 
@@ -155,7 +155,7 @@ let image = chrome.runtime.getURL("images/my_image.png")
 chrome-extension://EXTENSION_ID/RELATIVE_PATH
 ```
 
-您可以在扩展管理页面 **chrome://extensions** 中找到 `<code><var>EXTENSION_ID</var></code>`。 `<code><var>RELATIVE_PATH</var></code>` 是相对于扩展程序的顶部文件夹。
+您可以在扩展管理页面 **chrome://extensions** 中找到 <code><var>EXTENSION_ID</var></code>。<code><var>RELATIVE_PATH</var></code> 是相对于扩展程序的顶部文件夹。
 
 {% Aside 'key-term' %}
 
@@ -163,11 +163,11 @@ chrome-extension://EXTENSION_ID/RELATIVE_PATH
 
 {% endAside %}
 
-除非 [在清单中设置][docs-key] `"key"` 属性，否则在开发过程中，加载 [_unpacked extension_][docs-unpacked] 时会生成一个新 ID。
+除非 [在 Manifest 中设置][docs-key] `"key"` 属性，否则在开发过程中，加载 [_unpacked extension_][docs-unpacked] 时会生成一个新 ID。
 
 {% Aside 'caution' %}
 
-内容脚本和网站想要访问的所有资产必须在清单中的 [`web_accessible_resources`][section-web-res] 键下声明。
+内容脚本和网站想要访问的所有资产必须在 Manifest 中的 [`web_accessible_resources`][section-web-res] 键下声明。
 
 {% endAside %}
 
@@ -175,7 +175,7 @@ chrome-extension://EXTENSION_ID/RELATIVE_PATH
 
 Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Javascript），可由内容脚本、网页或其他扩展程序访问。
 
-您可以在清单中声明哪些资源被公开以及对应的来源：
+您可以在 Manifest 中声明哪些资源被公开以及对应的来源：
 
 ```json
 {
@@ -286,7 +286,7 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 
 ## 隐身模式{: #incognito}
 
-除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在清单中的 ["incognito"][manifest-incognito] 键中指定此行为。
+除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在 Manifest 中的 ["incognito"][manifest-incognito] 键中指定此行为。
 
 请参阅 [隐身模式保存数据][incognito-data] 了解更多信息。
 
