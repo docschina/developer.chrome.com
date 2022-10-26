@@ -109,16 +109,8 @@ Chrome 扩展程序的开发会持续使用和扩展 web 构建技术。这有�
 
 一些初步举措已经发布：
 
-<<<<<<< HEAD
-- 修改扩展程序的本机访问权限的功能（请参阅 [默认情况下值得信赖的 Chrome 扩展程序](https://blog.chromium.org/2018/10/trustworthy-chrome-extensions.html)）。
-=======
-* The ability to modify an extension's host access (see [Trustworthy Chrome Extensions,
-  by Default](https://blog.chromium.org/2018/10/trustworthy-chrome-extensions-by-default.html)).
-* Moving extensions out of the right-click menu and into a button on the extensions menu
-  (see [A new home for your extensions](https://blog.google/products/chrome/more-intuitive-privacy-and-security-controls-chrome/#:~:text=A%20new%20home%20for%20your%20extensions)).
->>>>>>> 2ce24713a9287b3286523ded688fdafcb82e0011
-
-- 将扩展程序移出右键单击菜单，转移到扩展程序菜单上的按钮（请参阅[扩展程序的新位置](https://blog.google/products/chrome/more-直观-隐私-和安全-控制-chrome/)）。
+- 修改扩展程序的本机访问权限的功能（请参阅 [默认情况下值得信赖的 Chrome 扩展程序](https://blog.chromium.org/2018/10/trustworthy-chrome-extensions-by-default.html)）。
+- 将扩展程序移出右键单击菜单，转移到扩展程序菜单上的按钮（请参阅 [扩展程序的新位置](https://blog.google/products/chrome/more-intuitive-privacy-and-security-controls-chrome/#:~:text=A%20new%20home%20for%20your%20extensions) ）。
 
 ### 未来相关变化
 
