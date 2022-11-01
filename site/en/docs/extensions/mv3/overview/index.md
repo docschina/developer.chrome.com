@@ -151,7 +151,7 @@ Chrome 网络商店上的扩展程序必须遵守 [Chrome Web 商店政策][cws-
 [crx-group]: http://groups.google.com/a/chromium.org/group/chromium-extensions
 [cws]: https://chrome.google.com/webstore
 [cws-docs]: /docs/webstore
-[cws-policies]: /docs/webstore/program_policies/
+[cws-policies]: /docs/webstore/program-policies/
 [cws-publish]: /docs/webstore/publish/
 [devmode]: /docs/extensions/mv3/getstarted/#manifest
 [dev-dashboard]: https://chrome.google.com/webstore/devconsole
