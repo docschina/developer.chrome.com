@@ -58,9 +58,21 @@ popup", width="187", height="153" %}
 
 ### Service worker {: #background_script }
 
+<<<<<<< HEAD
 Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么久可以访问所有 [Chrome API][section-apis]。
 
 请参阅 [使用 Service Workers 处理事件][docs-service-worker] 了解更多信息。
+=======
+The extension service worker is the extension's event handler; it contains listeners for browser
+events that are important to the extension. It lies dormant until an event is fired then performs
+the instructed logic; it is only loaded when it is needed and unloaded when it goes idle. The
+service worker has access to all the [Chrome APIs][section-apis], as long as it declares the
+required permissions in the `manifest.json`.
+
+An extension can only have a single service worker. To import further code, the service worker can be declared as an [ES Module][webdev-imports] by specifying `"type": "module"` in the manifest `"background"`.
+
+See [Manage events with service workers][docs-service-worker] to learn more. 
+>>>>>>> bf5c07f515179c38151e7d0bbc7a7fc82662175a
 
 ### 内容脚本{: #contentScripts }
 
@@ -129,7 +141,11 @@ alt="Context Menu Options page", width="357", height="222" %}
 
 ### 其他 HTML 文件{: #html-files}
 
+<<<<<<< HEAD
 您可以展示未在 Manifest 中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
+=======
+An extension can also have other HTML files that are not declared in the manifest. All extension HTML files can access the [Chrome APIs][section-apis] and can use script tags including Javascript files, but cannot declare inline JavaScript.
+>>>>>>> bf5c07f515179c38151e7d0bbc7a7fc82662175a
 
 您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
 
@@ -329,11 +345,12 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 [docs-ui]: /docs/extensions/mv3/user_interface
 [docs-unpacked]: /docs/extensions/mv3/getstarted/#unpacked
 [docs-web-acc-res]: /docs/extensions/mv3/manifest/web_accessible_resources/
-[mdn-web-apis]: https://developer.mozilla.org/docs/Web/API
+[incognito-data]: /docs/extensions/mv3/user_privacy/#data-incognito
+[manifest-incognito]: /docs/extensions/mv3/manifest/incognito/
 [mdn-indexeddb]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+[mdn-web-apis]: https://developer.mozilla.org/docs/Web/API
 [mdn-window-open]: https://developer.mozilla.org/docs/Web/API/Window/open
-[sample-getting-started]:
-    https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials/getting-started
+[sample-getting-started]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials/getting-started
 [section-apis]: #apis
 [section-bg]: #background_script
 [section-cs]: #contentScripts
@@ -342,5 +359,4 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 [section-options]: #optionsPage
 [section-ui]: #pages
 [section-web-res]: #web-resources
-[incognito-data]: /docs/extensions/mv3/user_privacy/#data-incognito
-[manifest-incognito]: /docs/extensions/mv3/manifest/incognito/
+[webdev-imports]: https://web.dev/es-modules-in-sw/#static-imports-only
