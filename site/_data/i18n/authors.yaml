@@ -368,6 +368,11 @@ afuchs:
     en: 'Andy Fuchs'
   description:
     en: 'Technical Writer, Chrome Extensions'
+patrickbrosset:
+  title:
+    en: 'Patrick Brosset'
+  description:
+    en: 'Our latest news, updates, and stories by Patrick Brosset'
 dotproto:
   title:
     en: 'Simeon Vincent'
@@ -1147,3 +1152,13 @@ chrisdavidmills:
     en: 'Chris Mills'
   description:
     en: 'Independent tech writer specializing in web platform docs.'
+leeronisrael:
+  title:
+    en: 'Leeron Israel'
+  description:
+    en: 'Product Manager, Privacy Sandbox'
+joeytrotz:
+  title:
+    en: 'Joey Trotz'
+  description:
+    en: 'Director of Product Management, Privacy Sandbox'
