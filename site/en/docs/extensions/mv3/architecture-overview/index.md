@@ -2,9 +2,15 @@
 layout: "layouts/doc-post.njk"
 title: "架构概述"
 date: 2012-09-18
+<<<<<<< HEAD
 updated: 2022-05-13
 description: Chrome 扩展程序的软件架构的高水平解释。
 subhead: Chrome 扩展程序的软件架构的高水平解释。
+=======
+updated: 2022-11-02
+description: A high-level explanation of the software architecture of Chrome Extensions.
+subhead: A high-level explanation of the components and structure of a Chrome Extension.
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 ---
 
 扩展程序是 HTML、CSS、JavaScript、图像和 Web 平台中使用的其他文件的压缩包。扩展程序可以修改用户看到并与之交互的 Web 内容。扩展程序还可以扩展和更改浏览器本身的行为。
@@ -23,7 +29,12 @@ subhead: Chrome 扩展程序的软件架构的高水平解释。
 
 ### Manifest {: #manifest }
 
+<<<<<<< HEAD
 名为 `manifest.json` 的文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
+=======
+The manifest file, titled `manifest.json`, gives the browser information about the extension, such
+as the most important files and the capabilities the extension might use. 
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 ```json
 {
@@ -58,9 +69,21 @@ popup", width="187", height="153" %}
 
 ### Service worker {: #background_script }
 
+<<<<<<< HEAD
 Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么久可以访问所有 [Chrome API][section-apis]。
 
 请参阅 [使用 Service Workers 处理事件][docs-service-worker] 了解更多信息。
+=======
+The extension service worker is the extension's event handler; it contains listeners for browser
+events that are important to the extension. It lies dormant until an event is fired then performs
+the instructed logic; it is only loaded when it is needed and unloaded when it goes idle. The
+service worker has access to all the [Chrome APIs][section-apis], as long as it declares the
+required permissions in the `manifest.json`.
+
+An extension can only have a single service worker. To import further code, the service worker can be declared as an [ES Module][webdev-imports] by specifying `"type": "module"` in the manifest `"background"`.
+
+See [Manage events with service workers][docs-service-worker] to learn more. 
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 ### 内容脚本{: #contentScripts }
 
@@ -129,7 +152,11 @@ alt="Context Menu Options page", width="357", height="222" %}
 
 ### 其他 HTML 文件{: #html-files}
 
+<<<<<<< HEAD
 您可以展示未在 Manifest 中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
+=======
+An extension can also have other HTML files that are not declared in the manifest. All extension HTML files can access the [Chrome APIs][section-apis] and can use script tags including Javascript files, but cannot declare inline JavaScript.
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
 
@@ -198,6 +225,7 @@ Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Jav
 
 请参阅 [Chrome API 参考文档][api-reference] 了解更多信息。
 
+<<<<<<< HEAD
 ### 异步 vs 同步方法{: #async-sync }
 
 #### 回调 {: #callbacks }
@@ -205,12 +233,32 @@ Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Jav
 大多数 Chrome API 方法都是异步的：它们会立即返回，而无需等待操作完成。如果扩展程序需要知道异步操作的结果，它可以将回调函数传递给方法。在方法返回之后，回调会稍后执行，但是也可能更晚。
 
 当回调参数在其签名中可用时，方法是异步的。
+=======
+### Asynchronous methods {: #async-sync }
+
+Most Chrome API methods are asynchronous; they return immediately without waiting for the operation to finish. If an extension needs to know the outcome of an asynchronous operation, there are two choices:
+
+* Use the returned promise.
+* Pass a callback function into the method.
+
+Note that these choices are mutually exclusive. If you pass a callback to a method, no promise
+will be returned. If you use the returned promise, do not pass a callback.
+
+Generally, you should prefer promises to callbacks. Not all methods in extensions APIs support
+promises, but newer methods do. You can verify whether a method supports promises by checking
+its API reference page. If you need to support both promises and callbacks for the same
+function (because your users have older browsers), you can test whether the method returns a
+promise using `typeof` and
+[optional chaining](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining).
+For example:
+
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 ```js
-// Signature for an asynchronous method
-chrome.tabs.query(object queryInfo, function callback)
+typeof chrome.contextMenus.removeAll()?.then()
 ```
 
+<<<<<<< HEAD
 如果扩展程序需要将用户当前选择的选项卡导航到新 URL，则需要获取当前选项卡的 ID，然后将该选项卡的地址更新为新 URL。
 
 如果 [tabs.query][api-tabs-query] 方法是同步的，它可能如下所示。
@@ -246,6 +294,12 @@ someOtherFunction();
 #### 期约{: #async }
 
 随着 Manifest V3 的引入，许多扩展程序的 API 都开始返回 Promise，但是并非扩展程序 API 中的所有方法都支持 Promise。您可以通过检查其 API 参考页面来验证方法是否支持 Promise。
+=======
+#### Promises {: #async }
+
+Both methods of handling promises are supported. See [Using promises][docs-promises] to learn
+more.
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 ```js
 // Promise
@@ -263,18 +317,28 @@ async function queryTab() {
 }
 ```
 
+<<<<<<< HEAD
 请参阅 [使用 Promise][api-reference] 了解更多信息。
 
 #### 同步方法{: #sync }
+=======
+#### Callbacks {: #callbacks }
+
+A method is asynchronous when the callback parameter is available in its signature.
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 ```js
-// Synchronous methods have no callback
-const imgUrl = chrome.runtime.getURL("images/icon.png")
+// Signatures for an asynchronous method
+chrome.tabs.query(object queryInfo, function callback)
 ```
 
+<<<<<<< HEAD
 此方法将 URL 作为“字符串”同步返回，并且不执行其他异步工作。
 
 ## 页面间通信{: #pageComm }
+=======
+## Communication between pages {: #pageComm }
+>>>>>>> ebf446ac2d2ea47f4e7a63499d49914df957b01c
 
 扩展程序中的不同组件可以使用 [消息传递][docs-messages] 相互通信。任何一方都可以侦听从另一端发送的消息，并在同一通道上响应。
 
@@ -329,11 +393,12 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 [docs-ui]: /docs/extensions/mv3/user_interface
 [docs-unpacked]: /docs/extensions/mv3/getstarted/#unpacked
 [docs-web-acc-res]: /docs/extensions/mv3/manifest/web_accessible_resources/
+[incognito-data]: /docs/extensions/mv3/user_privacy/#data-incognito
+[manifest-incognito]: /docs/extensions/mv3/manifest/incognito/
+[mdn-indexeddb]: https://developer.mozilla.org/docs/Web/API/IndexedDB_API
 [mdn-web-apis]: https://developer.mozilla.org/docs/Web/API
-[mdn-indexeddb]: https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
 [mdn-window-open]: https://developer.mozilla.org/docs/Web/API/Window/open
-[sample-getting-started]:
-    https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials/getting-started
+[sample-getting-started]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials/getting-started
 [section-apis]: #apis
 [section-bg]: #background_script
 [section-cs]: #contentScripts
@@ -342,5 +407,4 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 [section-options]: #optionsPage
 [section-ui]: #pages
 [section-web-res]: #web-resources
-[incognito-data]: /docs/extensions/mv3/user_privacy/#data-incognito
-[manifest-incognito]: /docs/extensions/mv3/manifest/incognito/
+[webdev-imports]: https://web.dev/es-modules-in-sw/#static-imports-only
