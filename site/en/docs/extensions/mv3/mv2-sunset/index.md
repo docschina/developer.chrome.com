@@ -4,7 +4,12 @@ subhead: '解 Manifest V2 何时停止插件扩展'
 description: 'Manifest V2的淘汰和寿命结束的细节。'
 layout: 'layouts/doc-post.njk'
 date: 2021-09-23
+<<<<<<< HEAD
 updated: 2022-09-28
+=======
+updated: 2022-11-30
+
+>>>>>>> 1a97391c6e7fb037ef4d8d0d6e2b0a40606a9e72
 ---
 
 随着 Manifest V3 与 Manifest V2 接近全功能对等，我们将逐步淘汰 Manifest V2。该页指定了弃用时间表并描述了过程中所有的里程碑的含义。
@@ -83,7 +88,11 @@ updated: 2022-09-28
     </td>
     <td>
       <ul>
+<<<<<<< HEAD
         <li>Manifest V2 企业策略过期</li>
+=======
+        <li>Manifest V2 enterprise policy expires. This means Chrome will stop running Manifest V2 extensions, even ones installed using <code>ExtensionInstallForcelist</code>.</li>
+>>>>>>> 1a97391c6e7fb037ef4d8d0d6e2b0a40606a9e72
       </ul>
     </td>
   </tr>
