@@ -1,6 +1,7 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "Manifest - Key"
+seoTitle: "Chrome Extensions Manifest: Key"
 date: 2013-05-12
 updated: 2018-04-26
 description: Reference documentation for the key property of manifest.json.
@@ -19,5 +20,5 @@ key value filled in there.
 [1]: /docs/extensions/mv3/overview#relative-urls
 [2]: /docs/extensions/extension#method-getURL
 [3]: https://chrome.google.com/webstore/developer/dashboard
-[4]: /docs/extensions/packaging
+[4]: /docs/extensions/mv3/hosting
 [5]: https://www.chromium.org/user-experience/user-data-directory
