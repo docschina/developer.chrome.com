@@ -1,6 +1,11 @@
 ---
 layout: "layouts/doc-post.njk"
+<<<<<<< HEAD
 title: "托管扩展程序"
+=======
+title: "Extension hosting"
+seoTitle: "Chrome Extension hosting"
+>>>>>>> 913ddd4bf5aa042d9ec603ecb41e5c3d63eaed14
 date: 2012-09-18
 updated: 2021-12-10
 description: 如何托管您的 Chrome 扩展程序。

@@ -1,10 +1,19 @@
 ---
 layout: 'layouts/doc-post.njk'
+<<<<<<< HEAD
 title: '欢迎'
 subhead: '欢迎开始阅读入门指导。'
 description: '欢迎开始阅读入门指导。'
+=======
+title: 'Welcome'
+seoTitle: 'Chrome Extensions getting started guides '
+subhead: 'Welcome to the Getting Started Guides.'
+description: 'Overview of all Chrome Extensions getting started guides.'
+>>>>>>> 913ddd4bf5aa042d9ec603ecb41e5c3d63eaed14
 date: 2022-10-04
 # updated: 2022-06-13
+anchorRedirects:
+  unpacked: /docs/extensions/mv3/getstarted/development-basics/#load-unpacked
 ---
 
 欢迎阅读入门指南！本文的目的是描述每篇文章内容以及如何分享您的反馈。
