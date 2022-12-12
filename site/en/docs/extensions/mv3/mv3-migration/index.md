@@ -1,6 +1,7 @@
 ---
 layout: 'layouts/doc-post.njk'
 title: Migrating to Manifest V3
+seoTitle: "Chrome Extensions: Migrating to Manifest V3"
 subhead: 'Getting you headed in the right direction.'
 description: 'A high-level guide to how you can migrate your Manifest V2 extensions to Manifest V3.'
 date: 2020-11-09
@@ -111,6 +112,11 @@ to import further code.
 ```
 
 {% endColumns %}
+
+Multiple background scripts are not supported in Manifest V3 and only 
+one `service_worker` can be specified. You can optionally declare the service 
+worker as an [ES Module][webdev-esm] by specifying `"type": "module"`, which 
+allows you to import further code.
 
 ### Host permissions  {: #host-permissions }
 
