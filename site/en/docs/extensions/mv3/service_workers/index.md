@@ -1,9 +1,10 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "Manage events with service workers"
+seoTitle: "Chrome Extensions: Manage events with service workers"
 date: 2012-09-17
 updated: 2018-05-01
-description: How to respond to browser triggers (events) from a Chrome Extension background script.
+description: How to respond to browser triggers (events) from a Chrome Extension service worker.
 ---
 
 Extensions are event-based programs used to modify or enhance the Chrome browsing experience. Events
@@ -32,9 +33,9 @@ loaded.
 Effective background scripts stay dormant until an event they are listening for fires, react with
 specified instructions, then unload.
 
-## Register background scripts {: #manifest }
+## Register the service worker {: #manifest }
 
-Extensions register their background service workers in the [manifest][3] under the `"background"`
+Extensions register their service worker in the [manifest][3] under the `"background"`
 field. This field uses the `"service_worker"` key, which specifies a single JavaScript file.
 
 ```json/3-6
@@ -47,12 +48,6 @@ field. This field uses the `"service_worker"` key, which specifies a single Java
   ...
 }
 ```
-
-{% Aside %}
-
-The script used for `"service_worker"` must be located in your extension's root directory.
-
-{% endAside %}
 
 You can optionally specify an extra field of `"type": "module"` to include the service worker as an
 ES Module, which allows you to `import` further code. See [ES modules in service workers][sw-module]
@@ -188,6 +183,6 @@ Unlike [event pages in Manifest V2][event-page-unload], extension service worker
 
 [doc-sw-migration]: /docs/extensions/mv3/migrating_to_service_workers
 [event-page-unload]: https://developer.chrome.com/docs/extensions/mv2/background_pages/
-[mdn-beforeunload]: https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
-[mdn-unload]: https://developer.mozilla.org/en-US/docs/Web/API/Window/unload_event
+[mdn-beforeunload]: https://developer.mozilla.org/docs/Web/API/Window/beforeunload_event
+[mdn-unload]: https://developer.mozilla.org/docs/Web/API/Window/unload_event
 [sw-module]: https://web.dev/es-modules-in-sw/
