@@ -666,7 +666,7 @@ Data][docs-dpp-limited-use] policy for additional information.
 
 ### How can you rectify this? {: #how-can-you-rectify-this_11 }
 
-- Prominently disclose to `the user what data is being collected and how it will be handled. This
+- Prominently disclose to the user what data is being collected and how it will be handled. This
   information must be provided in the extension's Privacy Policy and may be provided elsewhere.
 - Ensure data is collected only if the user consents to it.
     - Prominent disclosure of data collection in the extension's Chrome Web Store listing is
@@ -1165,7 +1165,7 @@ Code Readability Requirements:
 [api-tabs-query]: /docs/extensions/reference/tabs/#method-query
 [api-tabs-sendmessage]: /docs/extensions/reference/tabs/#method-sendMessage
 [api-tabs]: /docs/extensions/reference/tabs
-[blog-lie-fi]: https://developers.google.com/web/fundamentals/performance/poor-connectivity#lie-fi
+[blog-lie-fi]: https://web.dev/performance-poor-connectivity/#lie-fi
 [dev-support]: https://support.google.com/chrome_webstore/contact/one_stop_support
 [docs-dpp-api-use]: /docs/webstore/program-policies/api-use/
 [docs-dpp-bullying]: /docs/webstore/program-policies/hate-and-violence/
