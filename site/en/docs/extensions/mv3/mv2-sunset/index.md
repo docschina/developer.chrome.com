@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: Manifest V2 停止支持的时间线
 subhead: '解 Manifest V2 何时停止插件扩展'
 description: 'Manifest V2的淘汰和寿命结束的细节。'
@@ -16,6 +17,34 @@ updated: 2022-09-28
 
 {% Aside %}
 随着 Manifest V2 的淘汰，可在此页面查看期间的任何更新和更具体的日期。
+=======
+title: Manifest V2 support timeline
+seoTitle: "Chrome Extensions Manifest V2 support timeline"
+subhead: 'Understand when Manifest V2 will stop working for extensions'
+description: 'Details of the Manifest V2 phase-out and end of life.'
+layout: 'layouts/doc-post.njk'
+date: 2021-09-23
+updated: 2022-12-13
+---
+
+{% Aside %}
+
+**December 9, 2022:** The Manifest V2 deprecation timelines are under review and the experiments scheduled for early 2023 are being postponed. For more information, [read the update](https://groups.google.com/u/1/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E) in the chromium-extensions Google Group.
+
+{% endAside %}
+
+As Manifest V3 approaches full feature parity with Manifest V2, we'll be progressively phasing out Manifest V2. This page specifies the timetable for this deprecation and describes the meaning of each milestone.
+
+<figure data-size="full">
+  {% Img src="image/WlD8wC6g8khYWPJUsQceQkhXSlv1/txfDeyLhratHCO1P3wvc.jpg", alt="Summary of the Manifest V2 support timeline.", width="800", height="263", class="screenshot" %}
+  <figcaption>Summary of the Manifest V2 support timeline.</figcaption>
+</figure>
+
+{% Aside %}
+
+Check this page for any updates and for more specific dates as these milestones get closer.
+
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
 {% endAside %}
 
 <table>
@@ -28,10 +57,20 @@ updated: 2022-09-28
     </td>
   </tr>
   <tr align="left" valign="top">
+<<<<<<< HEAD
     <td><strong>2022 年 1 月 17日</strong>
     </td>
     <td><ul>
      <li>现有 Manifest V2 扩展不能再从“私有”更改为“公开”或“未列出”</li></ul>
+=======
+    <td><strong>January&nbsp;17,&nbsp;2022</strong>
+    </td>
+    <td>
+      <ul>
+        <li>Existing Manifest V2 extensions can no longer be changed from "Private" to "Public" or "Unlisted".</li>
+        <li>Chrome Web Store stops accepting new Manifest V2 extensions with visibility set to "Public" or "Unlisted".</li>
+      </ul>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
     </td>
     <td><i>没有变更</i>
     </td>
@@ -40,15 +79,23 @@ updated: 2022-09-28
     <td><strong>2022 年 6 月</strong>
     </td>
     <td><ul>
+<<<<<<< HEAD
       <li>Chrome Web Store 停止接受新的 Manifest V2 扩展程序将可见范围设置为“公开”或者“未列出”</li>
+=======
+      <li>Chrome Web Store stops accepting new Manifest V2 extensions with visibility set to "Private".</li>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
       </ul>
     </td>
     <td><i>没有变更</i>
     </td>
   </tr>
   <tr align="left" valign="top">
+<<<<<<< HEAD
     <td><strong>2023 年 1 月</strong>
     </td>
+=======
+    <td><s><strong>January&nbsp;2023</strong></s><br><a href="https://groups.google.com/u/1/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E">Postponed</a></td>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
     <td><ul>
       <li>Manifest V3 将会称为 <a href="https://blog.google/products/chrome/find-great-extensions-new-chrome-web-store-badges/">特色徽章</a> 的先决条件。</li></ul>
     </td>
@@ -56,25 +103,41 @@ updated: 2022-09-28
       <li>企业策略可以让 Manifest V2 扩展可以在
       <a href="https://support.google.com/chrome/a/answer/9296680?hl=en">组织内</a>的Chrome部署上运行。
       </li>
+<<<<<<< HEAD
       <li>从 <strong>Chrome 112</strong> 开始， Chrome 可能会运行一些实验来关闭对 Canary、Dev 和 Beta 频道中Manifest V2 扩展的支持。
+=======
+      <li>Chrome may run experiments to turn off support for Manifest V2 extensions in Canary, Dev, and Beta channels.
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
       </li></ul>
     </td>
   </tr>
   <tr align="left" valign="top">
+<<<<<<< HEAD
     <td><strong>2023 年 6 月</strong>
     </td>
+=======
+    <td><s><strong>June&nbsp;2023</strong></s><br>Under review</td>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
     <td>
       <ul>
         <li>此时，可见性设置为“公共”的所有现有 Manifest V2 项目的可见性将更改为“未列出”。</li>
       </ul>
     </td>
     <td><ul>
+<<<<<<< HEAD
       <li>从 6 月份开始 <strong>Chrome 115</strong> 可能会在所有频道（包括稳定 stable 频道）关闭对 Manifest V2 扩展程序的支持。</li></ul>
     </td>
   </tr>
   <tr align="left" valign="top">
     <td><strong>2024 年 1 月</strong>
     </td>
+=======
+      <li>Chrome may run experiments to turn off support for Manifest V2 extensions in all channels, including stable channel.</li></ul>
+    </td>
+  </tr>
+  <tr align="left" valign="top">
+    <td><s><strong>January&nbsp;2024</strong></s><br>Under review</td>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
     <td>
       <ul>
         <li>Chrome Web Store 停止接受现有 Manifest V2 扩展的更新</li>
@@ -83,8 +146,14 @@ updated: 2022-09-28
     </td>
     <td>
       <ul>
+<<<<<<< HEAD
         <li>Manifest V2 企业策略过期</li>
+=======
+        <li>Manifest V2 enterprise policy expires. This means Chrome will stop running Manifest V2 extensions, even ones installed using <code>ExtensionInstallForcelist</code>.</li>
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
       </ul>
     </td>
   </tr>
 </table>
+
+[dec-2022-update]: #TODO

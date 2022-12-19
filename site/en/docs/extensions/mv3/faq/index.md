@@ -1,6 +1,11 @@
 ---
 layout: "layouts/doc-post.njk"
+<<<<<<< HEAD
 title: "常见问题"
+=======
+title: "Frequently asked questions"
+seoTitle: "Chrome Extensions: Frequently asked questions"
+>>>>>>> b92f65f1a1514dd2281f5d3c3d185e26eecce9a8
 date: 2014-02-28
 updated: 2020-11-20
 description: 有关 Chrome 扩展程序的常见问题。
