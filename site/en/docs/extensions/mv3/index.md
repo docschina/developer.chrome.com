@@ -1,5 +1,6 @@
 ---
 layout: 'layouts/doc-post.njk'
+<<<<<<< HEAD
 
 # The page title. This appears at the top of the doc and as the page name
 # in Google Search.
@@ -11,6 +12,11 @@ subhead: '了解如何开发 Chrome 扩展程序。'
 # This appears in the ToC of the project landing page at
 # /docs/[project-name]/. It also appears in the <meta description> used in
 # Google Search.
+=======
+title: Welcome
+seoTitle: Welcome to Chrome Extensions
+subhead: 'Learn about developing extensions for Chrome.'
+>>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
 description: 'Documentation for Chrome extensions developers.'
 date: 2020-11-09
 updated: 2022-09-20
