@@ -1,39 +1,25 @@
 ---
-layout: "layouts/doc-post.njk"
-<<<<<<< HEAD
-title: "示例"
-#date: TODO
-#updated: TODO
-#description: TODO
----
-
-[GitHub](https://github.com/GoogleChrome/chrome-extensions-samples) 上提供了 Chrome 扩展程序的示例。
-=======
-title: "Samples"
-seoTitle: "Chrome Extension examples"
+layout: 'layouts/doc-post.njk'
+title: '示例'
+seoTitle: 'Chrome Extension examples'
 date: 2020-12-11
 updated: 2022-12-16
-description: Intro to extension examples GitHub repository 
+description: Intro to extension examples GitHub repository
 ---
 
 ## Overview {: #overview }
 
-The [Extensions sample GitHub
-repository][gh-samples] provides examples of extensions that address various use cases and call appropriate Chrome
-APIs. Use these to learn how extensions work or as a starting point for building your own extensions.
+The [Extensions sample GitHub repository][gh-samples] provides examples of extensions that address various use cases and call appropriate Chrome APIs. Use these to learn how extensions work or as a starting point for building your own extensions.
 
 ## Browse by category {: #categories }
 
 The examples are currently located under the following directories:
 
-[api/][gh-api]
-: Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension IU elements such as the popup, tooltip, and badges among others. 
+[api/][gh-api]: Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension IU elements such as the popup, tooltip, and badges among others.
 
-[examples/][gh-examples]
-: Complete extensions that implement all the basic features for a given purpose.
+[examples/][gh-examples]: Complete extensions that implement all the basic features for a given purpose.
 
-[tutorials/][gh-tutorials]
-: Examples covered in the [tutorials][gs-tutorials]. A few examples include [Tabs manager][tut-tabs-man], [Focus mode][tut-fm], and [Reading time][tut-rt].
+[tutorials/][gh-tutorials]: Examples covered in the [tutorials][gs-tutorials]. A few examples include [Tabs manager][tut-tabs-man], [Focus mode][tut-fm], and [Reading time][tut-rt].
 
 {% Details %}
 {% DetailsSummary %}
@@ -59,7 +45,7 @@ To test these examples in your local machine, follow these steps:
 1. [Load your extension locally][dev-basics-locally].
 
 Each extension example includes a `README.md` with instructions on how the extension works.
-Read the instructions carefully; each extension is different. For example, some extensions run by clicking on the extension icon, while others run automatically but only run on specific sites. 
+Read the instructions carefully; each extension is different. For example, some extensions run by clicking on the extension icon, while others run automatically but only run on specific sites.
 
 ## Contributing samples {: #collaborating }
 
@@ -77,4 +63,3 @@ If you encounter any problems with an example, let us know by [posting an issue]
 [tut-fm]: /docs/extensions/mv3/getstarted/tut-focus-mode/
 [tut-rt]: /docs/extensions/mv3/getstarted/tut-reading-time/
 [tut-tabs-man]: /docs/extensions/mv3/getstarted/tut-tabs-manager/
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804

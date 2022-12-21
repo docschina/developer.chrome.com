@@ -1,12 +1,7 @@
 ---
-<<<<<<< HEAD
 layout: 'layouts/doc-post.njk'
 title: '什么是扩展程序？'
-=======
-layout: "layouts/doc-post.njk"
-title: "What are extensions?"
-seoTitle: "What are Chrome extensions?"
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+seoTitle: 'What are Chrome extensions?'
 date: 2013-02-21
 updated: 2021-03-12
 description: 概述 Chrome 扩展程序的目的，以及它们是如何开发的。
@@ -42,17 +37,9 @@ Also shown in the diagram is an extension "plugged into" the Chrome browser. The
 
 扩展程序允许您通过使用 API 修改浏览器行为和访问 web 内容来“扩展”浏览器。扩展程序通过终端用户界面和开发人员 API 进行操作：
 
-<<<<<<< HEAD
 **扩展用户界面** - 这为用户管理其扩展提供了一致的方式。
 
-**扩展 API** - [extensions API](/docs/extensions/reference/) 允许扩展程序访问浏览器本身的功能：激活选项卡、修改网络请求等。
-=======
-The extensions user interface
-: Provides a consistent way for users to manage their extensions.
-
-Extensions APIs
-: Allow the extension's code to access features of the browser itself: activating tabs, modifying net requests, and so on.
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+**扩展 API** - 允许扩展程序访问浏览器本身的功能：激活选项卡、修改网络请求等。
 
 要创建扩展程序，你需要组装一些资源： Manifest、JavaScript 和 HTML 文件、图像等来构建扩展程序。对于开发和测试，你可以使用 [扩展程序开发者模式][devmode] 将这些“解压缩的扩展程序”加载到 Chrome 中。一旦扩展开发完成，您可以 [打包并分发给用户][cws-publish]。
 

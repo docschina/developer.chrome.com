@@ -1,19 +1,11 @@
 ---
-layout: "layouts/doc-post.njk"
-<<<<<<< HEAD
-title: "架构概述"
-date: 2012-09-18
-updated: 2022-05-13
-description: Chrome 扩展程序的软件架构的高水平解释。
-subhead: Chrome 扩展程序的软件架构的高水平解释。
-=======
-title: "Architecture overview"
-seoTitle: "Chrome Extensions architecture overview"
+layout: 'layouts/doc-post.njk'
+title: '架构概述'
+seoTitle: 'Chrome Extensions architecture overview'
 date: 2012-09-18
 updated: 2022-11-02
-description: A high-level explanation of the software architecture of Chrome Extensions.
-subhead: A high-level explanation of the components and structure of a Chrome Extension.
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+description: Chrome 扩展程序的软件架构的高水平解释。
+subhead: Chrome 扩展程序的软件架构的高水平解释。
 ---
 
 扩展程序是 HTML、CSS、JavaScript、图像和 Web 平台中使用的其他文件的压缩包。扩展程序可以修改用户看到并与之交互的 Web 内容。扩展程序还可以扩展和更改浏览器本身的行为。
@@ -32,12 +24,7 @@ subhead: A high-level explanation of the components and structure of a Chrome Ex
 
 ### Manifest {: #manifest }
 
-<<<<<<< HEAD
 名为 `manifest.json` 的文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
-=======
-The manifest file, titled `manifest.json`, gives the browser information about the extension, such
-as the most important files and the capabilities the extension might use. 
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
 
 ```json
 {
@@ -62,31 +49,22 @@ as the most important files and the capabilities the extension might use.
 }
 ```
 
-### 工具栏图标{: #icons }
+### 工具栏图标 {: #icons }
 
 扩展程序必须有一个位于浏览器工具栏中的图标。工具栏图标使得用户能够轻松访问并使用户知道安装了哪些扩展程序。大多数用户将通过单击图标与使用 [popup][docs-popup] 的扩展程序进行交互，例如 [快速入门示例][sample-getting-started]。
 
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/ku5Z8MMssgw6MKctpJVI.png", alt="Getting started
 popup", width="187", height="153" %}
+
 <!-- TODO: 展示 MV3 入门教程扩展示例 -->
 
 ### Service worker {: #background_script }
 
-<<<<<<< HEAD
-Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么久可以访问所有 [Chrome API][section-apis]。
+Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么就可以访问所有 [Chrome API][section-apis]。
+
+扩展只能有一个 Service Worker。从代码层面上说，可以通过在 manifest 的 `"background"` 中指定 `"type": "Module"`，将 Service Worker 声明为 [ES 模块][webdev-imports]。
 
 请参阅 [使用 Service Workers 处理事件][docs-service-worker] 了解更多信息。
-=======
-The extension service worker is the extension's event handler; it contains listeners for browser
-events that are important to the extension. It lies dormant until an event is fired then performs
-the instructed logic; it is only loaded when it is needed and unloaded when it goes idle. The
-service worker has access to all the [Chrome APIs][section-apis], as long as it declares the
-required permissions in the `manifest.json`.
-
-An extension can only have a single service worker. To import further code, the service worker can be declared as an [ES Module][webdev-imports] by specifying `"type": "module"` in the manifest `"background"`.
-
-See [Manage events with service workers][docs-service-worker] to learn more. 
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
 
 ### 内容脚本{: #contentScripts }
 
@@ -116,7 +94,7 @@ path between the content script and the parent extension", height="316", width="
 
 请参阅 [设计 Chrome 扩展程序的 UI][docs-ui]，了解更多信息。
 
-### 选项页面{: #optionsPage }
+### 选项页面 {: #optionsPage }
 
 正如扩展程序允许用户自定义 Chrome 浏览器一样，选项页面也支持自定义扩展程序。选项页面可用于启用功能并允许用户选择与其需求相关的功能。
 
@@ -127,7 +105,7 @@ path between the content script and the parent extension", height="316", width="
 {% Column %}
 
 <figure>
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/Mz7GV76tFkzxRlb7Pq6e.png", 
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/Mz7GV76tFkzxRlb7Pq6e.png",
 alt="Options page link in the UI", width="800", height="299" %}
   <figcaption>
     Link to the Options page.
@@ -139,7 +117,7 @@ alt="Options page link in the UI", width="800", height="299" %}
 {% Column %}
 
 <figure>
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/BM11QeGCThsUNTlsZbAe.png", 
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/BM11QeGCThsUNTlsZbAe.png",
 alt="Context Menu Options page", width="357", height="222" %}
 
   <figcaption>
@@ -153,30 +131,26 @@ alt="Context Menu Options page", width="357", height="222" %}
 
 请参阅 [选项页面][docs-options] 了解更多信息。
 
-### 其他 HTML 文件{: #html-files}
+### 其他 HTML 文件 {: #html-files}
 
-<<<<<<< HEAD
 您可以展示未在 Manifest 中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
-=======
-An extension can also have other HTML files that are not declared in the manifest. All extension HTML files can access the [Chrome APIs][section-apis] and can use script tags including Javascript files, but cannot declare inline JavaScript.
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
 
 您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
 
-## 扩展程序文件{: #files }
+## 扩展程序文件 {: #files }
 
-### 引用扩展程序文件{: #ref-files }
+### 引用扩展程序文件 {: #ref-files }
 
 就像 Web 上的 HTML 页面可以包含具有相对 URL 的同一站点上的文件一样，扩展程序页面也可以使用相对路径引用扩展资源。
 
 ```html
-<img src="images/my_image.png">
+<img src="images/my_image.png" />
 ```
 
-要从**内容脚本**访问扩展程序文件，您可以调用 [`chrome.runtime.getURL()`][api-get-url] 来获取扩展程序的绝对 URL。
+要从 **内容脚本** 访问扩展程序文件，您可以调用 [`chrome.runtime.getURL()`][api-get-url] 来获取扩展程序的绝对 URL。
 
-``` js
-let image = chrome.runtime.getURL("images/my_image.png")
+```js
+let image = chrome.runtime.getURL('images/my_image.png');
 ```
 
 要从 **网站** 访问扩展文件，您必须按如下方式构建 URL：
@@ -201,7 +175,7 @@ chrome-extension://EXTENSION_ID/RELATIVE_PATH
 
 {% endAside %}
 
-### 可通过网络访问的资源{: #web-resources }
+### 可通过网络访问的资源 {: #web-resources }
 
 Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Javascript），可由内容脚本、网页或其他扩展程序访问。
 
@@ -222,92 +196,36 @@ Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Jav
 
 请参阅 [Web 可访问资源][docs-web-acc-res] 了解更多信息。
 
-## 使用 Chrome API{: #apis }
+## 使用 Chrome API {: #apis }
 
 除了可以访问与网页相同的 [web APIs][mdn-web-apis] 之外，扩展程序还可以使用与浏览器紧密集成的 [extension-specific APIs][api-reference]。 例如，扩展程序和网页都可以访问标准的 [`window.open()`][mdn-window-open] 方法来打开 URL，但扩展程序可以通过使用 [chrome. tabs.create()][api-create-tab] 代替。
 
 请参阅 [Chrome API 参考文档][api-reference] 了解更多信息。
 
-<<<<<<< HEAD
-### 异步 vs 同步方法{: #async-sync }
+### 异步 vs 同步方法 {: #async-sync }
 
-#### 回调 {: #callbacks }
+大多数 Chrome API 方法都是异步的：它们会立即返回，而无需等待操作完成。如果扩展程序需要知道异步操作的结果，有两个选择：
 
-大多数 Chrome API 方法都是异步的：它们会立即返回，而无需等待操作完成。如果扩展程序需要知道异步操作的结果，它可以将回调函数传递给方法。在方法返回之后，回调会稍后执行，但是也可能更晚。
+- 返回 promises
+- 传递回调方法
 
-当回调参数在其签名中可用时，方法是异步的。
-=======
-### Asynchronous methods {: #async-sync }
+请注意这些选择是互斥的，如果传递了回调方法，就不会返回 promise。如果你想返回 promise 就不要传递回调。
 
-Most Chrome API methods are asynchronous; they return immediately without waiting for the operation to finish. If an extension needs to know the outcome of an asynchronous operation, there are two choices:
-
-* Use the returned promise.
-* Pass a callback function into the method.
-
-Note that these choices are mutually exclusive. If you pass a callback to a method, no promise
-will be returned. If you use the returned promise, do not pass a callback.
-
-Generally, you should prefer promises to callbacks. Not all methods in extensions APIs support
-promises, but newer methods do. You can verify whether a method supports promises by checking
-its API reference page. If you need to support both promises and callbacks for the same
-function (because your users have older browsers), you can test whether the method returns a
-promise using `typeof` and
-[optional chaining](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining).
-For example:
-
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+一般来说，你应该更倾向于使用 promise 而不是回调方法。并非所有的扩展程序 API 都支持 promise，但比较新的方法是支持的。你可以在 API 索引页面检查对应的方法是否支持 promise。如果你需要在一个函数中同时支持 promise 和回调方法，比如你的用户可能使用更老的浏览器，你可以测试返回的具体内容，通过使用 `typeof` 和 [可选链](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining)) 进行区分：
 
 ```js
-typeof chrome.contextMenus.removeAll()?.then()
+typeof chrome.contextMenus.removeAll()?.then();
 ```
 
-<<<<<<< HEAD
-如果扩展程序需要将用户当前选择的选项卡导航到新 URL，则需要获取当前选项卡的 ID，然后将该选项卡的地址更新为新 URL。
-
-如果 [tabs.query][api-tabs-query] 方法是同步的，它可能如下所示。
-
-{% Compare 'worse' %}
-```js
-let tab = chrome.tabs.query(queryOptions); //WRONG!!!
-chrome.tabs.update(tab.id, {url:newUrl});
-someOtherFunction();
-```
-{% CompareCaption %}
-
-这种方法会失败，因为 `query()` 是 **异步方法**：它在不等待工作完成的情况下返回，并且不返回值。
-
-{% endCompareCaption %}
-
-{% endCompare %}
-
-要正确查询选项卡并更新其 URL，扩展程序必须使用回调参数。
-
-{% Compare 'better' %}
-```js
-chrome.tabs.query(queryOptions, function(tabs) {
-  chrome.tabs.update(tabs[0].id, {url: newUrl});
-});
-someOtherFunction();
-```
-
-{% endCompare %}
-
-在上面的代码中，这些行按以下顺序执行：1、4、2。首先调用指定给 `query()` 的回调函数，然后只有在有关当前选定选项卡的信息可用之后，才会执行第 2 行。这会在 `query()` 返回后的某个时间发生。 尽管 `update()` 是异步的，但代码不使用回调参数，因为扩展程序不会对更新结果做任何事情。
-
-#### 期约{: #async }
-
-随着 Manifest V3 的引入，许多扩展程序的 API 都开始返回 Promise，但是并非扩展程序 API 中的所有方法都支持 Promise。您可以通过检查其 API 参考页面来验证方法是否支持 Promise。
-=======
 #### Promises {: #async }
 
-Both methods of handling promises are supported. See [Using promises][docs-promises] to learn
-more.
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+随着 Manifest V3 的引入，许多扩展程序的 API 都开始返回 Promise，但是并非扩展程序 API 中的所有方法都支持 Promise。您可以通过检查其 API 参考页面来验证方法是否支持 Promise。
+
+处理 promise 的方法收到支持。请参阅 [使用 Promise][api-reference] 了解更多信息。
 
 ```js
 // Promise
-chrome.tabs.query(queryOptions)
-.then((tabs) => {
+chrome.tabs.query(queryOptions).then(tabs => {
   chrome.tabs.update(tabs[0].id, {url: newUrl});
   someOtherFunction();
 });
@@ -320,38 +238,26 @@ async function queryTab() {
 }
 ```
 
-<<<<<<< HEAD
-请参阅 [使用 Promise][api-reference] 了解更多信息。
-
-#### 同步方法{: #sync }
-=======
 #### Callbacks {: #callbacks }
 
-A method is asynchronous when the callback parameter is available in its signature.
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+回调参数声明一个可用的异步方法。
 
 ```js
 // Signatures for an asynchronous method
 chrome.tabs.query(object queryInfo, function callback)
 ```
 
-<<<<<<< HEAD
-此方法将 URL 作为“字符串”同步返回，并且不执行其他异步工作。
-
-## 页面间通信{: #pageComm }
-=======
-## Communication between pages {: #pageComm }
->>>>>>> e186b6fa30f3d6cbd2b43268df586d1518244804
+## 页面间通信 {: #pageComm }
 
 扩展程序中的不同组件可以使用 [消息传递][docs-messages] 相互通信。任何一方都可以侦听从另一端发送的消息，并在同一通道上响应。
 
-## 数据保存{: #data}
+## 数据保存 {: #data}
 
 Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储需求。例如，每当数据更新时，您都可以使用 `onChanged()` 事件来跟踪这些更改。所有扩展程序组件都可以访问此 API。扩展程序还可以使用 Web API [indexedDB][mdn-indexeddb] 存储数据。
 
 请参阅 [storage API][api-reference] 了解更多信息。
 
-## 隐身模式{: #incognito}
+## 隐身模式 {: #incognito}
 
 除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在 Manifest 中的 ["incognito"][manifest-incognito] 键中指定此行为。
 
