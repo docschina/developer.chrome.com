@@ -1,6 +1,7 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "跨域隔离"
+seoTitle: "Chrome Extensions cross-origin isolation"
 date: 2021-08-03
 updated: 2021-11-10
 description: 扩展程序中的跨域隔离概述

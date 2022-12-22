@@ -1,12 +1,13 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "Extending DevTools"
+seoTitle: "Extending DevTools with Chrome Extensions"
 date: 2012-09-17
 updated: 2022-06-07
 description: How to create a Chrome Extension that adds functionality to Chrome DevTools.
 ---
 
-{% include 'partials/extensions/mv2page-in-mv3.md' %}
+{% Partial 'extensions/mv2page-in-mv3.md' %}
 
 ## Overview {: #overview }
 

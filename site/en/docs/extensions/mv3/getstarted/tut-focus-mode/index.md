@@ -1,6 +1,7 @@
 ---
 layout: 'layouts/doc-post.njk'
 title: 'Focus Mode'
+seoTitle: 'Chrome Extensions Tutorial: Focus Mode'
 subhead: 'Simplify the styling of the current page by clicking the extension toolbar icon.'
 description: 'Learn how to run code in the active tab.'
 date: 2022-10-04
@@ -28,7 +29,7 @@ This guide assumes that you have basic web development experience. We recommend 
 ## Build the extension {: #build }
 
 To start, create a new directory called `focus-mode` that will hold the extension's files. If you
-prefer, you can download the complete source code on [Github][github-focus-mode].
+prefer, you can download the complete source code on [GitHub][github-focus-mode].
 
 ### Step 1: Add the extension data and icons {: #step-1 }
 
@@ -156,6 +157,9 @@ documentation page. Next, it will check the state of the current tab and set the
 following code to `background.js`:
 
 ```js
+const extensions = 'https://developer.chrome.com/docs/extensions'
+const webstore = 'https://developer.chrome.com/docs/webstore'
+
 chrome.action.onClicked.addListener(async (tab) => {
   if (tab.url.startsWith(extensions) || tab.url.startsWith(webstore)) {
     // Retrieve the action badge to check if the extension is 'ON' or 'OFF'

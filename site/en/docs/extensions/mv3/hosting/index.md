@@ -1,16 +1,17 @@
 ---
-layout: "layouts/doc-post.njk"
-title: "Extension hosting"
+layout: 'layouts/doc-post.njk'
+title: '托管扩展程序'
+seoTitle: 'Chrome Extension hosting'
 date: 2012-09-18
 updated: 2021-12-10
-description: >
-  How to host your Chrome extension.
+description: 如何托管您的 Chrome 扩展程序。
 ---
 
 <!--
 Reframe this to focus explicitly on hosting.
 
 2 options:
+
 - CWS
 - Self-hosting
 
@@ -19,33 +20,22 @@ CWS is by far the most common
 note that during development you can also load unpacked.
 -->
 
-There are multiple ways to install a Chrome extension, but there are
-only two officially supported distribution mechanisms.
+安装 Chrome 扩展有多种方法，但官方仅支持两种分发机制。
 
-[Chrome Web Store][cws-about]
+[Chrome 应用商店][cws-about]
 
-: Chrome Web Store is an online marketplace for Chrome extensions and themes. Developers who
-  register with the Chrome Web Store can publish their extensions and make them available to users
-  across the world. Only extensions hosted on and signed by the Chrome Web Store can be directly
-  installed by users. See [Publish in the Chrome Web Store][cws-publish] and [Enterprise
-  publishing options][cws-enterprise] for more information about how to publish on Chrome Web Store.
+: Chrome 应用商店是 Chrome 扩展程序和主题的在线市场。在 Chrome 应用商店注册的开发人员可以发布他们的扩展程序，并将其提供给世界各地的用户。只有在 Chrome 应用商店上托管和签名的扩展程序才能由用户直接安装。有关如何在 Chrome 应用商店中发布的更多信息，请参阅 [在 Chrome 应用商店中发布][cws-publish] 和 [企业发布选项][cws-enterprise]。
 
-Self-hosting
+私有托管
 
-: Self hosting is the practice of hosting an extension outside of the Chrome Web Store. This option is used in
-  managed environments where system administrators control Chrome with [enterprise
-  policies][external-enterprise-policy]. See [Linux installation][doc-linux-hosting] for information
-  on how to host an extension on your own server.
+: 私有托管是在 Chrome 应用商店之外托管扩展程序的做法。此选项用于系统管理员使用 [企业政策][external-enterprise-policy] 控制 Chrome 的托管环境。 有关如何在您自己的服务器上托管扩展程序的信息，请参阅 [Linux 安装][doc-linux-hosting]。
 
-In both cases, Chrome periodically checks extension hosts for new versions of installed extensions
-and automatically updates them without user intervention.
+在这两种情况下，Chrome 都会定期检查扩展程序主机以查找已安装扩展程序的新版本，并在无需用户干预的情况下自动更新它们。
 
-[Unpacked extensions][doc-load-unpacked] should only be used to load trusted code during the
-development process.
+[未打包的扩展程序][doc-load-unpacked] 应该仅用于在开发过程中加载受信任的代码。
 
 {% Aside %}
-Linux users can manually install packed extensions that are not distributed or signed by Chrome
-Web Store.
+Linux 用户可以手动安装那些并未经过 Chrome 应用商店分发或签名的打包扩展程序。
 {% endAside %}
 
 [cws-about]: /docs/webstore/about_webstore

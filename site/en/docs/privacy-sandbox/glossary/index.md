@@ -17,6 +17,30 @@ authors:
 if something is missing!
 {% endAside %}
 
+## Ad auction (FLEDGE)
+
+In FLEDGE, an ad auction is run by a seller (ikely to be an [SSP](#SSP) or maybe the publisher itself), in JavaScript code in the browser on the
+user's device, to sell ad space on a site that displays ads.
+
+{: #creative}
+
+## Ad creative, creative {: #ad-creative}
+
+The contents of the ad served to users. Creatives can be images, videos, audio,
+and other formats. Creatives live within an ad space, and are served by adtech
+within line items.
+
+## Ad exchange
+
+A platform to automate buying and selling of ad inventory from multiple ad
+networks.
+
+{: #ad-space }
+
+## Ad inventory, ad space {: #ad-inventory }
+
+The spaces for ads that are available from a site that sells ad space.
+
 ## Ad platform (Adtech) {: #adtech }
 
 A company that provides services to deliver ads.
@@ -51,6 +75,14 @@ For example, a correlation of ad clicks or views with [conversions](#conversion)
 
 The [rendering engine](https://en.wikipedia.org/wiki/Browser_engine) used by
 Chrome, developed as part of the [Chromium](#chromium) project.
+
+## Buyer
+
+A party bidding for ad space in an [ad auction](#ad-auction), likely to be a
+[DSP](#DSP), or maybe the advertiser itself. Ad space buyers own and manage
+interest groups. 
+
+Learn about [ad space buyers in FLEDGE](/docs/privacy-sandbox/fledge/#buyer-detail).
 
 ## Chromium {: #chromium }
 
@@ -97,7 +129,24 @@ site. See [First-party cookie](#first-party-cookie) and
 
 An entity responsible for key management and aggregatable report accounting. The coordinator maintains a list of hashes of approved aggregation service configurations and configures access to decryption keys.
 
-## Differential privacy  {: #differential-privacy }
+## Data management platform (DMP) {: #dmp }
+
+A software used to collect and manage data relevant for advertisers. These
+platforms help advertisers and publishers identify audience segments, which can
+then be used for campaign targeting.
+
+Learn more about [DMPs](https://en.wikipedia.org/wiki/Data_management_platform).
+
+## Demand-side platform (DSP) {: #dsp }
+
+An adtech service used to automate ad purchasing. DSPs are used by advertisers
+to buy [ad impressions](https://en.wikipedia.org/wiki/Impression_(online_media))
+across a range of publisher sites. Publishers put their
+[ad inventory](#ad-inventory) up for sale through marketplaces called ad
+exchanges, and DSPs decide programmatically which available ad impression makes
+most sense for an advertiser to buy.
+
+## Differential privacy {: #differential-privacy }
 
 Techniques to allow sharing of information about a dataset to reveal patterns
 of behaviour without revealing private information about individuals or whether
@@ -151,6 +200,18 @@ the site.
 
 FedCM was previously known as WebID, and is still
 [in development in the W3C](https://github.com/wicg/fedcm).
+
+## Fenced frame
+
+A (`<fencedframe>`) is a proposed HTML element for embedded content, similar to
+an [iframe](https://developer.mozilla.org/docs/Web/HTML/Element/iframe). Unlike
+iframes, a fenced frame restricts communication with its embedding context to
+allow the frame access to cross-site data without sharing it with the embedding
+context.
+
+Some Privacy Sandbox APIs may require select documents to render within a
+fenced frame. Learn more about the
+[Fenced Frames proposal](/docs/privacy-sandbox/fenced-frame/).
 
 ## Fingerprinting {: #fingerprinting }
 
@@ -273,16 +334,22 @@ every response to every server.
 
 ## Publisher
 
-In the Privacy Sandbox context, a site that displays ads. 
+In the Privacy Sandbox context, a site with ad space that is paid to display
+ads.
 
 ## Reach
 
 The total number of people who see an ad or who visit a web page that displays
 the ad.
 
+## Real-time bidding (RTB) {: #rtb}
+
+An automated auction for buying and selling ad impressions on websites,
+completed during page load.
+
 ## Remarketing
 
-Reaching people on other sites who have previously visited your site.
+Advertising to people who've already visited your site on other sites.
 
 For example, an online store could show ads for a toy sale to people who
 previously viewed toys on their site.
@@ -294,19 +361,31 @@ that called the Attribution Reporting API. Aggregatable reports are sent from
 user devices to a [well-known](#well-known) URL associated with the reporting
 origin.
 
+## Seller
+
+The party running an ad auction, likely to be an [SSP](#ssp) or maybe the
+publisher itself.
+
 ## Site
 
 See [Top-Level Domain](#tld) and [eTLD](#etld).
 
 ## Summary report {: #aggregate-report}
 
-An Attribution Reporting API report type. A [summary
+An Attribution Reporting API and Private Aggregation API report type. A [summary
 report](/docs/privacy-sandbox/attribution-reporting/summary-reports/) includes
 aggregated user data and detailed conversion data, resulting from noisy
 aggregation applied to aggregatable reports. The summary
 includes aggregated user data and detailed conversion data.
 
 Summary reports were formerly known as aggregate reports.
+
+## Supply-side platform, Sell-side platform {: #SSP}
+
+An adtech service used to automate selling ad inventory. SSPs allow publishers
+to offer their inventory (empty rectangles where ads will go) to multiple ad
+exchanges, [DSPs](#DSP), and networks. This enables a wide range of potential
+buyers to bid for ad space.
 
 ## Surface
 
@@ -348,6 +427,11 @@ parties to verify the exact versions of software running on the computer. TEEs
 allow external parties to verify that the software does exactly what the
 software manufacturer claims it does—nothing more or less.
 
+To learn more about TEEs used for the Privacy Sandbox proposals, read the
+[FLEDGE services explainer](https://github.com/privacysandbox/fledge-docs/blob/main/trusted_services_overview.md#trusted-execution-environment)
+and the
+[Aggregation Service explainer](https://github.com/WICG/attribution-reporting-api/blob/main/AGGREGATION_SERVICE_TEE.md).
+
 ## User-Agent string {: #user-agent }
 
 An HTTP header used by servers and network peers to request indentifying
@@ -381,3 +465,10 @@ to make site-wide metadata accessible in standard locations in a `/.well-known/`
 
 See a list of recommendations for `.well-known` at
 [iana.org/assignments/well-known-uris/well-known-uris.xhtml](https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml).
+
+## Worklet
+
+A [worklet](https://developer.mozilla.org/docs/Web/API/Worklet) allows
+you to run specific JavaScript functions and return information back to the
+requester. Within a worklet, you can execute JavaScript but you cannot interact
+or communicate with the outside page.

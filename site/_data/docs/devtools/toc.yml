@@ -16,14 +16,19 @@
 - url: /docs/devtools/device-mode/
 - title: i18n.docs.devtools.elements
   sections:
-    - url: /docs/devtools/dom/
-    - url: /docs/devtools/dom/properties
-    - url: /docs/devtools/css/
-    - url: /docs/devtools/css/grid/
-    - url: /docs/devtools/css/flexbox/
-    - url: /docs/devtools/css/container-queries/
-    - url: /docs/devtools/css/reference/
-    - url: /docs/devtools/elements/badges/
+    - title: i18n.docs.devtools.dom
+      sections:
+        - url: /docs/devtools/dom/
+        - url: /docs/devtools/dom/properties
+        - url: /docs/devtools/elements/badges/
+    - title: i18n.docs.devtools.css
+      sections:
+        - url: /docs/devtools/css/
+        - url: /docs/devtools/css/issues/
+        - url: /docs/devtools/css/grid/
+        - url: /docs/devtools/css/flexbox/
+        - url: /docs/devtools/css/container-queries/
+        - url: /docs/devtools/css/reference/
 - title: i18n.docs.devtools.console
   sections:
     - url: /docs/devtools/console/
@@ -36,7 +41,7 @@
     - url: /docs/devtools/console/utilities/
 - title: i18n.docs.devtools.sources
   sections:
-    - url: /docs/devtools/javascript/sources/
+    - url: /docs/devtools/sources/
     - url: /docs/devtools/javascript/
     - url: /docs/devtools/javascript/breakpoints/
     - url: /docs/devtools/javascript/snippets/
@@ -105,6 +110,7 @@
 - title: i18n.docs.devtools.accessibility
   sections:
     - url: /docs/devtools/accessibility/reference/
+    - url: /docs/devtools/accessibility/contrast/
     - url: /docs/devtools/accessibility/navigation/
     - url: /docs/devtools/accessibility/focus/ 
 - title: i18n.docs.devtools.customization

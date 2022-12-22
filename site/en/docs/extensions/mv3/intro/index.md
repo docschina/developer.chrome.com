@@ -3,6 +3,7 @@ layout: 'layouts/doc-post.njk'
 title: 欢迎了解 Manifest V3
 subhead: '向安全、隐私和性能的方向迈出一步。'
 description: '介绍 Manifest V3'
+seoTitle: Welcome to the Chrome Extension Manifest V3
 date: 2020-11-09
 updated: 2022-09-28
 ---

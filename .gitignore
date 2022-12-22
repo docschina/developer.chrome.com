@@ -20,6 +20,7 @@ Thumbs.db
 # Node modules and output
 node_modules
 dist
+./dist
 **/_includes/css
 
 # Eleventy
@@ -33,3 +34,6 @@ external/local-build-flag
 
 .npmrc
 pnpm-lock.yaml
+# Files used during CI
+gulp-tasks/stageGitHub/tmp/**/*
+!gulp-tasks/stageGitHub/tmp/.gitkeep

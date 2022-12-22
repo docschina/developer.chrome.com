@@ -2,7 +2,7 @@
 title: Munich Frontend meetup
 summary: >-
   A front end developers meetup happening in Munich.
-image: image/fuiz5I8Iv7bV8YbrK2PKiY3Vask2/xaRHmkuKLfCcGdRaEiDr.png
+image: image/fuiz5I8Iv7bV8YbrK2PKiY3Vask2/nmNwNgvOmvjk5fOm4MOM.jpg
 location: Munich, Germany
 date: 2022-10-20
 externalUrl: https://www.meetup.com/munich-frontend-developers/events/288578416/
@@ -16,7 +16,8 @@ sessions:
       - Chrome DevTools
       - Testing
       - Debugging
-      - CSS and Web UI
+      - CSS
+      - Web UI
     time: null
     type: participant
     slidesUrl: null
@@ -48,7 +49,8 @@ sessions:
       - Chrome DevTools
       - Testing
       - Debugging
-      - CSS and Web UI
+      - CSS
+      - Web UI
     time: TBC
     type: speaker
     slidesUrl: null

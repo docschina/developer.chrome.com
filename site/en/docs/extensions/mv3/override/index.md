@@ -1,6 +1,7 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "Overriding Chrome pages"
+seoTitle: "Chrome Extensions: Overriding Chrome pages"
 date: 2012-09-18
 updated: 2015-05-11
 description: >
@@ -8,7 +9,7 @@ description: >
   pages from your Chrome Extension.
 ---
 
-{% include 'partials/extensions/mv2page-in-mv3.md' %}
+{% Partial 'extensions/mv2page-in-mv3.md' %}
 
 Override pages are a way to substitute an HTML file from your extension for a page that Google
 Chrome normally provides. In addition to HTML, an override page usually has CSS and JavaScript code.

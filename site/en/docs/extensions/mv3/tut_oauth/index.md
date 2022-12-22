@@ -1,6 +1,7 @@
 ---
 layout: "layouts/doc-post.njk"
 title: "OAuth2: Authenticate users with Google"
+seoTitle: "Chrome Extensions Tutorial: OAuth2 - Authenticate users with Google"
 date: 2012-09-18
 updated: 2021-11-08
 description: >
@@ -9,7 +10,7 @@ description: >
   and OAuth2.
 ---
 
-{% include 'partials/extensions/mv2page-in-mv3.md' %}
+{% Partial 'extensions/mv2page-in-mv3.md' %}
 
 [OAuth2][oauth2] is the industry-standard protocol for authorization. It provides a mechanism for users
 to grant web and desktop applications access to private information without sharing their username,
@@ -79,7 +80,7 @@ Add an HTML file called `index.html` and include the following code. <!-- Or dow
 </html>
 ```
 
-{% include 'partials/extensions/reusing-prod-extension-id.md' %}
+{% Partial 'extensions/reusing-prod-extension-id.md' %}
 
 ## Create OAuth client ID {: #oauth_client }
 
