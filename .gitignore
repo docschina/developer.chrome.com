@@ -31,12 +31,9 @@ dist
 external/data/
 external/local-build-flag
 
-<<<<<<< HEAD
 
 .npmrc
 pnpm-lock.yaml
-=======
 # Files used during CI
 gulp-tasks/stageGitHub/tmp/**/*
 !gulp-tasks/stageGitHub/tmp/.gitkeep
->>>>>>> 5ecb2117d0b78d23e5ea457fe25c8fef8407a7b6
