@@ -89,7 +89,7 @@
     "unistore": "^3.5.2",
     "uslug": "^1.0.4",
     "web-vitals": "^3.0.4",
-    "webdev-infra": "1.0.41",
+    "webdev-infra": "1.0.42",
     "xss": "^1.0.14"
   },
   "optionalDependencies": {
@@ -105,7 +105,7 @@
   "devDependencies": {
     "@ava/babel": "^1.0.1",
     "@google-cloud/secret-manager": "^3.2.2",
-    "@percy/cli": "^1.1.0",
+    "@percy/cli": "^1.16.0",
     "@rollup/plugin-commonjs": "^15.1.0",
     "@rollup/plugin-json": "^4.1.0",
     "ava": "^3.12.1",

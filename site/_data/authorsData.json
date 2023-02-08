@@ -153,7 +153,14 @@
     "twitter": "mikewest"
   },
   "johannes": {
-    "github": "powdercloud"
+    "github": "powdercloud",
+    "twitter": "powdercloud",
+    "mastodon": "https://mastodon.social/@powdercloud",
+    "image": "image/W3z1f5ZkBJSgL1V1IfloTIctbIF3/okZMIdTu1wPPE4YqqKDX.jpeg"
+  },
+  "jasmineyan": {
+    "github": "jazyan",
+    "image": "image/W3z1f5ZkBJSgL1V1IfloTIctbIF3/fBUEuHdxeM0oGVbrelgI.png"
   },
   "housseindjirdeh": {
     "homepage": "https://houssein.me/",
@@ -1028,5 +1035,17 @@
   },
   "mstensho": {
     "image": "image/kheDArv5csY6rvQUJDbWRscckLr1/FN095pMGAh4KlMLXT3hT.jpeg"
+  },
+  "sarino": {
+    "image": "image/vgdbNJBYHma2o62ZqYmcnkq3j0o1/9vzh9pyZ3U1P2zxrzGaS.jpg"
+  },
+  "ianstanion": {
+    "image": "image/jxu1OdD7LKOGIDU7jURMpSH2lyK2/x4tksWHlknXbJ0xQc957.jpg"
+  },
+  "exterkamp": {
+    "country": "US",
+    "twitter": "shane_exterkamp",
+    "github": "exterkamp",
+    "image": "image/admin/yPytekIqH5VnoqMx3jj2.jpg"
   }
 }
