@@ -4,6 +4,17 @@
 
 {# $content #}
 
+{# ### Chrome 109 {: #chrome109 }
+
+* [Recorder: ステップごとのCopy asオプション、ページ内リプレイ、ステップのコンテキストメニュー](/ja/blog/new-in-devtools-109/#recorder)
+* [パフォーマンスの記録の中で実際の関数名を表示](/ja/blog/new-in-devtools-109/#performance)
+* [ConsoleとSourcesパネルでの新しいキーボードショートカット](/ja/blog/new-in-devtools-109/#keyboard-shortcuts)
+* [JavaScript デバッグの改善](/ja/blog/new-in-devtools-109/#debugging)
+* [その他のハイライト](/ja/blog/new-in-devtools-109/#misc)
+* [[実験的] ブレークポイント管理の UX 改善](/ja/blog/new-in-devtools-109/#breakpoint-redesign)
+* [[実験的] 自動的な直接のプリティプリント](/ja/blog/new-in-devtools-109/#pretty-print)
+ #}
+
 ### Chrome 108 {: #chrome108 }
 
 * [非アクティブな CSS プロパティのヒント](/ja/blog/new-in-devtools-108/#css-hint)
