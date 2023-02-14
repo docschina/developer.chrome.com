@@ -41,5 +41,5 @@ updated: 2022-09-20
 [gg-extensions]: https://groups.google.com/a/chromium.org/g/chromium-extensions
 [gh-ext-samples]: https://github.com/GoogleChrome/chrome-extensions-samples
 [github-ext-doc]: https://github.com/GoogleChrome/developer.chrome.com
-[gs-tuts]: /docs/extensions/mv3/getstarted/#tutorials
+[gs-tuts]: /docs/extensions/mv3/getstarted/#tutorial
 [so-extension-tag]: https://stackoverflow.com/questions/tagged/google-chrome-extension
