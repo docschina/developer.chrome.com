@@ -15,7 +15,7 @@ This feature was previously called "Shared Element Transitions", and is sometime
 
 The View Transition API makes it easy to change the DOM in a single step, while creating an animated transition between the two states.
 
-It's currently behind the `chrome://flags/#view-transition` flag in Chrome 109+.
+It's available in Chrome 111+, currently in beta.
 
 <style>
   .video-full-demo {
@@ -33,7 +33,7 @@ It's currently behind the `chrome://flags/#view-transition` flag in Chrome 109+.
     muted="true",
     controls="true"
   %}
-  <figcaption>Transitions created with the View Transition API. <a href="https://http203-playlist.netlify.app/">Try the demo site</a> – Requires Chrome 109+ and the <code>chrome://flags/#view-transition</code> flag.</figcaption>
+  <figcaption>Transitions created with the View Transition API. <a href="https://http203-playlist.netlify.app/">Try the demo site</a> – Requires Chrome 111+.</figcaption>
 </figure>
 
 ## Why do we need this feature?
@@ -219,12 +219,11 @@ In this example, the animation always moves from right to left, which doesn't fe
 
 In the previous demo, the whole page is involved in the shared axis transition. That works for most of the page, but it doesn't seem quite right for the heading, as it slides out just to slide back in again.
 
-To avoid this, you can extract the header from the rest of the page so it can be animated separately. This is done by assigning a `view-transition-name` to the element, and giving the element [`layout`](https://developer.mozilla.org/docs/Web/CSS/CSS_Containment#layout_containment) or [`paint`](https://developer.mozilla.org/docs/Web/CSS/CSS_Containment#paint_containment) containment. `layout` containment has fewer restrictions, so it's usually the better choice.
+To avoid this, you can extract the header from the rest of the page so it can be animated separately. This is done by assigning a `view-transition-name` to the element.
 
 ```css
 .main-header {
   view-transition-name: main-header;
-  contain: layout;
 }
 ```
 
@@ -277,7 +276,6 @@ That hasn't mattered until now, as the header is the same size and position both
 ```css
 .main-header-text {
   view-transition-name: main-header-text;
-  contain: layout;
   width: fit-content;
 }
 ```
@@ -348,7 +346,6 @@ For instance, the main video embed can be given a `view-transition-name`:
 ```css
 .full-embed {
   view-transition-name: full-embed;
-  contain: layout;
 }
 ```
 
@@ -410,7 +407,6 @@ The sidebar is part of the transition:
 ```css
 .sidebar {
   view-transition-name: sidebar;
-  contain: layout;
 }
 ```
 
@@ -910,7 +906,7 @@ async function switchView(data) {
 
   animateFromMiddle(transition);
 
-  await transition.domUpdated;
+  await transition.updateCallbackDone;
 }
 
 async function animateFromMiddle(transition) {
@@ -935,9 +931,13 @@ async function animateFromMiddle(transition) {
 
 {% endCompare %}
 
-This example uses `transition.domUpdated` to wait for the DOM update, and to reject if it fails. `switchView` no longer rejects if the transition fails, it resolves when the DOM update completes, and rejects if it fails.
+This example uses `transition.updateCallbackDone` to wait for the DOM update, and to reject if it fails. `switchView` no longer rejects if the transition fails, it resolves when the DOM update completes, and rejects if it fails.
 
-If you want `switchView` to resolve when the new view has 'settled', as in, any animated transition has completed or skipped to the end, replace `transition.domUpdated` with `transition.finished`.
+If you want `switchView` to resolve when the new view has 'settled', as in, any animated transition has completed or skipped to the end, replace `transition.updateCallbackDone` with `transition.finished`.
+
+{% Aside %}
+`updateCallbackDone` was previously `domUpdated`. It was renamed in Chrome 111.
+{% endAside %}
 
 ## Not a polyfill, but… {:#not-a-polyfill}
 
@@ -952,12 +952,13 @@ function transitionHelper({
   updateDOM,
 }) {
   if (skipTransition || !document.startViewTransition) {
-    const domUpdated = Promise.resolve(updateDOM()).then(() => undefined);
+    const updateCallbackDone = Promise.resolve(updateDOM()).then(() => {});
 
     return {
       ready: Promise.reject(Error('View transitions unsupported')),
-      domUpdated,
-      finished: domUpdated,
+      updateCallbackDone,
+      finished: updateCallbackDone,
+      skipTransition: () => {},
     };
   }
 
@@ -998,38 +999,42 @@ You can also pass `true` to `skipTransition` if you don't want an animation, eve
 
 ## API reference {:#api-reference}
 
-`const viewTransition = document.startViewTransition(domUpdateCallback)`
+`const viewTransition = document.startViewTransition(updateCallback)`
 : Start a new `ViewTransition`.
 
-    `domUpdateCallback` is called once the current state of the document is captured.
+    `updateCallback` is called once the current state of the document is captured.
 
-    Then, when the promise returned by `domUpdateCallback` fulfills, the transition begins in the next frame. If the promise returned by `domUpdateCallback` rejects, the transition is abandoned.
+    Then, when the promise returned by `updateCallback` fulfills, the transition begins in the next frame. If the promise returned by `updateCallback` rejects, the transition is abandoned.
 
 Instance members of `ViewTransition`:
 
-`viewTransition.domUpdated`
-: A promise that fulfills when the promise returned by `domUpdateCallback` fulfills, or rejects when it rejects.
+`viewTransition.updateCallbackDone`
+: A promise that fulfills when the promise returned by `updateCallback` fulfills, or rejects when it rejects.
 
-    The View Transition API wraps a DOM change and creates a transition. However, sometimes you don't care about the success/failure of the transition animation, you just want to know if and when the DOM change happens. `domUpdated` is for that use-case.
+    The View Transition API wraps a DOM change and creates a transition. However, sometimes you don't care about the success/failure of the transition animation, you just want to know if and when the DOM change happens. `updateCallbackDone` is for that use-case.
+
+    {% Aside %}
+    `updateCallbackDone` was previously `domUpdated`. It was renamed in Chrome 111.
+    {% endAside %}
 
 `viewTransition.ready`
 : A promise that fulfills once the pseudo-elements for the transition are created, and the animation is about to start.
 
-    It rejects if the transition cannot begin. This can be due to misconfiguration, such as duplicate `view-transition-name`s, or if `domUpdateCallback` returns a rejected promise.
+    It rejects if the transition cannot begin. This can be due to misconfiguration, such as duplicate `view-transition-name`s, or if `updateCallback` returns a rejected promise.
 
     This is useful for [animating the transition pseudo-elements with JavaScript](#animating-with-javascript).
 
 `viewTransition.finished`
 : A promise that fulfills once the end state is fully visible and interactive to the user.
 
-    It only rejects if `domUpdateCallback` returns a rejected promise, as this indicates the end state wasn't created.
+    It only rejects if `updateCallback` returns a rejected promise, as this indicates the end state wasn't created.
 
     Otherwise, if a transition fails to begin, or is skipped during the transition, the end state is still reached, so `finished` fulfills.
 
 `viewTransition.skipTransition()`
 : Skip the animation part of the transition.
 
-    This won't skip calling `domUpdateCallback`, as the DOM change is separate to the transition.
+    This won't skip calling `updateCallback`, as the DOM change is separate to the transition.
 
 ## Default style and transition reference
 
