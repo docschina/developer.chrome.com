@@ -103,7 +103,7 @@ For the third prerender option, web developers can insert JSON instructions onto
 </script>
 ```
 
-The Speculation Rules API is planned to be expanded beyond this simple example with the addition of prefetch, [scores](https://github.com/WICG/nav-speculation/blob/main/triggers.md#scores) (for example, the likelihood of a navigation), and syntax to implement [document rules](https://github.com/WICG/nav-speculation/blob/main/triggers.md#document-rules) instead fo `list` rules (for example, matching `href` patterns on the page), which can be combined to only prerender links on mouse down, for example.
+The Speculation Rules API is planned to be expanded beyond this simple example with the addition of prefetch, [scores](https://github.com/WICG/nav-speculation/blob/main/triggers.md#scores) (for example, the likelihood of a navigation), and syntax to implement [document rules](https://github.com/WICG/nav-speculation/blob/main/triggers.md#document-rules) instead of `list` rules (for example, matching `href` patterns on the page), which can be combined to only prerender links on mouse down, for example.
 
 For now, only the above syntax is supported in Chrome, which is a simple list of urls to prerender.
 
@@ -250,7 +250,7 @@ The `document.prerendering` API will return `true` while the page is prerenderin
 
 Once a prerendered document is activated, `PerformanceNavigationTiming`'s `activationStart` will also be set to a non-zero time representing the time between when the prerender was started and the document was actually activated.
 
-You can have a function to check for _prendering_ and _prerendered_ pages like the following:
+You can have a function to check for _prerendering_ and _prerendered_ pages like the following:
 
 ```js
 function pagePrerendered() {

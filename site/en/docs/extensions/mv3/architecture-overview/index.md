@@ -3,6 +3,7 @@ layout: 'layouts/doc-post.njk'
 title: '架构概述'
 seoTitle: 'Chrome Extensions architecture overview'
 date: 2012-09-18
+<<<<<<< HEAD
 updated: 2022-11-02
 description: Chrome 扩展程序的软件架构的高水平解释。
 subhead: Chrome 扩展程序的软件架构的高水平解释。
@@ -21,34 +22,46 @@ subhead: Chrome 扩展程序的软件架构的高水平解释。
 - [UI 元素][section-ui]
 - [内容脚本][section-cs]
 - [选项页面][section-options]
+=======
+updated: 2023-01-10
+description: A high-level explanation of the architecture of Chrome Extensions.
+subhead: A high-level explanation of the structure of a Chrome Extension.
+anchorRedirects:
+  view_page: /docs/extensions/mv3/options/#view_page
+  files: /docs/extensions/mv3/content_scripts/#files
+---
+
+## Overview {: #overview }
+
+A Chrome extension is composed of different parts. This page describes the structure of an extension, the role each part plays, and how they work together. It does not describe the code-level details of how to write an extension.
+
+If you are not familiar with Chrome extension development, we recommend first reading [Extensions 101][doc-ext-101] and [Development Basics][doc-dev-basics].
+
+## The structure of a Chrome extension {: #arch }
+
+The following sections describe the files that compose a Chrome extension. Here's an example of a Chrome Extension file structure:
+
+<figure>
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/Txq5CxeXjQz7i4wmP8zO.png", alt="An example of a Chrome Extension directory structure", width="400", height="1189" %}
+  <figcaption>
+  An example of a Chrome extension file structure
+  </figcaption>
+</figure>
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
 
 ### Manifest {: #manifest }
 
+<<<<<<< HEAD
 名为 `manifest.json` 的文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
+=======
+The manifest (`manifest.json`) is the configuration file of a Chrome extension. It is a required JSON file that must be located at the [root of the project][dev-basics-structure]. It provides the browser with a blueprint of the extension, with important information such as:
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
 
-```json
-{
-  "name": "My Extension",
-  "description": "A nice little demo extension.",
-  "version": "2.1",
-  "manifest_version": 3,
-  "icons": {
-    "16": "icon_16.png",
-    "48": "icon_48.png",
-    "128": "icon_128.png"
-  },
-  "background": {
-    "service_worker": "background.js"
-  },
-  "permissions": ["storage"],
-  "host_permissions": ["*://*.example.com/*"],
-  "action": {
-    "default_icon": "icon_16.png",
-    "default_popup": "popup.html"
-  }
-}
-```
+- The name of the extension, a description of what it does, the current version number, and what icons to use.
+- The [Chrome API][api-ref] keys and [permissions][doc-perms] that the extension needs.
+- The files assigned as the extension service worker, the popup HTML file, the options page, the content scripts, etc.
 
+<<<<<<< HEAD
 ### 工具栏图标 {: #icons }
 
 扩展程序必须有一个位于浏览器工具栏中的图标。工具栏图标使得用户能够轻松访问并使用户知道安装了哪些扩展程序。大多数用户将通过单击图标与使用 [popup][docs-popup] 的扩展程序进行交互，例如 [快速入门示例][sample-getting-started]。
@@ -57,9 +70,17 @@ subhead: Chrome 扩展程序的软件架构的高水平解释。
 popup", width="187", height="153" %}
 
 <!-- TODO: 展示 MV3 入门教程扩展示例 -->
+=======
+The [Manifest keys][doc-manifest] article contains the complete list of default and optional keys. For copy-paste-ready code samples, check out the [Manifest examples][doc-manifest-examples].
 
-### Service worker {: #background_script }
+### The extension service worker {: #background_script }
 
+An extension service worker (`service-worker.js`) is an event-based script that the browser runs in the background. It is often used to process data, coordinate tasks in different parts of an extension, and as an extension's event manager. For example, the service worker can listen for and react to events when the extension is first installed, a new tab is created, a new bookmark is added, the extension toolbar icon is clicked, etc.
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
+
+A service worker can access all the [Extension APIs][api-ref], but as a type of [Worker][mdn-worker] it can't use the DOM APIs that a document's global Window object provides. It also runs in its own environment, so it cannot directly modify a web page's content.
+
+<<<<<<< HEAD
 Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么就可以访问所有 [Chrome API][section-apis]。
 
 扩展只能有一个 Service Worker。从代码层面上说，可以通过在 manifest 的 `"background"` 中指定 `"type": "Module"`，将 Service Worker 声明为 [ES 模块][webdev-imports]。
@@ -168,32 +189,49 @@ chrome-extension://EXTENSION_ID/RELATIVE_PATH
 {% endAside %}
 
 除非 [在 Manifest 中设置][docs-key] `"key"` 属性，否则在开发过程中，加载 [_unpacked extension_][docs-unpacked] 时会生成一个新 ID。
+=======
+See [Handling events in the extension service worker][doc-sw] for more details. 
 
-{% Aside 'caution' %}
+### Content scripts {: #content-scripts }
 
-内容脚本和网站想要访问的所有资产必须在 Manifest 中的 [`web_accessible_resources`][section-web-res] 键下声明。
+Extensions use content scripts (`content-script.js`) to inject code into host pages. They allow the extension to interact with and modify pages in the browser. For example, they can insert a new element on the page, change the style of a website, modify the [DOM][mdn-dom] elements, etc. 
 
+{% Aside 'key-term' %}
+*Host pages* are the websites that a content script interacts with. An extension can choose which websites a content script should run on by specifying [match patterns][doc-match].
 {% endAside %}
 
+Content Scripts share access to the same DOM tree as the host page but run in a separate JavaScript environment (the extension's [isolated world][cs-isolated]). They also have access to a limited number of [Chrome APIs][api-ref]. See [Understanding content scripts][doc-content-scripts] for more details.
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
+
+### Extension HTML pages {: #html-files }
+
+<<<<<<< HEAD
+内容脚本和网站想要访问的所有资产必须在 Manifest 中的 [`web_accessible_resources`][section-web-res] 键下声明。
+=======
+An extension can have different HTML pages depending on the design. All extension HTML files can use the [Chrome APIs][api-ref], but cannot include inline Javascript; they must point to a JavaScript file. The two most common HTML pages are:
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
+
+[The popup][doc-popup]
+: Many extensions use a popup (`popup.html`) to provide functionality, such as displaying a list of tabs, or additional information regarding the current tab. Users can easily find it by clicking on the extension toolbar icon. When the user navigates away it will automatically close.
+
+<<<<<<< HEAD
 ### 可通过网络访问的资源 {: #web-resources }
 
 Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Javascript），可由内容脚本、网页或其他扩展程序访问。
 
 您可以在 Manifest 中声明哪些资源被公开以及对应的来源：
+=======
+[The options page][doc-options]
+: The options page (`options.html`) provides a way for users to customize an extension, such as choosing which sites the extension will run on. Users can access the options page in several ways as described in [Finding the options page][doc-options-view].
 
-```json
-{
-  ...
-  "web_accessible_resources": [
-    {
-      "resources": [ "images/*.png" ],
-      "matches": [ "https://example.com/*" ]
-    }
-  ],
-  ...
-}
-```
+Other extension HTML pages include [Chrome override pages][doc-override], [sandbox pages][doc-sandbox] or any custom page included for a specific purpose like onboarding the user.
 
+### Other assets {: #assets }
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
+
+An extension can include many types of resources, such as images and fonts, but only the [extension icons][manifest-icons] are required for extensions hosted in the [Chrome Web Store][cws]. Also, [Chrome Web Store policy][cws-mv3-req] requires that extensions include all code that the extension executes in the extension's package.
+
+<<<<<<< HEAD
 请参阅 [Web 可访问资源][docs-web-acc-res] 了解更多信息。
 
 ## 使用 Chrome API {: #apis }
@@ -262,58 +300,76 @@ Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储�
 除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在 Manifest 中的 ["incognito"][manifest-incognito] 键中指定此行为。
 
 请参阅 [隐身模式保存数据][incognito-data] 了解更多信息。
+=======
+## How they work together {: #interact }
+
+In this section, we will describe how these extension components communicate, store data, and share access to resources.
+
+### Sending messages {: #pageComm }
+
+Many times content scripts, or other extension pages, need to send or receive information from the extension service worker. In these cases, either side can listen for messages sent from the other end, and respond on the same channel. Extensions can send a one-time request or establish a long-lived connection to support multiple messages.
+
+See [Message passing][doc-messages] for more details.
+
+### Storing data {: #data }
+
+Chrome provides extensions with a specialized [Storage API][api-storage], available to all extension
+components. It includes four separate storage areas for specific use cases and an event listener
+that tracks whenever data is updated. For example, when you save changes in the popup, the extension
+service worker can respond with specified logic.
+
+See [Storage API][api-storage] for usage and code samples.
+
+### Referencing extension resources {: #ref-files }
+
+Extension HTML pages can use the same tags as a regular HTML page to add an extension asset. Content
+scripts can also access extension resources, such as images and fonts, but require extra steps
+which are described in [Accessing extension files in Content Scripts][doc-ref].
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
 
 ## 下一步{: #next-steps }
 
+<<<<<<< HEAD
 阅读概述并完成 [入门][docs-get-started] 教程后，您应该准备好开始编写自己的扩展程序了！使用以下资源深入了解自定义 Chrome 的世界：
 
 - 在 [调试教程][docs-debugging] 中了解如何调试扩展程序。
 - Chrome 扩展程序可以访问强大的 API，这些 API 超出了开放网络上可用的 API。[Chrome APIs 文档][api-reference] 将介绍每个 API。
 - [开发人员指南][docs-dev-guide] 有几十个附加链接，指向与创建高级扩展程序相关的文档。
+=======
+Now that you have completed the [Getting Started guides][doc-gs] and understand the structure of a Chrome extension, you are ready to dive deeper with the following resources:
 
-[api-action]: /docs/extensions/reference/action/
-[api-create-tab]: /docs/extensions/reference/tabs#method-create
-[api-dec-content]: /docs/extensions/reference/declarativeContent
-[api-get-url]: /docs/extensions/reference/runtime#method-getURL
-[api-notif]: /docs/extensions/reference/notifications/
-[api-reference]: /docs/extensions/reference
+- Learn about the [UI elements][doc-ui] you can use in a Chrome extension.
+- Browse a complete list of [Chrome extension capabilities][doc-dev-guide].
+- Discover best practices for building [secure extensions][doc-secure] that respect [user privacy][doc-privacy]. 
+>>>>>>> d6f450f422d6abddda7cf7bd3d65f8c0956c12f4
+
+[api-ref]: /docs/extensions/reference
 [api-storage]: /docs/extensions/reference/storage
-[api-tab]: /docs/extensions/reference/tabs#type-Tab
-[api-tabs-query]: /docs/extensions/reference/tabs#method-query
-[api-tts]: /docs/extensions/reference/tts/
-[api-window-create]: /docs/extensions/reference/windows/#method-create
-[docs-click]: /docs/extensions/mv3/user_interface/#click-event
-[docs-commands]: /docs/extensions/mv3/user_interface/#commands
-[docs-content-scripts]: /docs/extensions/mv3/content_scripts
-[docs-context-menu]: /docs/extensions/mv3/user_interface/#context_menu
-[docs-debugging]: /docs/extensions/mv3/tut_debugging
-[docs-dev-guide]: /docs/extensions/mv3/devguide
-[docs-ext-pages]: /docs/extensions/mv3/user_interface/#pages
-[docs-get-started]: /docs/extensions/mv3/getstarted
-[docs-key]: /docs/extensions/mv3/tut_oauth/#keep-consistent-id
-[docs-link-options]: /docs/extensions/mv3/options/#linking
-[docs-manifest]: /docs/extensions/mv3/manifest
-[docs-messages]: /docs/extensions/mv3/messaging
-[docs-omnibox]: /docs/extensions/mv3/user_interface/#omnibox
-[docs-options]: /docs/extensions/mv3/options
-[docs-popup]: /docs/extensions/mv3/user_interface#popup
-[docs-promises]: /docs/extensions/mv3/promises/
-[docs-service-worker]: /docs/extensions/mv3/service_workers
-[docs-ui]: /docs/extensions/mv3/user_interface
-[docs-unpacked]: /docs/extensions/mv3/getstarted/#unpacked
-[docs-web-acc-res]: /docs/extensions/mv3/manifest/web_accessible_resources/
-[incognito-data]: /docs/extensions/mv3/user_privacy/#data-incognito
-[manifest-incognito]: /docs/extensions/mv3/manifest/incognito/
-[mdn-indexeddb]: https://developer.mozilla.org/docs/Web/API/IndexedDB_API
-[mdn-web-apis]: https://developer.mozilla.org/docs/Web/API
-[mdn-window-open]: https://developer.mozilla.org/docs/Web/API/Window/open
-[sample-getting-started]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials/getting-started
-[section-apis]: #apis
-[section-bg]: #background_script
-[section-cs]: #contentScripts
-[section-icons]: #icons
-[section-manifest]: #manifest
-[section-options]: #optionsPage
-[section-ui]: #pages
-[section-web-res]: #web-resources
-[webdev-imports]: https://web.dev/es-modules-in-sw/#static-imports-only
+[cs-isolated]: /docs/extensions/mv3/content_scripts/#isolated_world
+[cws]: https://chrome.google.com/webstore/
+[cws-mv3-req]: /docs/webstore/program-policies/mv3-requirements/
+[dev-basics-structure]: /docs/extensions/mv3/getstarted/development-basics/#structure
+[doc-content-scripts]: /docs/extensions/mv3/content_scripts
+[doc-dev-basics]: /docs/extensions/mv3/getstarted/development-basics
+[doc-dev-guide]: /docs/extensions/mv3/devguide
+[doc-ext-101]: /docs/extensions/mv3/getstarted/extensions-101
+[doc-gs]: /docs/extensions/mv3/getstarted
+[doc-manifest-examples]: /docs/extensions/mv3/manifest#manifest-examples
+[doc-match]: /docs/extensions/mv3/match_patterns/
+[doc-manifest]: /docs/extensions/mv3/manifest
+[doc-messages]: /docs/extensions/mv3/messaging
+[doc-options-view]: /docs/extensions/mv3/options#view_page
+[doc-options]: /docs/extensions/mv3/options
+[doc-override]: /docs/extensions/mv3/override
+[doc-overview]: /docs/extensions/mv3/overview
+[doc-perms]: /docs/extensions/mv3/declare_permissions/
+[doc-popup]: /docs/extensions/mv3/user_interface#popup
+[doc-privacy]: /docs/extensions/mv3/user_privacy/
+[doc-ref]: /docs/extensions/mv3/content_scripts/#files
+[doc-sandbox]: /docs/extensions/mv3/manifest/sandbox/
+[doc-secure]: /docs/extensions/mv3/security/
+[doc-sw]: /docs/extensions/mv3/service_workers/
+[doc-ui]: /docs/extensions/mv3/user_interface
+[manifest-icons]: /docs/extensions/mv3/manifest/icons/
+[mdn-dom]: https://developer.mozilla.org/docs/Web/API/Document_Object_Model
+[mdn-worker]: https://developer.mozilla.org/docs/Web/API/Worker
