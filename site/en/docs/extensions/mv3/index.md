@@ -6,7 +6,7 @@ subhead: '了解如何开发 Chrome 扩展程序。'
 seoTitle: Welcome to Chrome Extensions
 description: 'Documentation for Chrome extensions developers.'
 date: 2020-11-09
-updated: 2022-09-20
+updated: 2023-02-21
 ---
 
 本文包含指南和为想要开发 Chrome 扩展程序的开发者提供的参考文档。
@@ -27,10 +27,14 @@ updated: 2022-09-20
 
 {% endAside %}
 
+<<<<<<< HEAD
 除了本站的文档，开发者还可以在社区寻找有帮助的信息：
 
 - 谷歌小组 [Chromium extensions](https://groups.google.com/a/chromium.org/g/chromium-extensions)。
 - Stack Overflow [google-chrome extension](https://stackoverflow.com/tags/google-chrome-extension/info) 标签下的内容。
+=======
+Additionaly, keep up with Chrome extensions news by visiting our [What's new page][doc-whats-new]. If you need assistance with a development problem, visit our [help page][doc-get-help]
+>>>>>>> f37f7449bf6cf2d68a2aca9c05d78ce8d018459d
 
 感谢你成为扩展程序开发社区的一员，欢迎你！
 
@@ -38,8 +42,9 @@ updated: 2022-09-20
 [doc-dev-overview]: /docs/extensions/mv3/devguide/
 [doc-ext-101]: /docs/extensions/mv3/getstarted/extensions-101
 [doc-mv2-sunset]: /docs/extensions/mv3/mv2-sunset
-[gg-extensions]: https://groups.google.com/a/chromium.org/g/chromium-extensions
+[doc-whats-new]: /docs/extensions/whatsnew
+[doc-get-help]: /docs/extensions/gethelp
 [gh-ext-samples]: https://github.com/GoogleChrome/chrome-extensions-samples
 [github-ext-doc]: https://github.com/GoogleChrome/developer.chrome.com
-[gs-tuts]: /docs/extensions/mv3/getstarted/#tutorials
+[gs-tuts]: /docs/extensions/mv3/getstarted/#tutorial
 [so-extension-tag]: https://stackoverflow.com/questions/tagged/google-chrome-extension
