@@ -15,11 +15,28 @@ The [Extensions sample GitHub repository][gh-samples] provides examples of exten
 
 The examples are currently located under the following directories:
 
+<<<<<<< HEAD
 [api/][gh-api]: Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension IU elements such as the popup, tooltip, and badges among others.
 
 [examples/][gh-examples]: Complete extensions that implement all the basic features for a given purpose.
 
 [tutorials/][gh-tutorials]: Examples covered in the [tutorials][gs-tutorials]. A few examples include [Tabs manager][tut-tabs-man], [Focus mode][tut-fm], and [Reading time][tut-rt].
+=======
+[api-samples/][gh-api]
+: Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension IU elements such as the popup, tooltip, and badges among others. 
+
+[functional-samples/sample...][gh-functional-samples]
+: Complete extensions that implement all the basic features for a given purpose.
+
+[functional-samples/tutorial...][gh-functional-samples]
+: Examples covered in the [tutorials][gs-tutorials]. A few examples include [Tabs manager][tut-tabs-man], [Focus mode][tut-fm], and [Reading time][tut-rt].
+>>>>>>> 05bbd54193a04d8608894410c32135b74405cc4d
+
+[functional-samples/cookbook...][gh-functional-samples]
+: Examples demonstrating a particular concept.
+
+[functional-samples/reference...][gh-functional-samples]
+: Examples linked to documentation on this site.
 
 {% Details %}
 {% DetailsSummary %}
@@ -52,13 +69,12 @@ Read the instructions carefully; each extension is different. For example, some 
 If you encounter any problems with an example, let us know by [posting an issue][gh-issues]. If you want to submit a new extension, check out the [Contributing Guide][gh-contributing] to find out how to submit a new example to this collection.
 
 [dev-basics-locally]: /docs/extensions/mv3/getstarted/development-basics/
-[gh-action]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/api/action
-[gh-api]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/api
+[gh-action]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/api-samples/action
+[gh-api]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/api-samples
 [gh-contributing]: https://github.com/GoogleChrome/chrome-extensions-samples/blob/main/CONTRIBUTING.md
-[gh-examples]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/examples
 [gh-issues]: https://github.com/GoogleChrome/chrome-extensions-samples/issues
 [gh-samples]: https://github.com/GoogleChrome/chrome-extensions-samples
-[gh-tutorials]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/tutorials
+[gh-functional-samples]: https://github.com/GoogleChrome/chrome-extensions-samples/tree/main/functional-samples
 [gs-tutorials]: /docs/extensions/mv3/getstarted/#tutorial
 [tut-fm]: /docs/extensions/mv3/getstarted/tut-focus-mode/
 [tut-rt]: /docs/extensions/mv3/getstarted/tut-reading-time/
