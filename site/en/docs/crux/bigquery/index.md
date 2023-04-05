@@ -61,7 +61,7 @@ If this is your first time using BigQuery then follow below steps to set up a pr
 Now you’re ready to start querying the dataset.
 
 {% Aside %}
-For example queries see the [getting started guide on web.dev](https://web.dev/chrome-ux-report-bigquery/).
+For example queries see the [getting started guide](/blog/chrome-ux-report-bigquery/).
 {% endAside %}
 
 ## Project organization
@@ -104,7 +104,7 @@ The raw tables for each country and the `all` dataset have the following schema:
     - permission
         - notifications
     - time_to_first_byte
-    - responsiveness
+    - interaction_to_next_paint
     - popularity
 
 ## Materialized table schema {: #schema-materialized }
