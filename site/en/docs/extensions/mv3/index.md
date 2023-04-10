@@ -23,26 +23,12 @@ updated: 2023-02-21
 - 从 [简单示例][gh-ext-samples] 中选择案例，安装并开始修改代码。
 
 {% Aside 'warning' %}
-<<<<<<< HEAD
-随着 V3 版本的功能完全替代 V2，我们会在 2023 年淘汰 V2 版本。 阅读 [Manifest V2 支持时间线][doc-mv2-sunset] 获取更多信息。
+
+随着 V3 版本的功能完全替代 V2，我们会在 2023 年淘汰 V2 版本。有关详细信息，请参阅 [V2 支持时间表][doc-mv2-sunset]。有关将扩展迁移到清单 V3 的说明，请参阅迁移到[Manifest V3][migrate-to-mv3]。
 
 {% endAside %}
 
-除了本站的文档，开发者还可以在社区寻找有帮助的信息：
-
-- 谷歌小组 [Chromium extensions](https://groups.google.com/a/chromium.org/g/chromium-extensions)。
-- Stack Overflow [google-chrome extension](https://stackoverflow.com/tags/google-chrome-extension/info) 标签下的内容。
-=======
-
-As Manifest V3 approaches full feature parity with V2, we will be phasing out
-Manifest V2 in 2023. See [Manifest V2 support timeline][doc-mv2-sunset] for details.
-For instructions on migrating your extensions to Manifest V3, see
-[Migrate to Manifest V3][migrate-to-mv3].
-
-{% endAside %}
-
-Additionaly, keep up with Chrome extensions news by visiting our [What's new page][doc-whats-new]. If you need assistance with a development problem, visit our [help page][doc-get-help]
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+此外，通过访问我们的[最新页面][doc-whats-new]了解 Chrome 扩展新闻。如果您在开发问题上需要帮助，请访问我们的[帮助页面][doc-get-help]。
 
 感谢你成为扩展程序开发社区的一员，欢迎你！
 

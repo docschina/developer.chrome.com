@@ -16,12 +16,7 @@ anchorRedirects:
 
 [扩展程序开发 101][doc-ext-101]：简要介绍 Chrome Extension 开发的一些基本概念，如 Web 技术和常用的扩展组件。此外，它还包括在 Chrome Web Store 中设计和分发扩展时需要注意的事项。
 
-<<<<<<< HEAD
-[Development Basics][doc-dev-basics]：通过创建“Hello，Extensions”示例介绍扩展开发程序工作流。它介绍了在开发者模式加载扩展、定位日志和错误、选择项目结构以及使用 Typescript。
-=======
-[Development Basics][doc-dev-basics]
-: Introduces the extension development workflow by creating a "Hello, Extensions" example. It walks through loading the extension during development, locating logs and errors, choosing a project structure, and using Typescript.
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+[Development Basics][doc-dev-basics]：通过创建“Hello，Extensions”示例介绍扩展开发的工作流程。它介绍了在开发者模式加载扩展、定位日志和错误、选择项目结构以及使用 Typescript。
 
 ## Extension 案例介绍 {: #tutorial }
 

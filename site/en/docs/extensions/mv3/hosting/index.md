@@ -35,12 +35,9 @@ note that during development you can also load unpacked.
 [未打包的扩展程序][doc-load-unpacked] 应该仅用于在开发过程中加载受信任的代码。
 
 {% Aside %}
-<<<<<<< HEAD
-Linux 用户可以手动安装那些并未经过 Chrome 应用商店分发或签名的打包扩展程序。
-=======
-Windows/macOS users can only install self-hosted extensions through enterprise policies. However, Linux users can manually install packed extensions that are not distributed or signed by Chrome
-Web Store.
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+
+Windows/macOS 用户只能通过企业策略安装自托管扩展。但是，Linux 用户可以手动安装未经 Web Store 分发或签名 Chrome 打包扩展。
+
 {% endAside %}
 
 [cws-about]: /docs/webstore/about_webstore

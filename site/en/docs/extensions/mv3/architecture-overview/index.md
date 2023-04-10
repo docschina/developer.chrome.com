@@ -3,43 +3,23 @@ layout: 'layouts/doc-post.njk'
 title: '架构概述'
 seoTitle: 'Chrome Extensions architecture overview'
 date: 2012-09-18
-<<<<<<< HEAD
-updated: 2022-11-02
-description: Chrome 扩展程序的软件架构的高水平解释。
-subhead: Chrome 扩展程序的软件架构的高水平解释。
----
-
-扩展程序是 HTML、CSS、JavaScript、图像和 Web 平台中使用的其他文件的压缩包。扩展程序可以修改用户看到并与之交互的 Web 内容。扩展程序还可以扩展和更改浏览器本身的行为。
-
-本页简要介绍了可能构成扩展程序的一部分的文件、如何访问这些文件、如何使用 Chrome API、扩展文件如何通信以及如何存储数据。
-
-## 架构 {: #arch }
-
-扩展程序的架构将取决于其功能，但所有扩展都必须包含 [manifest][section-manifest] 中所包含的内容。扩展程序可以包含的其他组件如下：
-
-- [Service worker][section-bg]
-- [工具栏图标][section-icons]
-- [UI 元素][section-ui]
-- [内容脚本][section-cs]
-- [选项页面][section-options]
-=======
 updated: 2023-01-10
-description: A high-level explanation of the architecture of Chrome Extensions.
-subhead: A high-level explanation of the structure of a Chrome Extension.
+description: Chrome 扩展架构的高级说明。
+subhead: Chrome 扩展架构的高级解释。
 anchorRedirects:
   view_page: /docs/extensions/mv3/options/#view_page
   files: /docs/extensions/mv3/content_scripts/#files
 ---
 
-## Overview {: #overview }
+## 概览 {: #overview }
 
-A Chrome extension is composed of different parts. This page describes the structure of an extension, the role each part plays, and how they work together. It does not describe the code-level details of how to write an extension.
+Chrome 扩展由不同的部分组成，本页描述了扩展的结构、每个部分扮演的角色以及它们如何协同工作，并不会描述如何编写扩展的代码级细节。
 
-If you are not familiar with Chrome extension development, we recommend first reading [Extensions 101][doc-ext-101] and [Development Basics][doc-dev-basics].
+如果您不熟悉 Chrome 扩展开发，我们建议您先阅读 [Extensions 101][doc-ext-101] 和[开发基础][doc-dev-basics]。
 
-## The structure of a Chrome extension {: #arch }
+## Chrome 扩展的结构 {: #arch }
 
-The following sections describe the files that compose a Chrome extension. Here's an example of a Chrome Extension file structure:
+以下部分描述了组成 Chrome 扩展的文件。以下是 Chrome 扩展文件结构的示例：
 
 <figure>
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/Txq5CxeXjQz7i4wmP8zO.png", alt="An example of a Chrome Extension directory structure", width="400", height="1189" %}
@@ -47,301 +27,79 @@ The following sections describe the files that compose a Chrome extension. Here'
   An example of a Chrome extension file structure
   </figcaption>
 </figure>
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
 
 ### Manifest {: #manifest }
 
-<<<<<<< HEAD
-名为 `manifest.json` 的文件为浏览器提供了有关扩展的信息，例如重要的文件和扩展可使用的功能。
-=======
-The manifest (`manifest.json`) is the configuration file of a Chrome extension. It is a required JSON file that must be located at the [root of the project][dev-basics-structure]. It provides the browser with a blueprint of the extension, with important information such as:
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+manifest(`manifest.json`) 是 Chrome 扩展的配置文件，它是一个必需的 JSON 文件，必须位于项目的[根目录][dev-basics-structure]，它为浏览器提供了扩展的蓝图，其中包含重要信息，例如：
 
-- The name of the extension, a description of what it does, the current version number, and what icons to use.
-- The [Chrome API][api-ref] keys and [permissions][doc-perms] that the extension needs.
-- The files assigned as the extension service worker, the popup HTML file, the options page, the content scripts, etc.
+- 扩展的名称、它的作用描述、当前版本号以及要使用的图标。
+- 扩展所需的 [Chrome API][api-ref] 密钥和 [权限 permissions][doc-perms]。
+- 分配为 service worker 的文件、popup HTML 文件、选项页（options page）、内容脚本（content scripts）等。
 
-<<<<<<< HEAD
-### 工具栏图标 {: #icons }
+[Manifest keys][doc-manifest] 一文包含默认和可选属性的完整列表。完整 [Manifest 示例][doc-manifest-examples]。
 
-扩展程序必须有一个位于浏览器工具栏中的图标。工具栏图标使得用户能够轻松访问并使用户知道安装了哪些扩展程序。大多数用户将通过单击图标与使用 [popup][docs-popup] 的扩展程序进行交互，例如 [快速入门示例][sample-getting-started]。
+### service worker {: #background_script }
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/ku5Z8MMssgw6MKctpJVI.png", alt="Getting started
-popup", width="187", height="153" %}
+扩展的 Service Worker（`service-worker.js`）是浏览器在后台运行的基于事件的脚本，通常用于处理数据，协调扩展不同部分的任务，以及作为扩展的事件管理器。例如，Service Worker 可以在首次安装扩展、创建新选项卡、添加新书签、单击扩展工具栏图标等时侦听并对事件做出反应。
 
-<!-- TODO: 展示 MV3 入门教程扩展示例 -->
-=======
-The [Manifest keys][doc-manifest] article contains the complete list of default and optional keys. For copy-paste-ready code samples, check out the [Manifest examples][doc-manifest-examples].
+Service Worker 可以访问所有的 [Extension API][api-ref]，但作为 [Worker][mdn-worker] 类型，它不能使用文档的全局 Window 对象提供的 DOM API。它也在自己的环境中运行，因此它不能直接修改网页的内容。
 
-### The extension service worker {: #background_script }
+有关详细信息，请参阅[处理扩展 Service Worker 中的事件][doc-sw]。
 
-An extension service worker (`service-worker.js`) is an event-based script that the browser runs in the background. It is often used to process data, coordinate tasks in different parts of an extension, and as an extension's event manager. For example, the service worker can listen for and react to events when the extension is first installed, a new tab is created, a new bookmark is added, the extension toolbar icon is clicked, etc.
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+### 内容脚本 {: #content-scripts }
 
-A service worker can access all the [Extension APIs][api-ref], but as a type of [Worker][mdn-worker] it can't use the DOM APIs that a document's global Window object provides. It also runs in its own environment, so it cannot directly modify a web page's content.
-
-<<<<<<< HEAD
-Service Worker 是扩展程序的事件处理程序：它包含对扩展程序很重要的浏览器事件的侦听器。它最开始处于休眠状态，直到触发事件然后执行指示的逻辑；它仅在需要时加载并在空闲时卸载。只要 Service Worker 在 `manifest.json` 中声明所需的权限，那么就可以访问所有 [Chrome API][section-apis]。
-
-扩展只能有一个 Service Worker。从代码层面上说，可以通过在 manifest 的 `"background"` 中指定 `"type": "Module"`，将 Service Worker 声明为 [ES 模块][webdev-imports]。
-
-请参阅 [使用 Service Workers 处理事件][docs-service-worker] 了解更多信息。
-
-### 内容脚本{: #contentScripts }
-
-内容脚本允许扩展程序将逻辑注入页面以读取和修改其内容。内容脚本包含在已加载到浏览器中的页面上下文中执行的 JavaScript。
-
-内容脚本可以通过交换 [messages][docs-messages] 和使用 [storage][api-storage] API 存储值，以与其父扩展程序进行通信。
-
-{% Img src="image/BrQidfK9jaQyIHwdw91aVpkPiib2/466ftDp0EXB4E1XeaGh0.png", alt="Shows a communication
-path between the content script and the parent extension", height="316", width="388" %}
-
-请参阅 [了解内容脚本][docs-content-scripts] 了解更多信息。
-
-### UI 元素{: #pages }
-
-扩展程序的用户界面应该是有目的性的，并且尽量小。UI 应该自定义或增强浏览体验而不会分散注意力。
-
-以下是最常见的 UI 示例列表：
-
-- [action click][docs-click] 事件。
-- [popup][docs-popup]。
-- [context menu][docs-context-menu]。
-- [omnibox][docs-omnibox]。
-- [keyboard shortcut][文档命令]。
-- Desktop [notifications][api-notif].
-- [Text-to-speech][api-tts]。
-- A custom UI injected [into a page][docs-content-scripts].
-
-请参阅 [设计 Chrome 扩展程序的 UI][docs-ui]，了解更多信息。
-
-### 选项页面 {: #optionsPage }
-
-正如扩展程序允许用户自定义 Chrome 浏览器一样，选项页面也支持自定义扩展程序。选项页面可用于启用功能并允许用户选择与其需求相关的功能。
-
-用户可以通过 [direct link][docs-link-options] 或在扩展工具栏的上下文菜单中访问选项页面。以下是 Google Dictionary 扩展程序的示例。
-
-{% Columns %}
-
-{% Column %}
-
-<figure>
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/Mz7GV76tFkzxRlb7Pq6e.png",
-alt="Options page link in the UI", width="800", height="299" %}
-  <figcaption>
-    Link to the Options page.
-  </figcaption>
-</figure>
-
-{% endColumn %}
-
-{% Column %}
-
-<figure>
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/BM11QeGCThsUNTlsZbAe.png",
-alt="Context Menu Options page", width="357", height="222" %}
-
-  <figcaption>
-    Options page in the extension's context menu.
-  </figcaption>
-</figure>
-
-{% endColumn %}
-
-{% endColumns %}
-
-请参阅 [选项页面][docs-options] 了解更多信息。
-
-### 其他 HTML 文件 {: #html-files}
-
-您可以展示未在 Manifest 中声明的扩展程序中存在的其他 HTML 文件。这些 HTML 文件可以访问与弹出窗口或其他扩展文件相同的 [Chrome API][section-apis]。
-
-您可以使用 Web API [window.open()][mdn-window-open]、Chrome API [windows.create()][api-window-create] 或 [tabs.create()][api-create-tab] 来打开这些页面 。
-
-## 扩展程序文件 {: #files }
-
-### 引用扩展程序文件 {: #ref-files }
-
-就像 Web 上的 HTML 页面可以包含具有相对 URL 的同一站点上的文件一样，扩展程序页面也可以使用相对路径引用扩展资源。
-
-```html
-<img src="images/my_image.png" />
-```
-
-要从 **内容脚本** 访问扩展程序文件，您可以调用 [`chrome.runtime.getURL()`][api-get-url] 来获取扩展程序的绝对 URL。
-
-```js
-let image = chrome.runtime.getURL('images/my_image.png');
-```
-
-要从 **网站** 访问扩展文件，您必须按如下方式构建 URL：
-
-```text
-chrome-extension://EXTENSION_ID/RELATIVE_PATH
-```
-
-您可以在扩展管理页面 **chrome://extensions** 中找到 <code><var>EXTENSION_ID</var></code>。<code><var>RELATIVE_PATH</var></code> 是相对于扩展程序的顶部文件夹。
+扩展使用内容脚本（`content-script.js`）将代码注入主机页面，它们允许扩展与浏览器中的页面进行交互和修改，例如，它们可以在页面上插入一个新元素、更改网站的样式、修改 [DOM][mdn-dom] 等。
 
 {% Aside 'key-term' %}
-
-**扩展程序 ID** 是一个 32 个字符的字母字符串，用于标识浏览器和 Chrome 网上应用店中的扩展程序。
-
+**主机页面 Host pages** 是内容脚本与之交互的网站。扩展可以通过指定 [匹配模式][doc-match] 来选择内容脚本应该在哪些网站上运行。
 {% endAside %}
 
-除非 [在 Manifest 中设置][docs-key] `"key"` 属性，否则在开发过程中，加载 [_unpacked extension_][docs-unpacked] 时会生成一个新 ID。
-=======
-See [Handling events in the extension service worker][doc-sw] for more details. 
+内容脚本与主机页共享对同一 DOM 树的访问，但在单独的 JavaScript 环境中运行（扩展的[隔离世界][cs-isolated]）。它们还可以访问有限数量的[ChromeAPI][api-ref]。有关详细信息，请参阅[了解内容脚本][doc-content-scripts]。
 
-### Content scripts {: #content-scripts }
+### 扩展 HTML 页面 {: #html-files }
 
-Extensions use content scripts (`content-script.js`) to inject code into host pages. They allow the extension to interact with and modify pages in the browser. For example, they can insert a new element on the page, change the style of a website, modify the [DOM][mdn-dom] elements, etc. 
+根据设计，扩展可以有不同的 HTML 页面。所有扩展 HTML 文件都可以使用[Chrome API][api-ref]，但不能包含内联 Javascript；它们必须指向 JavaScript 文件。两种最常见的 HTML 页面是：
 
-{% Aside 'key-term' %}
-*Host pages* are the websites that a content script interacts with. An extension can choose which websites a content script should run on by specifying [match patterns][doc-match].
-{% endAside %}
+[弹出窗口][doc-popup] ：许多扩展使用弹出窗口（`popup.html`）来提供功能，例如显示选项卡列表，或有关当前选项卡的附加信息。用户可以通过单击扩展工具栏图标轻松找到它。当用户导航离开时，它会自动关闭。
 
-Content Scripts share access to the same DOM tree as the host page but run in a separate JavaScript environment (the extension's [isolated world][cs-isolated]). They also have access to a limited number of [Chrome APIs][api-ref]. See [Understanding content scripts][doc-content-scripts] for more details.
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+[选项页面][doc-options] ：选项页面（`options.html`）为用户提供了自定义扩展的方法，例如选择扩展将在哪些站点上运行，用户可以通过几种方式访问选项页面，如[查找选项页面][doc-options-view] 中所述。
 
-### Extension HTML pages {: #html-files }
+其他扩展 HTML 页面包括[Chrome 覆盖页面][doc-override]、[沙盒页面][doc-sandbox] 或为特定目的（如入职用户）而包含的任何自定义页面。
 
-<<<<<<< HEAD
-内容脚本和网站想要访问的所有资产必须在 Manifest 中的 [`web_accessible_resources`][section-web-res] 键下声明。
-=======
-An extension can have different HTML pages depending on the design. All extension HTML files can use the [Chrome APIs][api-ref], but cannot include inline Javascript; they must point to a JavaScript file. The two most common HTML pages are:
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+### 其他资源 {: #assets }
 
-[The popup][doc-popup]
-: Many extensions use a popup (`popup.html`) to provide functionality, such as displaying a list of tabs, or additional information regarding the current tab. Users can easily find it by clicking on the extension toolbar icon. When the user navigates away it will automatically close.
+扩展可以包含许多类型的资源，例如图像和字体，但[Chrome Web Store][cws]中托管的扩展只需要[扩展图标][manifest-icons]。此外，[Chrome Web Store 策略][cws-mv3-req] 要求扩展包含扩展在扩展包中执行的所有代码。
 
-<<<<<<< HEAD
-### 可通过网络访问的资源 {: #web-resources }
+## 他们如何一起工作 {: #interact }
 
-Web 可访问资源是扩展程序内的文件（图像资源、HTML、CSS、Javascript），可由内容脚本、网页或其他扩展程序访问。
+在本节中，我们将描述这些扩展组件如何通信、存储数据和共享对资源的访问。
 
-您可以在 Manifest 中声明哪些资源被公开以及对应的来源：
-=======
-[The options page][doc-options]
-: The options page (`options.html`) provides a way for users to customize an extension, such as choosing which sites the extension will run on. Users can access the options page in several ways as described in [Finding the options page][doc-options-view].
+### 发送消息 {: #pageComm }
 
-Other extension HTML pages include [Chrome override pages][doc-override], [sandbox pages][doc-sandbox] or any custom page included for a specific purpose like onboarding the user.
+很多时候，内容脚本或其他扩展页面需要从扩展 Service Worker 发送或接收信息。在这些情况下，任何一方都可以监听从另一端发送的消息，并在同一通道上做出响应。扩展可以发送一次性请求或建立长期连接以支持多条消息。
 
-### Other assets {: #assets }
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+有关详细信息，请参阅[消息传递][doc-messages]。
 
-An extension can include many types of resources, such as images and fonts, but only the [extension icons][manifest-icons] are required for extensions hosted in the [Chrome Web Store][cws]. Also, [Chrome Web Store policy][cws-mv3-req] requires that extensions include all code that the extension executes in the extension's package.
+### 存储数据 {: #data }
 
-<<<<<<< HEAD
-请参阅 [Web 可访问资源][docs-web-acc-res] 了解更多信息。
-
-## 使用 Chrome API {: #apis }
-
-除了可以访问与网页相同的 [web APIs][mdn-web-apis] 之外，扩展程序还可以使用与浏览器紧密集成的 [extension-specific APIs][api-reference]。 例如，扩展程序和网页都可以访问标准的 [`window.open()`][mdn-window-open] 方法来打开 URL，但扩展程序可以通过使用 [chrome. tabs.create()][api-create-tab] 代替。
-
-请参阅 [Chrome API 参考文档][api-reference] 了解更多信息。
-
-### 异步 vs 同步方法 {: #async-sync }
-
-大多数 Chrome API 方法都是异步的：它们会立即返回，而无需等待操作完成。如果扩展程序需要知道异步操作的结果，有两个选择：
-
-- 返回 promises
-- 传递回调方法
-
-请注意这些选择是互斥的，如果传递了回调方法，就不会返回 promise。如果你想返回 promise 就不要传递回调。
-
-一般来说，你应该更倾向于使用 promise 而不是回调方法。并非所有的扩展程序 API 都支持 promise，但比较新的方法是支持的。你可以在 API 索引页面检查对应的方法是否支持 promise。如果你需要在一个函数中同时支持 promise 和回调方法，比如你的用户可能使用更老的浏览器，你可以测试返回的具体内容，通过使用 `typeof` 和 [可选链](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Optional_chaining)) 进行区分：
-
-```js
-typeof chrome.contextMenus.removeAll()?.then();
-```
-
-#### Promises {: #async }
-
-随着 Manifest V3 的引入，许多扩展程序的 API 都开始返回 Promise，但是并非扩展程序 API 中的所有方法都支持 Promise。您可以通过检查其 API 参考页面来验证方法是否支持 Promise。
-
-处理 promise 的方法收到支持。请参阅 [使用 Promise][api-reference] 了解更多信息。
-
-```js
-// Promise
-chrome.tabs.query(queryOptions).then(tabs => {
-  chrome.tabs.update(tabs[0].id, {url: newUrl});
-  someOtherFunction();
-});
-
-// async-await
-async function queryTab() {
-  let tabs = await chrome.tabs.query(queryOptions);
-  chrome.tabs.update(tabs[0].id, {url: newUrl});
-  someOtherFunction();
-}
-```
-
-#### Callbacks {: #callbacks }
-
-回调参数声明一个可用的异步方法。
-
-```js
-// Signatures for an asynchronous method
-chrome.tabs.query(object queryInfo, function callback)
-```
-
-## 页面间通信 {: #pageComm }
-
-扩展程序中的不同组件可以使用 [消息传递][docs-messages] 相互通信。任何一方都可以侦听从另一端发送的消息，并在同一通道上响应。
-
-## 数据保存 {: #data}
-
-Chrome 存储 API 已经经过优化，可以满足扩展程序的特定存储需求。例如，每当数据更新时，您都可以使用 `onChanged()` 事件来跟踪这些更改。所有扩展程序组件都可以访问此 API。扩展程序还可以使用 Web API [indexedDB][mdn-indexeddb] 存储数据。
-
-请参阅 [storage API][api-reference] 了解更多信息。
-
-## 隐身模式 {: #incognito}
-
-除非用户在扩展程序的设置页面中手动允许，否则扩展程序不会在隐身窗口中运行。默认情况下，普通窗口和隐身窗口在单个共享进程中运行。但是扩展程序可以在自己的单独进程中运行隐身窗口，或者根本不支持隐身窗口。您可以在 Manifest 中的 ["incognito"][manifest-incognito] 键中指定此行为。
-
-请参阅 [隐身模式保存数据][incognito-data] 了解更多信息。
-=======
-## How they work together {: #interact }
-
-In this section, we will describe how these extension components communicate, store data, and share access to resources.
-
-### Sending messages {: #pageComm }
-
-Many times content scripts, or other extension pages, need to send or receive information from the extension service worker. In these cases, either side can listen for messages sent from the other end, and respond on the same channel. Extensions can send a one-time request or establish a long-lived connection to support multiple messages.
-
-See [Message passing][doc-messages] for more details.
-
-### Storing data {: #data }
-
-Chrome provides extensions with a specialized [Storage API][api-storage], available to all extension
-components. It includes four separate storage areas for specific use cases and an event listener
-that tracks whenever data is updated. For example, when you save changes in the popup, the extension
-service worker can respond with specified logic.
+Chrome 为扩展提供专门的[存储 Storage API][api-storage]，可用于所有扩展组件。它包括用于特定用例的四个独立存储区域和一个事件侦听器 每当数据更新时跟踪。例如，当您在弹出窗口中保存更改时，扩展 Service Worker 可以使用指定的逻辑进行响应。
 
 See [Storage API][api-storage] for usage and code samples.
+有关用法和代码示例，请参阅 [Storage API][api-storage]。
 
-### Referencing extension resources {: #ref-files }
+### 引用扩展资源 {: #ref-files }
 
-Extension HTML pages can use the same tags as a regular HTML page to add an extension asset. Content
-scripts can also access extension resources, such as images and fonts, but require extra steps
-which are described in [Accessing extension files in Content Scripts][doc-ref].
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+扩展 HTML 页面可以使用与常规 HTML 页面相同的标签来添加扩展资产。内容脚本还可以访问扩展资源，例如图像和字体，但需要额外的步骤 这在[访问内容脚本中的扩展文件][doc-ref] 中描述。
 
 ## 下一步{: #next-steps }
 
-<<<<<<< HEAD
-阅读概述并完成 [入门][docs-get-started] 教程后，您应该准备好开始编写自己的扩展程序了！使用以下资源深入了解自定义 Chrome 的世界：
-
-- 在 [调试教程][docs-debugging] 中了解如何调试扩展程序。
-- Chrome 扩展程序可以访问强大的 API，这些 API 超出了开放网络上可用的 API。[Chrome APIs 文档][api-reference] 将介绍每个 API。
-- [开发人员指南][docs-dev-guide] 有几十个附加链接，指向与创建高级扩展程序相关的文档。
-=======
 Now that you have completed the [Getting Started guides][doc-gs] and understand the structure of a Chrome extension, you are ready to dive deeper with the following resources:
 
-- Learn about the [UI elements][doc-ui] you can use in a Chrome extension.
-- Browse a complete list of [Chrome extension capabilities][doc-dev-guide].
-- Discover best practices for building [secure extensions][doc-secure] that respect [user privacy][doc-privacy]. 
->>>>>>> 7a1f6c5a7963c986f8cf718a7ead757f5b4587b7
+现在您已经完成了 [入门指南][doc-gs] 并了解了 Chrome 扩展的结构，您可以使用以下资源深入了解：
+
+- 了解可以在 Chrome 扩展中使用的[UI 元素][doc-ui]。
+- 浏览[Chrome 扩展功能][doc-dev-guide] 的完整列表。
+- 了解构建尊重[用户隐私][doc-privacy] 的[安全扩展][doc-secure]的最佳实践。
 
 [api-ref]: /docs/extensions/reference
 [api-storage]: /docs/extensions/reference/storage
