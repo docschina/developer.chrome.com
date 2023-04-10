@@ -8,10 +8,12 @@ date: 2022-10-04
 # updated: 2022-06-13
 ---
 
-## Overview {: #overview }
+## 概览 {: #overview }
 
 This page describes the extension development workflow. We will create a "Hello, Extensions"
 example, load the extension locally, locate logs, and explore other recommendations.
+
+本页描述了扩展开发工作流程。我们将创建一个“Hello，扩展”，在本地加载扩展、定位日志并探索其他建议。
 
 ## Hello Extensions {: #build }
 
@@ -43,12 +45,12 @@ Next, create a new file in this directory called `manifest.json` and add the fol
 }
 ```
 
-This JSON object describes the extension's capabilities and configuration. For example, the `"action"` key 
-declares the image Chrome should use as the action's icon and the HTML page to show in a popup when the action is clicked. [Download the icon][hello-icon] to your directory, and be sure to change its name to match what's in the `"default_icon"` key. 
+This JSON object describes the extension's capabilities and configuration. For example, the `"action"` key
+declares the image Chrome should use as the action's icon and the HTML page to show in a popup when the action is clicked. [Download the icon][hello-icon] to your directory, and be sure to change its name to match what's in the `"default_icon"` key.
 
 For the popup, create a file named `hello.html`, and add the following code:
 
-``` html
+```html
 <html>
   <body>
     <h1>Hello Extensions</h1>
@@ -64,18 +66,18 @@ it in Chrome by loading it locally. Ensure all files are saved.
 To load an unpacked extension in developer mode:
 
 1. Go to the Extensions page by entering `chrome://extensions` in a new tab. (By design `chrome://` URLs are not linkable.)
-    - Alternatively, click on the Extensions menu puzzle button and select **Manage Extensions** at the bottom of the menu.
-    - Or, click the Chrome menu, hover over **More Tools,** then select **Extensions**.
+   - Alternatively, click on the Extensions menu puzzle button and select **Manage Extensions** at the bottom of the menu.
+   - Or, click the Chrome menu, hover over **More Tools,** then select **Extensions**.
 2. Enable Developer Mode by clicking the toggle switch next to **Developer mode**.
 3. Click the **Load unpacked** button and select the extension directory.
-    <figure>
-    {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/BzVElZpUtNE4dueVPSp3.png", alt="Extensions page", 
-    width="400", height="183",  class="screenshot" %}
+   <figure>
+   {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/BzVElZpUtNE4dueVPSp3.png", alt="Extensions page", 
+   width="400", height="183",  class="screenshot" %}
 
-      <figcaption>
-      Extensions page (chrome://extensions)
-      </figcaption>
-    </figure>
+     <figcaption>
+     Extensions page (chrome://extensions)
+     </figcaption>
+   </figure>
 
 Ta-da! The extension has been successfully installed. Because no extension icons were included in
 the manifest, a generic icon will be created for the extension.
@@ -130,7 +132,7 @@ to the Extensions page and click the refresh icon next to the **on/off** toggle:
 Not all components need to be reloaded to see changes made, as shown in the following table:
 
 | Extension component        | Requires extension reload |
-|----------------------------|:-------------------------:|
+| -------------------------- | :-----------------------: |
 | The manifest               |            Yes            |
 | Service worker             |            Yes            |
 | Content Scripts            | Yes (plus the host page)  |
@@ -159,29 +161,29 @@ will locate the logs for the popup. Start by adding a script tag to `hello.html`
 Create a `popup.js` file and add the following code:
 
 ```js
-console.log("This is a popup!")
+console.log('This is a popup!');
 ```
 
 To see this message logged in the Console:
 
-  1. Open the popup.
-  2. Right-click on the popup.
-  3. Select **Inspect**. 
-      <figure> 
-      {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vHGHW1o4J0kZgUkAteRQ.png", 
-      alt="Inspecting the popup.", width="322", height="262", class="screenshot" %}
-        <figcaption>
-        Inspecting a popup. 
-        </figcaption>
-      </figure>
-  4. In the [DevTools][dev-tools], navigate to the **Console** panel.
-    <figure>
-    {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/1ZrcBEYcbMxW1c9UvBy9.png", 
-    alt="DevTools Code Panel", width="400", height="374", class="screenshot" %}
-      <figcaption>
-      Inspecting a popup 
-      </figcaption>
-    </figure>   
+1. Open the popup.
+2. Right-click on the popup.
+3. Select **Inspect**.
+<figure> 
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/vHGHW1o4J0kZgUkAteRQ.png", 
+alt="Inspecting the popup.", width="322", height="262", class="screenshot" %}
+  <figcaption>
+  Inspecting a popup. 
+  </figcaption>
+</figure>
+4. In the [DevTools][dev-tools], navigate to the **Console** panel.
+<figure>
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/1ZrcBEYcbMxW1c9UvBy9.png", 
+alt="DevTools Code Panel", width="400", height="374", class="screenshot" %}
+  <figcaption>
+  Inspecting a popup 
+  </figcaption>
+</figure>
 
 ### Error logs {: #errors }
 
@@ -193,12 +195,12 @@ console.log("This is a popup!) // ❌ broken code
 
 Go to the Extensions page and open the popup. An **Errors** button will appear.
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/a9lAHCJZZrebOSKrkPRD.png", 
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/a9lAHCJZZrebOSKrkPRD.png",
 alt="Extensions page with error button", width="300", height="226", class="screenshot" %}
 
 Click the **Errors** button to learn more about the error:
 
-{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GrorLyaC6nRAyqc1qULC.png", 
+{% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/GrorLyaC6nRAyqc1qULC.png",
 alt="Extension error details", width="400", height="281", class="screenshot" %}
 
 To learn more about debugging the service worker, options page, and content scripts, see [Debugging
@@ -226,10 +228,10 @@ Update this npm package frequently to work with the latest Chromium version.
 
 ## 🚀 Ready to start building? {: #building }
 
-Choose any of the following tutorials to begin your extension learning journey. 
+Choose any of the following tutorials to begin your extension learning journey.
 
 | Extension                        | What you will learn                                                     |
-|----------------------------------|-------------------------------------------------------------------------|
+| -------------------------------- | ----------------------------------------------------------------------- |
 | [Reading time][tut-reading-time] | To insert an element on every page automatically.                       |
 | [Focus Mode][tut-focus-mode]     | To run code on the current page after clicking on the extension action. |
 | [Tabs Manager][tut-tabs-manager] | To create a popup that manages browser tabs.                            |
@@ -240,7 +242,6 @@ extension and Chrome Web store documentation:
 - Reading time adds the expected reading time to each documentation articles.
 - Focus mode changes the style of the page to help you concentrate on the documentation content.
 - Tabs manager allows you to organize your extension documentation tabs.
-
 
 [api-action]: /docs/extensions/reference/action/
 [dev-tools]: /docs/devtools
