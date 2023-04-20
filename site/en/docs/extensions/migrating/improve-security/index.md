@@ -10,7 +10,7 @@ This is the last of three sections describing changes needed for code that is no
 
 ## Remove execution of arbitrary strings {: #remove-execution-of-strings }
 
-You can no longer [execute external logic](/docs/extensions/mv3/intro/mv3-overview#remotely-hosted-code) using `executeScript()`, `eval()`, and `new&nbsp;Function()`.
+You can no longer [execute external logic](/docs/extensions/mv3/intro/mv3-overview#remotely-hosted-code) using `executeScript()`, `eval()`, and `new Function()`.
 
 - Move all external code (JS, Wasm, CSS) into your extension bundle.
 - Update script and style references to load resources from the extension bundle.
@@ -150,3 +150,4 @@ Manifest V3 disallows certain content security policy values in the `"extension_
 Content security policy values for `sandbox` have no such new restrictions.
 
 
+[mdn-cdn]: https://developer.mozilla.org/docs/Glossary/CDN
