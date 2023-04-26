@@ -36,7 +36,11 @@ manifest(`manifest.json`) 是 Chrome 扩展的配置文件，它是一个必需�
 - 扩展所需的 [Chrome API][api-ref] 密钥和 [权限 permissions][doc-perms]。
 - 分配为 service worker 的文件、popup HTML 文件、选项页（options page）、内容脚本（content scripts）等。
 
+<<<<<<< HEAD
 [Manifest keys][doc-manifest] 一文包含默认和可选属性的完整列表。完整 [Manifest 示例][doc-manifest-examples]。
+=======
+The [Manifest keys][doc-manifest] article contains the complete list of default and optional keys. For ready to use code samples, check out the [Manifest examples][doc-manifest-examples].
+>>>>>>> 6130b5e57d700a1160d70221d7260e36bde363c0
 
 ### service worker {: #background_script }
 

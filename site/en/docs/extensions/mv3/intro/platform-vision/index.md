@@ -19,7 +19,16 @@ date: 2020-11-09
 # _data/authorsData.json file.
 ---
 
+<<<<<<< HEAD
 Chrome 扩展程序是 Chrome 浏览器最受欢迎和最常用的功能之一。扩展程序可以为不同的用户群体解决无数的问题，并且它们以一种特殊的形式正在成为大多数浏览器的主要功能。
+=======
+{% Partial 'extensions/mv3-support.md' %}
+
+Chrome extensions are one of the most-loved and most-used features of the
+Chrome browser.  Extensions can solve a myriad of use cases for a diverse set
+of users, and in one form or another they are becoming a staple feature of most
+major browsers.
+>>>>>>> 6130b5e57d700a1160d70221d7260e36bde363c0
 
 扩展程序有一个蓬勃发展的开发人员社区，有几十万个已发布的扩展，拥有强大的用户基础，每天数百万个扩展程序下载量。我们将继续改进和扩展这个充满活力的生态系统。
 
