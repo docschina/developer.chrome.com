@@ -12,11 +12,19 @@ tags:
 
 {% Aside %}
 
+<<<<<<< HEAD
 **2022 年 12 月 9 号：** Manifest V2 的弃用时间表正在审查中，正在推迟计划在 2023 年初进行的实验。想要了解更多信息，在 chromium-extensions Google Group 中 [阅读更新](https://groups.google.com/u/1/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E)。
 
 {% endAside %}
 
 随着 Manifest V3 与 Manifest V2 接近全功能对等，我们将逐步淘汰 Manifest V2。该页指定了弃用时间表并描述了过程中所有的里程碑的含义。
+=======
+**December 9, 2022:** The Manifest V2 deprecation timelines are under review and the experiments scheduled for early 2023 are being postponed. For more information, [read the update](https://groups.google.com/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E) in the chromium-extensions Google Group.
+
+{% endAside %}
+
+As Manifest V3 approaches full feature parity with Manifest V2, we'll progressively phase out Manifest V2. This page specifies the timetable for this deprecation and describes the meaning of each milestone. See [Migrating to Manifest V3](/docs/extensions/migrating/) for instructions on converting your extension. 
+>>>>>>> 78892fe87bd5f367ae1c000c8f69be0b295b4e0c
 
 <figure data-size="full">
   {% Img src="image/WlD8wC6g8khYWPJUsQceQkhXSlv1/txfDeyLhratHCO1P3wvc.jpg", alt="Summary of the Manifest V2 support timeline.", width="800", height="263", class="screenshot" %}

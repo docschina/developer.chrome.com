@@ -16,7 +16,11 @@ The [Extensions sample GitHub repository][gh-samples] provides examples of exten
 The examples are currently located under the following directories:
 
 [api-samples/][gh-api]
+<<<<<<< HEAD
 : Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension IU elements such as the popup, tooltip, and badges among others.
+=======
+: Extensions designed to demonstrate the capabilities of a specific API. For example, the [Action API example][gh-action] showcases extension UI elements such as the popup, tooltip, and badges among others. 
+>>>>>>> 78892fe87bd5f367ae1c000c8f69be0b295b4e0c
 
 [functional-samples/sample...][gh-functional-samples]
 : Complete extensions that implement all the basic features for a given purpose.
