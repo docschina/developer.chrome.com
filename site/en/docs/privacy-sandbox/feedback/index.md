@@ -6,7 +6,7 @@ subhead: >
 description: >
   Where and how to provide feedback for Privacy Sandbox proposals throughout the development process.
 date: 2022-02-28
-updated: 2022-07-27
+updated: 2023-06-05
 authors:
   - rowan_m
 ---
@@ -32,6 +32,7 @@ Regular updates for each Privacy Sandbox API are published on this site. In
 particular, these updates will cover a summary of common feedback themes per
 API.
 
+ * [Feedback report for 2023 Q1](/docs/privacy-sandbox/feedback/report-2023-q1/)
  * [Feedback report for 2022 Q4](/docs/privacy-sandbox/feedback/report-2022-q4/)
  * [Feedback report for 2022 Q3](/docs/privacy-sandbox/feedback/report-2022-q3/)
  * [Feedback report for 2022 Q2](/docs/privacy-sandbox/feedback/report-2022-q2/)
@@ -222,6 +223,20 @@ Discussion in standards bodies is wide-ranging, but generally focuses on how a
 proposal meets the needs of the ecosystem and its progress towards becoming an
 accepted standard. You can find a link to follow or join in the **Standards
 groups** column of the tables in the [**Proposals** section](#proposals).
+
+{% endDetails %}
+
+{% Details %} {% DetailsSummary %}
+
+### Chrome-facilated testing
+
+**_We are seeking feedback on the [Chrome-faciliated testing plans](/docs/privacy-sandbox/chrome-testing/) along with tracking issues from initial third-party cookie deprecation._**
+
+{% endDetailsSummary %}
+
+If you rely on third-party cookie data for site functionality, you can now report site issues resulting from third-party cookie deprecation in the [public issue tracker](https://goo.gle/report-3pc-broken).
+
+Additionally, Chrome will deprecate 1% of third party cookies in Q1 2024, and we'll work closely with the CMA before taking further steps to expand deprecation. You can provide [feedback on GitHub](https://github.com/GoogleChromeLabs/privacy-sandbox-dev-support/labels/chrome-testing) as to the appropriate fraction of traffic to devote to this subset of [Chrome-facilitated testing](/docs/privacy-sandbox/chrome-testing/).
 
 {% endDetails %}
 
@@ -1020,6 +1035,33 @@ features resulting in more Intent messages._**
    </td>
    <td><a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group (WICG)</a>
    </td>
+  </tr>
+</table>
+
+#### Bounce tracking mitigations
+
+_Reduce or eliminate the ability of bounce tracking to recognize people across contexts. [Learn more about bounce tracking mitigations](/docs/privacy-sandbox/bounce-tracking-mitigations/)._
+
+<table class="width-full">
+  <tr>
+    <td><strong>Feedback</strong></td>
+    <td><a href="https://github.com/privacycg/nav-tracking-mitigations/issues">privacycg/nav-tracking-mitigations</a></td>
+  </tr>
+  <tr>
+    <td><strong>Intents</strong></td>
+    <td><a href="https://groups.google.com/a/chromium.org/g/blink-dev/c/vwQ2x1lByqc/m/re5WEH84CAAJ">I2P 2022/09</a></td>
+  </tr>
+  <tr>
+    <td><strong>Chromium component</strong></td>
+    <td><a href="https://bugs.chromium.org/p/chromium/issues/list?q=component:Privacy%3ENavTracking">Privacy>NavTracking</a></td>
+  </tr>
+  <tr>
+    <td><strong>Mailing list</strong></td>
+    <td>[optional]</td>
+  </tr>
+    <tr>
+    <td><strong>Standards groups</strong></td>
+    <td><a href="https://www.w3.org/groups/cg/privacycg">Privacy Community Group</a></td>
   </tr>
 </table>
 
