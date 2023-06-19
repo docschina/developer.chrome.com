@@ -6,7 +6,7 @@ subhead: >
 description: >
   Learn how to work with the API, including how to use Chrome flags for testing.
 date: 2022-01-25
-updated: 2023-03-29
+updated: 2023-05-09
 authors:
   - samdutton
 ---
@@ -30,7 +30,49 @@ You can also run the Topics [colab](/docs/privacy-sandbox/topics/colab/) to try 
 
 ### Test Topics in an origin trial {: #origin-trial}
 
-A Privacy Sandbox Relevance and Measurement [origin trial](/docs/privacy-sandbox/unified-origin-trial/) has been made available in Chrome Beta 101.0.4951.26 and above on desktop for the Topics, [FLEDGE](/docs/privacy-sandbox/fledge/), and [Attribution Reporting](/docs/privacy-sandbox/attribution-reporting/) APIs.
+A Privacy Sandbox Relevance and Measurement [origin trial](/docs/privacy-sandbox/unified-origin-trial/) has been made available in Chrome Beta 101.0.4951.26 and above on desktop for the Topics, [Protected Audience](/docs/privacy-sandbox/fledge/), and [Attribution Reporting](/docs/privacy-sandbox/attribution-reporting/) APIs.
+
+#### Provide an origin trial token
+
+To take part in the origin trial, you can provide a valid trial token
+[programmatically, in a header, or in a meta tag](/docs/web-platform/origin-trials/#take-part-in-an-origin-trial).
+Whichever method you choose to provide a trial token, and [whichever way you use the Topics API](#access-topics),
+you must provide a valid token **before** calling the API, and the token must be registered for the
+appropriate origin.
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left;">API usage</th>
+      <th style="text-align: left;">Trial token origin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fetch()</code></td>
+      <td>Origin of the code making the call.</td>
+    </tr>
+    <tr>
+      <td><code>document.browsingTopics()</code></td>
+      <td>Origin of the code making the call.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top; white-space: nowrap"><code>&lt;iframe browsingtopics&nbsp;...&gt;</code></td>
+      <td>The token is required in the document that embeds the iframe: a token must be provided
+      that has been registered for the same origin as the code that creates the iframe.</td>
+    </tr>
+  </tbody>
+</table>
+
+When using the `fetch()` or `document.browsingTopics()` approach in a third-party context, the API
+caller must provide a token registered for the origin of the code making the call. That origin will
+be the same wherever the code is embedded. For example, multiple sites might include `<script
+src="https://adtech.example/js/topics.js">`, which would provide a token registered for
+`https://adtech.com` before making an API call. If the Topics API is used from a script element in a
+page in an iframe (as opposed to a script included from a different origin) a trial token must be
+provided in the page, registered for its origin.
+
+Always do [feature detection](#feature-detection) before attempting to use an origin trial API.
 
 ## Get and set topics {: #epoch}
 
@@ -46,7 +88,7 @@ Each topic object in the array returned by `document.browsingTopics()` will have
 
 The parameters described in this article, and details of the API (such as taxonomy size, the number of topics calculated per week and the number of topics returned per call) are subject to change as we incorporate ecosystem feedback and iterate on the API.
 
-### Detect support for document.browsingTopics
+### Detect support for document.browsingTopics {: #feature-detection}
 
 Before using the API, check if it's supported by the browser and available in the document:
 
@@ -202,7 +244,7 @@ Each parameter, its default value, and its purpose is explained in the list belo
     <dt>
       <dd><code>PrivacySandboxAdsAPIsOverride</code></dd>
       <dd><strong>Default value:</strong> enabled</dd>
-      <dd>Enables ads APIs: Attribution Reporting, FLEDGE, Topics, Fenced Frames.</dd>
+      <dd>Enables ads APIs: Attribution Reporting, Protected Audience, Topics, Fenced Frames.</dd>
     </dt><br />
     <dt>
       <dd><code>PrivacySandboxSettings3</code></dd>
