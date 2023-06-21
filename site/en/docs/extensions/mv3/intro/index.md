@@ -8,7 +8,13 @@ date: 2020-11-09
 updated: 2022-09-28
 ---
 
+<<<<<<< HEAD
 本站介绍了 Manifest V3，也就是 Manifest Version 3，它是 Chrome 扩展程序平台的最新迭代版本。本文介绍引入 Manifest V3 的背景和原因，平台未来的愿景，以及如何迁移历史版本相关的资源。
+=======
+{% Partial 'extensions/mv3-support.md' %}
+
+This site introduces Manifest V3, short for Manifest Version 3, which is the latest iteration of the Chrome extension platform. It shares the background and reasons for introducing Manifest V3 and the vision for the platform's future, along with resources on how to migrate.
+>>>>>>> c48b04496fdeba2416b5b803f5c43a1bc281d09a
 
 ## 什么是 manifest？ {: #what-is-a-manifest }
 
