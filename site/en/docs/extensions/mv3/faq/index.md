@@ -109,7 +109,16 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 
 不可以，当用户关注浏览器之外的某个部分时，弹出窗口会自动关闭弹出。用户点击离开后，无法保持弹出窗口打开。
 
+<<<<<<< HEAD
 ### 可以在安装/卸载扩展程序时通知它们吗？{: #faq-lifecycle-events }
+=======
+You can listen to the [runtime.onInstalled][48] event to be notified when your extension is
+installed or updated, or when Chrome itself is updated. While there is no event listener
+for uninstalling an extension, a URL can be set by calling `setUninstallUrl()` to open a URL when
+the extension is uninstalled. This allows for some final functionality, like cleaning up server-side data, doing analytics,
+and implementing surveys without access to any extension APIs.
+
+>>>>>>> e2538e012d7d192b2c88630c841b80c58b58aab7
 
 您可以监听 [runtime.onInstalled][48] 事件，以便在安装或更新扩展程序或 Chrome 本身更新时收到通知。当您的扩展程序被卸载时，没有相应的监听事件。
 
