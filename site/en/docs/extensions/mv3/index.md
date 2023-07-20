@@ -28,7 +28,11 @@ updated: 2023-02-21
 
 {% endAside %}
 
+<<<<<<< HEAD
 此外，通过访问我们的[最新页面][doc-whats-new]了解 Chrome 扩展新闻。如果您在开发问题上需要帮助，请访问我们的[帮助页面][doc-get-help]。
+=======
+Additionally, keep up with Chrome extensions news by visiting our [What's new page][doc-whats-new]. If you need assistance with a development problem, visit our [help page][doc-get-help]
+>>>>>>> 17f50601a797e7c13246ecc29415d9ffedc99861
 
 感谢你成为扩展程序开发社区的一员，欢迎你！
 
