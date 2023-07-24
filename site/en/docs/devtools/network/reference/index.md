@@ -5,7 +5,7 @@ authors:
   - kaycebasques
   - sofiayem
 date: 2015-04-13
-updated: 2022-12-05
+updated: 2023-04-03
 description: "A comprehensive reference of Chrome DevTools Network panel features."
 ---
 
@@ -155,6 +155,10 @@ To manually clear browser cookies at any time, right-click anywhere in the **Req
 **Clear browser cookies**.
 
 {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/4mVbTicUyxwkmd5TB1HS.png", alt="Selecting Clear Browser Cookies.", width="800", height="497" %}
+
+### Override HTTP response headers {: #override-headers }
+
+See [Override files and HTTP response headers locally](/docs/devtools/overrides/#override-headers).
 
 ### Override the user agent {: #user-agent }
 
@@ -426,7 +430,7 @@ Sometimes the **Headers** tab shows the `Provisional headers are shown...` warni
 - The request wasn't sent over the network but was served from a local cache, which doesn't store the original request headers. In this case, you can [disable caching](#disable-cache) to see the full request headers.
   {% Img src="image/dPDCek3EhZgLQPGtEG3y0fTn4v82/AQfq69qS2Ig6lT9Y7vcc.png", alt="Provisional headers warning message.", width="800", height="517" %}
 
-- The network resource isn't valid. For example, execute `fetch("https://jec.fyi.com/unknown-url/")` in the **Console**.
+- The network resource isn't valid. For example, execute `fetch("https://jec.fish.com/unknown-url/")` in the **Console**.
   {% Img src="image/dPDCek3EhZgLQPGtEG3y0fTn4v82/xMKUHQxXLiRDiiUTol5J.png", alt="Provisional headers warning message.", width="800", height="517" %}
 
 DevTools can also display only provisional headers due to security reasons.
@@ -606,6 +610,7 @@ Under the **Name** column of the Requests table, right-click a request, hover ov
 select one of the following options:
 
 - **Copy link address**. Copy the request's URL to the clipboard.
+- **Copy file name**. Copy the file's name to the clipboard.
 - **Copy response**. Copy the response body to the clipboard.
 - **Copy as PowerShell**. Copy the request as a PowerShell command.
 - **Copy as fetch**. Copy the request as a fetch call.
