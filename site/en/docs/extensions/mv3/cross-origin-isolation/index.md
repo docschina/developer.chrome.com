@@ -28,7 +28,14 @@ description: 扩展程序中的跨域隔离概述
 
 {% Aside 'caution' %}
 
+<<<<<<< HEAD
 即使一个扩展程序选择了跨域隔离，也不是所有的扩展程序上下文都是跨域隔离的。例如，目前针对服务和共享工作者的跨域隔离 [未完全实现][crbug-issue]。类似地，常规网页上的跨域隔离扩展程序的 Web 可访问子框架目前不被视为跨域隔离。
+=======
+Even if an extension opts into cross-origin isolation, not all extension contexts will be
+cross-origin isolated. For example, cross-origin isolation [is not fully implemented][crbug-issue]
+for service and shared workers currently. Similarly, a cross-origin isolated extension's
+web-accessible subframe on a regular web page is not considered cross-origin isolated currently.
+>>>>>>> 8a86ad1a08359e9fac83b022ec5617cc3e6c49b6
 
 {% endAside %}
 
