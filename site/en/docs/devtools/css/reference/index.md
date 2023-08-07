@@ -44,7 +44,28 @@ There are many ways to select an element:
 
 ## View CSS {: #view }
 
-### View CSS documentation {: #view-docs }
+Use the **Elements** > **Styles** and **Computed** panes to view CSS rules and [diagnose CSS issues](/docs/devtools/css/issues/).
+
+### Navigate with links {: #links }
+
+The **Styles** pane displays links in various places to various other places, including but not limited to:
+
+- Next to CSS rules, to stylesheets and CSS sources. Such links open the **Sources** panel. If the stylesheet is minified, see [Make a minified file readable][3].
+- In the **Inherited from ...** sections, to parent elements.
+- In `var()` calls, to [custom property](https://developer.mozilla.org/docs/Web/CSS/Using_CSS_custom_properties) declarations.
+- In `animation` shorthand properties, to `@keyframes`.
+- **Learn more** links in documentation tooltips.
+- And more.
+
+Here are some of them highlighted:
+
+{% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/VIXGDdosRVMxekn5PQip.png", alt="Various links highlighted.", width="800", height="648" %}
+
+Links may be styled differently. If you're not sure if something is a link, try clicking it to find out.
+
+### View tooltips with CSS documentation, specificity, and custom property values {: #tooltips }
+
+#### View CSS documentation {: #view-docs }
 
 To see a tooltip with a short CSS description, hover over the property name in the **Styles** pane.
 
@@ -60,20 +81,23 @@ To turn the tooltips off, check {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/h
 
 To turn them back on, check {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/9gzXiTYY0nZzBxGI6KrV.svg", alt="Settings.", width="24", height="24" %} [**Settings** > **Preferences** > **Elements**](/docs/devtools/settings/preferences/#elements) > {% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/hmp8j3HiLMCcqPArD9yt.svg", alt="Checkbox.", width="22", height="22" %} **Show CSS documentation tooltip**.
 
+#### View selector specificity {: #selector-specificity }
+
+Hover over a selector to see a tooltip with its [specificity](https://developer.mozilla.org/docs/Web/CSS/Specificity) weight.
+
+{% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/uzY4LvyHgWhD8LEPrXju.png", alt="The tooltip with specificity weight of a matched selector.", width="800", height="451" %}
+
+#### View the values of custom properties {: #custom-css }
+
+Hover over a [`--custom-property`](https://developer.mozilla.org/docs/Web/CSS/--*) to see its value in a tooltip.
+
+{% Img src="image/NJdAV9UgKuN8AhoaPBquL7giZQo1/7cUcqUfywnS2KQdQqWes.png", alt="The value of a custom property in a tooltip.", width="800", height="645" %}
+
 ### View invalid, overridden, inactive, and other CSS {: #css-issues }
 
 The **Styles** pane recognizes many kinds of CSS issues and highlights them in different ways.
 
 See [Understand CSS in the Styles pane](/docs/devtools/css/issues/#css-in-styles).
-
-### View the external stylesheet where a rule is defined {: #view-external }
-
-In the **Styles** pane, click the link next to a CSS rule to open the external stylesheet that
-defines the rule.
-
-{% Img src="image/admin/DIRRbj70JvHO7EDpeSdC.svg", alt="Viewing the stylesheet where a rule is defined", width="800", height="488" %}
-
-If the stylesheet is minified, see [Make a minified file readable][3].
 
 ### View only the CSS that's actually applied to an element {: #computed }
 
