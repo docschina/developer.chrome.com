@@ -15,8 +15,22 @@
  */
 
 declare global {
-  export interface PerformanceNavigationTiming extends PerformanceNavigationTiming {
+  export interface PerformanceEntry {
     deliveryType: string;
+    activationStart: number;
+    type: string;
+  }
+  export interface PerformanceNavigationTiming {
+    deliveryType: string;
+    activationStart: number;
+  }
+  export interface Navigator {
+    connection: NetworkInformation;
+    deviceMemory: number;
+  }
+  export interface NetworkInformation {
+    saveData: boolean;
+    effectiveType: string;
   }
 }
 
