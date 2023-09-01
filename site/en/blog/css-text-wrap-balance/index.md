@@ -166,11 +166,11 @@ once for any language.
 
 The task of balancing text is not free. The browser needs to loop over
 iterations to discover the best balanced wrapping solution. This performance
-cost is mitigated by a rule, it **only works for 4 wrapped lines and under**.
+cost is mitigated by a rule, it **only works for six wrapped lines and under**.
 
 <figure>
   {% Video
-    src="video/vS06HQ1YTsbMKSFTIPl2iogUQP73/VgQm74ZYnMJ9fCSprKCS.mp4",
+    src="video/vS06HQ1YTsbMKSFTIPl2iogUQP73/9WWmzquQEUw8Nue2zAJJ.mp4",
     autoplay="true",
     loop="true",
     muted="true",
@@ -229,7 +229,7 @@ balanced wrapping can apply again.
 There's an advantage to some of the JavaScript solutions for balanced text
 wrapping, as they change the `max-width` of the containing element itself. This
 has an added bonus of being "shrink wrapped" to the balanced block. `text-wrap:
-balanced` does not have this effect and can be seen in this example:
+balance` does not have this effect and can be seen in this example:
 
 {% Img src="image/vS06HQ1YTsbMKSFTIPl2iogUQP73/49XR6eV5QLBiiZg0jr5P.png", alt="Headline is highlighted like the previous DevTools, this time is not spanning the full width. It started a new line before the end and as such is a balanced block of text.", width="800", height="210" %}
 
