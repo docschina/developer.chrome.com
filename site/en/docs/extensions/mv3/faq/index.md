@@ -109,7 +109,18 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 
 不可以，当用户关注浏览器之外的某个部分时，弹出窗口会自动关闭弹出。用户点击离开后，无法保持弹出窗口打开。
 
+<<<<<<< HEAD
 ### 可以在安装/卸载扩展程序时通知它们吗？{: #faq-lifecycle-events }
+=======
+You can listen to the [runtime.onInstalled][48] event to be notified when your
+extension is installed or updated, or when Chrome itself is updated. While there
+is no event listener for uninstalling an extension, a URL can be set by calling
+[`runtime.setUninstallUrl()`](/docs/extensions/reference/runtime/#method-setUninstallURL)
+to open a URL when the extension is uninstalled. This allows for some final
+functionality, like cleaning up server-side data, doing analytics, and
+implementing surveys without access to any extension APIs.
+
+>>>>>>> 6198d7e947158bc29b909755627cc1e0112351f4
 
 您可以监听 [runtime.onInstalled][48] 事件，以便在安装或更新扩展程序或 Chrome 本身更新时收到通知。当您的扩展程序被卸载时，没有相应的监听事件。
 
@@ -137,11 +148,15 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 
 我们以 `https://google.*/*` 作为例子，谷歌的域名将被匹配，但也会匹配到 `https://google.someotherdomain.com`。此外，许多网站并不拥有他们的所有顶级域名。假设您想使用 `https://example.*/*` 来匹配 `https://example.com` 和 `https://example.es`，但如果 `https://example.net` 是一个恶意站点，那么也会成功匹配。如果您的扩展程序有错误，那么恶意站点可能会攻击您的扩展程序，以便访问您的扩展程序增加的权限。
 
+<<<<<<< HEAD
 因此，您应该明确列举所希望运行扩展程序的顶级域名。
 
 ### 为什么在安装/卸载我的扩展程序时管理 API 不会触发事件？{: #faq-management }
 
 [管理 API][52] 旨在帮助创建新的标签页替换扩展，而不是为了触发当前扩展的安装/卸载事件。
+=======
+### How can an extension determine whether it is running for the first time? {: #faq-firstrun }
+>>>>>>> 6198d7e947158bc29b909755627cc1e0112351f4
 
 ### 扩展程序如何确定它是否是第一次运行？{: #faq-firstrun }
 
@@ -225,7 +240,6 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 [49]: #faq-dev-05
 [50]: /docs/extensions/mv3/options
 [51]: /docs/extensions/mv3/tut_debugging
-[52]: /docs/extensions/reference/management
 [53]: /docs/extensions/reference/runtime#event-onInstalled
 [54]: #faq-lifecycle-events
 [55]: https://crbug.com
