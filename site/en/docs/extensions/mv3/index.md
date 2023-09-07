@@ -28,7 +28,11 @@ updated: 2023-02-21
 
 {% endAside %}
 
+<<<<<<< HEAD
 此外，通过访问我们的[最新页面][doc-whats-new]了解 Chrome 扩展新闻。如果您在开发问题上需要帮助，请访问我们的[帮助页面][doc-get-help]。
+=======
+Additionally, keep up with Chrome extensions news by visiting our [What's new page][doc-whats-new]. If you need assistance with a development problem, visit our [help page][doc-get-help]
+>>>>>>> 7319cc6ba5b6b39625ca7966724605d096e0b064
 
 感谢你成为扩展程序开发社区的一员，欢迎你！
 
@@ -38,7 +42,7 @@ updated: 2023-02-21
 [doc-mv2-sunset]: /docs/extensions/mv3/mv2-sunset
 [doc-whats-new]: /docs/extensions/whatsnew
 [doc-get-help]: /docs/extensions/gethelp
-[gh-ext-samples]: https://github.com/GoogleChrome/chrome-extensions-samples
+[gh-ext-samples]: /docs/extensions/samples/
 [github-ext-doc]: https://github.com/GoogleChrome/developer.chrome.com
 [gs-tuts]: /docs/extensions/mv3/getstarted/#tutorial
 [migrate-to-mv3]: /docs/extensions/migrating/
