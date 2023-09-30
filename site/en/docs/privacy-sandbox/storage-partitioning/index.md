@@ -2,28 +2,31 @@
 layout: "layouts/blog-post.njk"
 title: "Storage Partitioning"
 subhead: >
-  Separate storage from communication APIs in third-party contexts to
-  prevent certain types of side-channel cross-site tracking.
+  To prevent certain types of side-channel cross-site tracking, Chrome is partitioning storage and communications APIs in third-party contexts.
 description: >
-  Separate storage from communication APIs in third-party contexts to
-  prevent certain types of side-channel cross-site tracking.
+  To prevent certain types of side-channel cross-site tracking, Chrome is partitioning storage and communications APIs in third-party contexts.
 authors:
  - kevinkiklee
+ - mihajlija
 date: 2022-08-24
+updated: 2023-05-16
 tags:
  - privacy
 ---
  
 ## Implementation status
 
+- Full implementation is available for testing in Chrome Beta 113 and later.
+- The initial implementation has been [available behind a flag since Chrome 105](/blog/storage-partitioning-dev-trial/).
 - [Storage Partitioning proposal](https://github.com/privacycg/storage-partitioning) is open for discussion.
 - [Chrome Platform Status](https://chromestatus.com/feature/5723617717387264)
-- Available for testing in Chrome Beta version 105.0.5195.17 and later.
 
-The feature launch is planned for early 2023, depending on the stability and
-compatibility. Testing third-party storage partitioning now in an Origin Trial
+
+The feature is rolling out to a small percentage of users starting in Chrome 113. 
+Depending on the stability and compatibility, it will be made fully available in
+Chrome Stable mid-year 2023. Testing third-party storage partitioning now
 and filing bugs will help uncover any potential issues and resolve them before
-the General Availability rollout.
+the full rollout.
  
 ## What is storage partitioning?
  
@@ -82,15 +85,14 @@ the same origin and same top-level site.
  
 To try it out:
  
-1.  Use Chrome Canary version 105 or higher.
+1.  Use Chrome Canary version 113 or higher.
 1.  Visit `chrome://flags/#third-party-storage-partitioning`.
 1.  Enable the "Experimental Third-party Storage Partitioning" flag.
  
-Participate in early testing and
+Participate in testing and
 [report bugs](https://bugs.chromium.org/p/chromium/issues/entry?labels=StoragePartitioning-trial-bugs&components=Blink%3EStorage)
 to help the Chrome team identify and fix any unexpected behavior before the
-stable launch. Blob URL and Clear-Site-Data header APIs are under active
-development and are not available for testing yet.
+stable launch. 
  
 ## Updated APIs
 
@@ -143,7 +145,7 @@ development and are not available for testing yet.
        be generated to access the resource.  To support a use case for
        navigating in a top-level context to any blob URL
        ([discussion](https://github.com/w3c/FileAPI/issues/153)), the blob URL
-       store will be partitioned by the agent cluster instead of the top-level
+       store might be partitioned by the agent cluster instead of the top-level
        site. This feature will not be available for testing yet, and the
        partitioning mechanism may change in the future.
  
@@ -188,25 +190,20 @@ partitioned.
  
 ### Extension APIs
  
-[Extensions](/docs/extensions/mv3/) are programs
-that customize the browsing experience for the user. With Manifest V2,
-extensions can create
-[background pages](/docs/extensions/mv2/background_pages/)
-that have the extension's origin, but can embed iframes with web content's
-origins.
+[Extensions](/docs/extensions/mv3/) are programs that allow users to customize their browsing
+experience.
 
-Because partitioning the storage will break some use cases, a
-mitigation will be provided. If the extension has
-[host_permissions](/docs/extensions/mv2/runtime_host_permissions/)
-for the iframe origin, then the iframe will be treated as the top-level frame
-and not the extension page.
+Extension pages (pages with a `chrome-extension://` scheme) can be embedded on sites
+across the web, and in these cases, they will continue to have access to their top-level partition.
+These pages can also embed other sites, in which case those sites will have access to their top-level
+partition as long as the extension has [host permissions](/docs/extensions/mv3/declare_permissions)
+for that site.
 
-{% Aside %} 
-Manifest V2 has been
-[deprecated](/docs/extensions/mv3/mv2-sunset/) and
-will be removed. It is recommended to
-[migrate to Manifest V3](/docs/extensions/mv3/intro/mv3-migration/).
-{% endAside %} 
+In addition, extensions can use the [`chrome.cookies`](/docs/extensions/reference/cookies) API to
+interact with the cookies for a given site. This currently operates on cookies from all partitions
+in a way which can be surprising.
+
+For more information, see the [extension docs](/docs/extensions/mv3/storage-and-cookies).
  
 ## Engage and share feedback
  
