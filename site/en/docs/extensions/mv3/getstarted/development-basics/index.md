@@ -30,7 +30,10 @@ alt="Hello extension", width="206", height="130", class="screenshot" %}
 Start by creating a new directory to store extension files. If you prefer, you can download the full
 source code from [GitHub][sample-hello-world].
 
-Next, create a new file in this directory called `manifest.json` and add the following code:
+Next, create a new file in this directory called `manifest.json`. This JSON object describes the extension's
+capabilities and configuration. For example, most manifest files contain an `"action"` key which declares
+the image Chrome should use as the extension's action icon and the HTML page to show in a popup when the
+extension's action icon is clicked.
 
 ```json
 {
@@ -45,8 +48,12 @@ Next, create a new file in this directory called `manifest.json` and add the fol
 }
 ```
 
+<<<<<<< HEAD
 This JSON object describes the extension's capabilities and configuration. For example, the `"action"` key
 declares the image Chrome should use as the action's icon and the HTML page to show in a popup when the action is clicked. [Download the icon][hello-icon] to your directory, and be sure to change its name to match what's in the `"default_icon"` key.
+=======
+[Download the icon][hello-icon] to your directory, and be sure to change its name to match what's in the `"default_icon"` key. 
+>>>>>>> 6003c46f64c9d229b7583538e40afe76c9862d00
 
 For the popup, create a file named `hello.html`, and add the following code:
 
@@ -58,7 +65,7 @@ For the popup, create a file named `hello.html`, and add the following code:
 </html>
 ```
 
-The extension now displays a popup when the extension action (toolbar icon) is clicked. Let's test
+The extension now displays a popup when the extension's action icon (toolbar icon) is clicked. Let's test
 it in Chrome by loading it locally. Ensure all files are saved.
 
 ## Loading an unpacked extension {: #load-unpacked }
@@ -79,7 +86,7 @@ To load an unpacked extension in developer mode:
      </figcaption>
    </figure>
 
-Ta-da! The extension has been successfully installed. Because no extension icons were included in
+Ta-da! The extension has been successfully installed. If no extension icons were included in
 the manifest, a generic icon will be created for the extension.
 
 ## Pinning the extension {: #pin }
@@ -97,7 +104,7 @@ alt="Pinning the extension", width="358", height="248", class="screenshot" %}
   </figcaption>
 </figure>
 
-Click on the extension’s action (toolbar icon); you should see a popup.
+Click on the extension’s action icon (toolbar icon); you should see a popup.
 
 <figure>
 {% Img src="image/BhuKGJaIeLNPW9ehns59NfwqKxF2/xjKRmWMgwMm7Kdf72bkj.png", 
