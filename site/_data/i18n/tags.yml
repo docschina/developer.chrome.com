@@ -20,6 +20,9 @@ accessibility:
 amp:
   en: AMP
 
+android:
+  en: Android
+
 automation:
   en: Browser Automation
 
@@ -36,6 +39,10 @@ fugu-case-study:
   en: Fugu case study
 
 # DevTools-related tags
+
+wasm:
+  en: WebAssembly
+
 css:
   en: CSS
 
@@ -66,6 +73,9 @@ sourcemap:
 storage:
   en: Storage
 
+network:
+  en: Network
+
 dom:
   en: DOM
 
@@ -82,6 +92,9 @@ cws:
 
 cookies:
   en: Cookies
+
+cookie-countdown:
+  en: Cookie Countdown
 
 deprecations-removals:
   en: Deprecations and Removals
@@ -127,6 +140,12 @@ html:
 
 media:
   en: Media
+
+webgpu:
+  en: WebGPU
+
+new-in-webgpu:
+  en: What's New in WebGPU
 
 new-in-chrome:
   en: New in Chrome
@@ -313,6 +332,9 @@ websocket:
 websocketstream:
   en: WebSocketStream
 
+test-automation:
+  en: Test automation
+
 service-worker:
   en: Service Worker
 
@@ -342,3 +364,6 @@ notifications:
 
 sensors:
   en: Sensors
+
+pwa:
+  en: Progressive web apps
