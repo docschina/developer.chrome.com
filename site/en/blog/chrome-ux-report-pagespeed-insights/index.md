@@ -7,7 +7,7 @@ authors:
 description: |
   PageSpeed Insights (PSI) is a tool for web developers to understand what a page's performance is and how to improve it. In this guide, learn how to use PSI to extract insights from CrUX and better understand the user experience.
 date: 2020-05-28
-updated: 2023-02-04
+updated: 2023-08-03
 tags:
   - performance
   - crux
@@ -29,7 +29,7 @@ audits will be performed and you will see sections with data from CrUX ("Discove
 
 {% Img src="image/W3z1f5ZkBJSgL1V1IfloTIctbIF3/jZSP6YZQHE8vBOJIMhCH.png", alt="Field data from CrUX in PageSpeed Insights", width="800", height="491" %}
 
-In the real-user experiences section, metrics are grouped by [Core Web Vitals](https://web.dev/vitals/#core-web-vitals) and [other notable metrics](https://web.dev/vitals/#other-web-vitals). The three Core Web Vitals metrics are listed first: [Largest Contentful Paint](https://web.dev/lcp/) (LCP), [First Input Delay](https://web.dev/fid/) (FID), and [Cumulative Layout Shift](https://web.dev/cls/). These are followed by the other notable metrics: [First Contentful Paint](https://web.dev/fcp/) (FCP), [Interaction to Next Paint](https://web.dev/inp/) (INP), and [Time to First Byte](https://web.dev/ttfb/) (TTFB).
+In the real-user experiences section, metrics are grouped by [Core Web Vitals](https://web.dev/articles/vitals#core_web_vitals) and [other notable metrics](https://web.dev/articles/vitals#other_web_vitals). The three Core Web Vitals metrics are listed first: [Largest Contentful Paint](https://web.dev/articles/lcp) (LCP), [First Input Delay](https://web.dev/articles/fid) (FID), and [Cumulative Layout Shift](https://web.dev/articles/cls). These are followed by the other notable metrics: [First Contentful Paint](https://web.dev/articles/fcp) (FCP), [Interaction to Next Paint](https://web.dev/articles/inp) (INP), and [Time to First Byte](https://web.dev/articles/ttfb) (TTFB).
 
 ### Core Web Vitals
 
@@ -42,9 +42,9 @@ In the real-user experiences section, metrics are grouped by [Core Web Vitals](h
 
 ### Other notable metrics
 
+- **INP** is an [pending Core Web Vital](https://web.dev/vitals/#pending) metric that measures the latency of all interactions a user has made with the page, and reports a single value which all (or nearly all) interactions were below.
 - **FCP** measures the time until the page displays something in the
  foreground, like some text or a logo.
-- **INP** is an experimental metric that measures the latency of all interactions a user has made with the page, and reports a single value which all (or nearly all) interactions were below.
 - **TTFB** is an experimental metric that measures the time between the request for a resource and when the first byte of a response begins to arrive.
 
 ### Metric thresholds
@@ -57,11 +57,11 @@ Metric | "Good" | "Needs Improvement" | "Poor"
 LCP | 0–2500ms | 2500–4000ms | 4000ms+
 FID | 0–100ms | 100–300ms | 300ms+
 CLS | 0.00-0.10 | 0.10–0.25 | 0.25+
-FCP | 0–1800ms | 1800ms–3000ms | 3000ms+
 INP | 0–200ms | 200ms–500ms | 500ms+
+FCP | 0–1800ms | 1800ms–3000ms | 3000ms+
 TTFB | 0–800ms | 800ms–1800ms | 1800ms+
 
-The three Core Web Vitals metrics are the most important metrics, and are directly experienced by real users. The other metrics may be used as diagnostics, but they're not necessarily perceptible by real users. Thus, these metrics are not factored into the Core Web Vitals assessment, and failing to meet the "good" thresholds only matters if they're adversely affecting the Core Web Vitals.
+The Core Web Vitals metrics are the most important metrics, and are directly experienced by real users. The other metrics may be used as diagnostics, but they're not necessarily perceptible by real users. Thus, these metrics are not factored into the Core Web Vitals assessment, and failing to meet the "good" thresholds only matters if they're adversely affecting the Core Web Vitals.
 
 There are three ways that the user experience is displayed in PSI:
 
