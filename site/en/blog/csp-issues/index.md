@@ -24,9 +24,9 @@ The implementation work was done in the course of 2 internships:
 
 ## What is a Content Security Policy?
 
-[Content Security Policy (CSP)]( https://web.dev/strict-csp/) allows to restrict certain behaviors in a website to increase security. For example, CSP can be used to disallow inline scripts or to disallow [`eval`](https://tc39.es/ecma262/#sec-eval-x), both of which reduce the attack surface for [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) attacks. For a detailed introduction to CSP, read [here](https://web.dev/csp/).
+[Content Security Policy (CSP)]( https://web.dev/articles/strict-csp) allows to restrict certain behaviors in a website to increase security. For example, CSP can be used to disallow inline scripts or to disallow [`eval`](https://tc39.es/ecma262/#sec-eval-x), both of which reduce the attack surface for [Cross-Site Scripting (XSS)](https://owasp.org/www-community/attacks/xss/) attacks. For a detailed introduction to CSP, read [here](https://web.dev/articles/csp).
 
-A particularly new CSP is the [Trusted Types(TT)](https://web.dev/trusted-types/) policy, which enables a dynamic analysis that can systematically prevent a large class of injection attacks on websites. To achieve this, TT supports a website in policing its JavaScript code to only allow certain types of things to be assigned to DOM sinks such as innerHTML.
+A particularly new CSP is the [Trusted Types(TT)](https://web.dev/articles/trusted-types) policy, which enables a dynamic analysis that can systematically prevent a large class of injection attacks on websites. To achieve this, TT supports a website in policing its JavaScript code to only allow certain types of things to be assigned to DOM sinks such as innerHTML.
 
 A website can activate a content security policy by including a particular HTTP header. For example, the header
 `content-security-policy: require-trusted-types-for 'script'; trusted-types default`
@@ -137,7 +137,7 @@ A small complication is the fact that we also wanted to report issues that occur
 This concluded the back-end work, and we now needed to focus on how to surface the issue in the front-end.
 
 
-### Step 5: Designing the issues text
+### Step 5: designing the issues text
 Designing the issues text is a process that involves several teams besides our own, for example, we often rely on insight from the team that implements a feature (in this case that would be the CSP team) and of course the DevRel team, which designs how web developers are supposed to deal with a certain type of problem. The issue text usually goes through some refinement until it is finished.
 
 Usually the DevTools team will start with a rough draft of what they imagine:
