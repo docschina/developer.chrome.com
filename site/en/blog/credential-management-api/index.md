@@ -7,6 +7,8 @@ authors:
   - agektmr
 date: 2016-04-18
 updated: 2018-03-11
+is_outdated: true
+new_available_content_url: https://web.dev/security-credential-management/
 ---
 
 To provide a sophisticated user experience, it's important to help users
@@ -25,7 +27,7 @@ a browser's credential manager and helps users sign in more easily.
 {% Aside 'warning' %}
 This API has been drastically updated and sample codes in this article
 won't work any longer. Checkout [the updated integration
-guide](https://web.dev/security-credential-management/) or [the update
+guide](https://web.dev/articles/security-credential-management) or [the update
 summary](/blog/credential-management-updates/).
 {% endAside %}
 
