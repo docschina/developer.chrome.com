@@ -5,30 +5,46 @@ subhead: '理解 Manifest V2 何时停止插件扩展'
 description: 'Manifest V2的淘汰和寿命结束的细节。'
 layout: 'layouts/doc-post.njk'
 date: 2021-09-23
-updated: 2022-12-13
+updated: 2023-06-02
 tags:
   - extensions-news
 ---
 
-{% Aside %}
+We're still working on the timeline of the MV2 phase-out plan, so keep an eye out for it in the
+coming months. We will provide at least 6 months between a timeline announcement and any experiments
+deprecating MV2 features.
 
+<<<<<<< HEAD
 **2022 年 12 月 9 号：** Manifest V2 的弃用时间表正在审查中，正在推迟计划在 2023 年初进行的实验。想要了解更多信息，在 chromium-extensions Google Group 中 [阅读更新](https://groups.google.com/u/1/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E)。
+=======
+Before announcing a new timeline, we are addressing prioritized platform gaps and closing critical
+bugs. You can track these on the [Known Issues][known-issues] page.
+>>>>>>> c2bbced801532535b7f2a1853197781df75fe5f5
 
-{% endAside %}
+For more information, see our [most recent post][mailing-list-update] on the chromium-extensions
+mailing list.
 
+<<<<<<< HEAD
 随着 Manifest V3 与 Manifest V2 接近全功能对等，我们将逐步淘汰 Manifest V2。该页指定了弃用时间表并描述了过程中所有的里程碑的含义。
+=======
+## History
+>>>>>>> c2bbced801532535b7f2a1853197781df75fe5f5
 
-<figure data-size="full">
-  {% Img src="image/WlD8wC6g8khYWPJUsQceQkhXSlv1/txfDeyLhratHCO1P3wvc.jpg", alt="Summary of the Manifest V2 support timeline.", width="800", height="263", class="screenshot" %}
-  <figcaption>Summary of the Manifest V2 support timeline.</figcaption>
-</figure>
+**June 2022**
 
-{% Aside %}
+Chrome Web Store stopped accepting new Manifest V2 extensions with visibility set to "Private".
 
+<<<<<<< HEAD
 随着 Manifest V2 的淘汰，可在此页面查看期间的任何更新和更具体的日期。
+=======
+**January 2022**
+>>>>>>> c2bbced801532535b7f2a1853197781df75fe5f5
 
-{% endAside %}
+Chrome Web Store stopped accepting new Manifest V2 extensions with visibility set
+to "Public" or "Unlisted". The ability to change Manifest V2 extensions from "Private" to "Public"
+or "Unlisted" was removed.
 
+<<<<<<< HEAD
 <table>
   <tr align="left" valign="top">
     <td>
@@ -101,3 +117,7 @@ tags:
 </table>
 
 [dec-2022-update]: #TODO
+=======
+[mailing-list-update]: https://groups.google.com/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E/m/HjaaCIG-BQAJ
+[known-issues]: /docs/extensions/migrating/known-issues/
+>>>>>>> c2bbced801532535b7f2a1853197781df75fe5f5
