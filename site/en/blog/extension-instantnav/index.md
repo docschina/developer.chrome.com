@@ -17,7 +17,7 @@ TL;DR: The Extensions API has been updated to support back/forward cache,
 preloading navigations. See below for details.
 
 Chrome has been working hard at making navigation fast. Instant Navigation
-technologies such as [Back/Forward Cache](https://web.dev/bfcache/)
+technologies such as [Back/Forward Cache](https://web.dev/articles/bfcache)
 ([shipped](https://chromestatus.com/feature/6279906713403392) on desktop in
 Chrome 96) and [Speculation Rules](/blog/prerender-pages/)
 ([shipped](https://chromestatus.com/feature/5740655424831488) in Chrome 103) improve both the going back and going forward
@@ -52,7 +52,7 @@ state pages are in.
 
 <figure>
   {% Img src="image/zKrSUSkPboWMTTSEkowJbqw5Egi2/0DT7Tzx0vQhNZgegsoEj.png", alt="Types of pages", width="531", height="209" %}
-  <figcatpion>Types of pages.</figcaption>
+  <figcaption>Types of pages.</figcaption>
 </figure>
 
 Note that a tab can have a series of prerendered pages (not just one), a single
@@ -86,7 +86,8 @@ prerender/active/cached) because it remains the same.
 
 ### Web navigation events
 
-Events in the [`chrome.webNavigation` namespace] can fire multiple times on the
+Events in the [`chrome.webNavigation` namespace](/docs/extensions/reference/webNavigation/)
+can fire multiple times on the
 same page depending on the life cycle it is in. See
 [“How do I tell what life cycle the page is in?”](#lifecyle)
 and [“How do I determine when a page transitions?”](#transitions) sections.
@@ -122,10 +123,10 @@ frame. However, for prerendered frames the `frameId` will be
 non-zero for the outermost frame. So using `frameId == 0` as a signal for
 determining if it is the outermost frame is incorrect.
 
-To help with this, we introduced a new type called [`FrameType`](/docs/extensions/reference/extensionTypes/#type-FrameType)
+To help with this, we introduced a new type called
+[`FrameType`](/docs/extensions/reference/extensionTypes/#type-FrameType)
 so determining if the frame is indeed the outermost frame is now easy.
-
-[`FrameType`] has the following values:
+`FrameType` has the following values:
 
 - `"outermost_frame"`: Typically referred to as the topmost frame. Note that
 there are multiples of these. For example, if you have a prerendered and cached
@@ -176,7 +177,7 @@ to `"xyz"` when the prerendered page becomes the active page.
 
 <figure>
   {% Img src="image/zKrSUSkPboWMTTSEkowJbqw5Egi2/p0ulwify9TGLuLh6RJpW.png", alt="The documentId changes when the prerendered page becomes the active page", width="350", height="463" %}
-  <figcaption>The `documentId` changes when the prerendered page becomes the
+  <figcaption>The <code>documentId</code> changes when the prerendered page becomes the
   active page.</figcaption>
 </figure>
 
