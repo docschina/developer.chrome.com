@@ -6,7 +6,7 @@ subhead: >
 description: >
  Information and resources for online and in-person events.
 date: 2022-08-19
-updated: 2023-01-13
+updated: 2023-11-02
 authors:
  - samdutton
  - mihajlija
@@ -17,22 +17,41 @@ already taken place.
 
 ## Future events
 
+### Webinar: Protected Audience API multi-seller auction
+
+The Google Privacy Sandbox team will be hosting our next set of webinars on [Protected
+Audience](/docs/privacy-sandbox/protected-audience/). 
+
+This set of webinars will focus on multi-seller auctions, where we will cover sequential auction
+setup, different types of auctions and participants involved, examine the overview diagram, and walk
+through a detailed sequence diagram along with code. 
+
+**Americas-friendly session**    
+November 7, 2023: 1pm to 2pm ET   
+[Register](https://rsvp.withgoogle.com/events/protected-audience-multisellerauction-amer_a27cb5)
+
+**EMEA-friendly session**   
+November 8, 2023: 12 noon to 1pm GMT    
+[Register](https://rsvp.withgoogle.com/events/protected-audience-multisellerauction-emea_a27cb5_339693)
+
 Subscribe to the following mailing lists to be notified of other events:
 
 * [Attribution Reporting](https://groups.google.com/u/2/a/chromium.org/g/attribution-reporting-api-dev)
-* [FLEDGE](https://groups.google.com/u/2/a/chromium.org/g/fledge-api-announce)
+* [Protected Audience API](https://groups.google.com/u/2/a/chromium.org/g/fledge-api-announce)
 * [Topics](https://groups.google.com/u/2/a/chromium.org/g/topics-api-announce)
+* [Shared Storage](https://groups.google.com/a/chromium.org/g/shared-storage-api-announcements)
 
 ## Ongoing events
 
-### W3C WICG calls
+### W3C group calls
 
 Make sure to join the [W3C](https://www.w3.org/participate/) and [WICG](https://www.w3.org/community/wicg/) 
 if you plan on participating.
 
-* [FLEDGE](https://github.com/WICG/turtledove/tree/main/meetings)
+* [Protected Audience API](https://github.com/WICG/turtledove/tree/main/meetings)
 * [Attribution Reporting](https://github.com/WICG/attribution-reporting-api/tree/main/meetings): 
 announcements are also made on [this issue](https://github.com/WICG/attribution-reporting-api/issues/80)
+* [Topics](https://github.com/patcg-individual-drafts/topics/issues/115#issue-1442748960)
 
 ## Past events
 
