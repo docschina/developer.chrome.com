@@ -5,30 +5,41 @@ subhead: '理解 Manifest V2 何时停止插件扩展'
 description: 'Manifest V2的淘汰和寿命结束的细节。'
 layout: 'layouts/doc-post.njk'
 date: 2021-09-23
-updated: 2022-12-13
+updated: 2023-11-16
 tags:
   - extensions-news
 ---
 
-{% Aside %}
+## Latest 
 
+<<<<<<< HEAD
 **2022 年 12 月 9 号：** Manifest V2 的弃用时间表正在审查中，正在推迟计划在 2023 年初进行的实验。想要了解更多信息，在 chromium-extensions Google Group 中 [阅读更新](https://groups.google.com/u/1/a/chromium.org/g/chromium-extensions/c/zQ77HkGmK9E)。
+=======
+### November 2023: New Chrome MV2 deprecation timeline announcement
+>>>>>>> e7a99caeed303188d2f3fa36c7f93d459e284519
 
-{% endAside %}
+The Manifest V2 support timeline has been updated. See our [November 2023 blog post](/blog/resuming-the-transition-to-mv3/) for details.
 
+<<<<<<< HEAD
 随着 Manifest V3 与 Manifest V2 接近全功能对等，我们将逐步淘汰 Manifest V2。该页指定了弃用时间表并描述了过程中所有的里程碑的含义。
+=======
+## Upcoming
+>>>>>>> e7a99caeed303188d2f3fa36c7f93d459e284519
 
-<figure data-size="full">
-  {% Img src="image/WlD8wC6g8khYWPJUsQceQkhXSlv1/txfDeyLhratHCO1P3wvc.jpg", alt="Summary of the Manifest V2 support timeline.", width="800", height="263", class="screenshot" %}
-  <figcaption>Summary of the Manifest V2 support timeline.</figcaption>
-</figure>
+### June 2024: Chrome MV2 deprecation pre-stable rollout 
+We will begin disabling Manifest V2 extensions in [pre-stable versions of Chrome](/docs/web-platform/chrome-release-channels/) (Dev, Canary, and Beta) as early as **June 2024**, in Chrome 127 and later. Users impacted by the rollout will see Manifest V2 extensions automatically disabled in their browser and will no longer be able to install Manifest V2 extensions from the Chrome Web Store. Also in June 2024, Manifest V2 extensions will lose their Featured badge in the Chrome Web Store if they currently have one.
 
-{% Aside %}
+We will gradually roll out this change, gathering user feedback and collecting data to make sure Chrome users understand the change and what actions they can take to find alternative, up-to-date extensions.
 
+<<<<<<< HEAD
 随着 Manifest V2 的淘汰，可在此页面查看期间的任何更新和更具体的日期。
+=======
+We will communicate with developers throughout the rollout, and we will continue to closely monitor feedback during this process.
+>>>>>>> e7a99caeed303188d2f3fa36c7f93d459e284519
 
-{% endAside %}
+### June 2024 + 1-X months: Chrome MV2 deprecation stable rollout 
 
+<<<<<<< HEAD
 <table>
   <tr align="left" valign="top">
     <td>
@@ -99,5 +110,23 @@ tags:
     </td>
   </tr>
 </table>
+=======
+We expect it will take at least a month to observe and stabilize the changes in pre-stable before expanding the rollout to stable channel Chrome where it will also gradually roll out over time. The exact timing may vary depending on the data collected, and during this time, we will keep you informed about our progress.
 
-[dec-2022-update]: #TODO
+### June 2025: Chrome MV2 deprecation enterprise rollout
+
+Enterprises using the [ExtensionManifestV2Availability](https://chromeenterprise.google/policies/#ExtensionManifestV2Availability) policy to ensure the continued functioning of Manifest V2 extensions in their organization will have one additional year - until June 2025 - to migrate the Manifest V2 extensions in their organization. Browsers with the policy enabled will not be impacted by the rollout of the deprecation until that time.
+
+## Past
+
+### June 2022: Chrome Web Store -  no new private extensions
+
+Chrome Web Store stopped accepting new Manifest V2 extensions with visibility set to "Private".
+
+### January 2022: Chrome Web Store - no new public / unlisted extensions
+
+Chrome Web Store stopped accepting new Manifest V2 extensions with visibility set
+to "Public" or "Unlisted". The ability to change Manifest V2 extensions from "Private" to "Public"
+or "Unlisted" was removed.
+>>>>>>> e7a99caeed303188d2f3fa36c7f93d459e284519
+
