@@ -3,9 +3,15 @@ layout: 'layouts/doc-post.njk'
 title: '架构概述'
 seoTitle: 'Chrome Extensions architecture overview'
 date: 2012-09-18
+<<<<<<< HEAD
 updated: 2023-01-10
 description: Chrome 扩展架构的高级说明。
 subhead: Chrome 扩展架构的高级解释。
+=======
+updated: 2023-05-30
+description: A high-level explanation of the architecture of Chrome Extensions.
+subhead: A high-level explanation of the structure of a Chrome Extension.
+>>>>>>> 71068916157bf9540ec93187687d439c46d28ec5
 anchorRedirects:
   view_page: /docs/extensions/mv3/options/#view_page
   files: /docs/extensions/mv3/content_scripts/#files
@@ -36,7 +42,11 @@ manifest(`manifest.json`) 是 Chrome 扩展的配置文件，它是一个必需�
 - 扩展所需的 [Chrome API][api-ref] 密钥和 [权限 permissions][doc-perms]。
 - 分配为 service worker 的文件、popup HTML 文件、选项页（options page）、内容脚本（content scripts）等。
 
+<<<<<<< HEAD
 [Manifest keys][doc-manifest] 一文包含默认和可选属性的完整列表。完整 [Manifest 示例][doc-manifest-examples]。
+=======
+The [Manifest keys][doc-manifest] article contains the complete list of default and optional keys. For ready to use code samples, check out the [Manifest examples][doc-manifest-examples].
+>>>>>>> 71068916157bf9540ec93187687d439c46d28ec5
 
 ### service worker {: #background_script }
 
@@ -64,7 +74,14 @@ Service Worker 可以访问所有的 [Extension API][api-ref]，但作为 [Worke
 
 [选项页面][doc-options] ：选项页面（`options.html`）为用户提供了自定义扩展的方法，例如选择扩展将在哪些站点上运行，用户可以通过几种方式访问选项页面，如[查找选项页面][doc-options-view] 中所述。
 
+<<<<<<< HEAD
 其他扩展 HTML 页面包括[Chrome 覆盖页面][doc-override]、[沙盒页面][doc-sandbox] 或为特定目的（如入职用户）而包含的任何自定义页面。
+=======
+[Side panels][api-sidepanel]
+: A side panel (`sidepanel.html`) can be used to assist users throughout their browsing journey. Users can find extension side panels by navigating to Chrome's side panel UI or by clicking the extension toolbar icon. Side panels can be configured to only be displayed on specific sites.
+
+Other extension HTML pages include [Chrome override pages][doc-override], [sandbox pages][doc-sandbox] or any custom page included for a specific purpose like onboarding the user.
+>>>>>>> 71068916157bf9540ec93187687d439c46d28ec5
 
 ### 其他资源 {: #assets }
 
@@ -102,10 +119,11 @@ Now that you have completed the [Getting Started guides][doc-gs] and understand 
 - 了解构建尊重[用户隐私][doc-privacy] 的[安全扩展][doc-secure]的最佳实践。
 
 [api-ref]: /docs/extensions/reference
+[api-sidepanel]: /docs/extensions/reference/sidePanel
 [api-storage]: /docs/extensions/reference/storage
 [cs-isolated]: /docs/extensions/mv3/content_scripts/#isolated_world
-[cws]: https://chrome.google.com/webstore/
 [cws-mv3-req]: /docs/webstore/program-policies/mv3-requirements/
+[cws]: https://chrome.google.com/webstore/
 [dev-basics-structure]: /docs/extensions/mv3/getstarted/development-basics/#structure
 [doc-content-scripts]: /docs/extensions/mv3/content_scripts
 [doc-dev-basics]: /docs/extensions/mv3/getstarted/development-basics
@@ -113,8 +131,8 @@ Now that you have completed the [Getting Started guides][doc-gs] and understand 
 [doc-ext-101]: /docs/extensions/mv3/getstarted/extensions-101
 [doc-gs]: /docs/extensions/mv3/getstarted
 [doc-manifest-examples]: /docs/extensions/mv3/manifest#manifest-examples
-[doc-match]: /docs/extensions/mv3/match_patterns/
 [doc-manifest]: /docs/extensions/mv3/manifest
+[doc-match]: /docs/extensions/mv3/match_patterns/
 [doc-messages]: /docs/extensions/mv3/messaging
 [doc-options-view]: /docs/extensions/mv3/options#view_page
 [doc-options]: /docs/extensions/mv3/options
