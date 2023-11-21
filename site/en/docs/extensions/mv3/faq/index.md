@@ -3,8 +3,13 @@ layout: 'layouts/doc-post.njk'
 title: '常见问题'
 seoTitle: 'Chrome Extensions: Frequently asked questions'
 date: 2014-02-28
+<<<<<<< HEAD
 updated: 2020-11-20
 description: 有关 Chrome 扩展程序的常见问题。
+=======
+updated: 2023-09-12
+description: Frequently asked questions about Chrome Extensions.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 ---
 
 如果您在此处找不到问题的答案，请尝试 [Chrome 网上应用店常见问题解答][1]，[Stack Overflow 上的 \[google-chrome-extension\] 标签][2]、[chromium-extensions 组][3] 或 [商店帮助][4]。
@@ -27,10 +32,19 @@ Google Chrome 扩展程序是在 Chrome 浏览器中运行并提供附加功能�
 
 ### 每次加载浏览器时都会从网络上获取扩展程序吗？{: #faq-gen-03 }
 
+<<<<<<< HEAD
 扩展程序在安装时由 Chrome 浏览器下载，随后在本地磁盘运行以提高性能。但是，如果已安装的扩展程序在线推送了新版本，那么所有安装了该扩展程序的用户都将在后台自动下。扩展程序还可以随时请求远程内容，以便与 Web 服务交互或从 Web 中提取新内容。
+=======
+Extensions are downloaded by the Chrome browser upon install, and are subsequently run off of
+local disk to speed up performance. However, if a new version of the extension is uploaded to
+the Chrome Web Store, it will be automatically downloaded in the background for any users who have
+the extension installed. Extensions may also make requests for remote data at any time, but not
+remotely-hosted code.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 ### 如何确定哪个版本的 Chrome 部署到哪个频道？{: #faq-dev-14 }
 
+<<<<<<< HEAD
 如果想要确定当前在每个不同平台上可用的 Chrome 版本，可以访问 [omahaproxy.appspot.com][34]。在该网站，您将看到类似于以下格式的数据：
 
 ```text
@@ -52,24 +66,50 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 ```
 
 每一行代表有关不同平台和渠道组合的信息。
+=======
+To determine which version of Chrome is currently available on each of the different platforms,
+visit [chrome releases][34], which lists the current Chrome releases for each channel and platform.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 列出的平台包含 `cf`（Google Chrome 框架）、`linux`、`mac`、`win` 和 `cros`（Google ChromeOS）。列出的频道包含 “canary”、“dev”、“beta”和“stable”。频道后面的两个四部分数字表示部署到该“平台-通道组合”的当前和以前版本的 Chrome。其余信息是有关首次推送发布时间的元数据，以及与每个构建相关的修订号。
 
+<<<<<<< HEAD
 ## 扩展程序的能力{: #capabilities2 }
 
 ### 扩展程序可以发出跨域 Ajax 请求吗？{: #faq-dev-02 }
+=======
+### Can extensions make cross-origin network requests? {: #faq-dev-02 }
+
+Yes. Extensions can make cross-origin network requests. See [this page][35] for more information.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 扩展程序可以发出跨域请求。如果你想了解更多有关信息，请参阅 [本页][35]。
 
+<<<<<<< HEAD
 ### 扩展程序可以使用第三方 Web 服务吗？{: #faq-dev-03 }
+=======
+Yes. Extensions are capable of making cross-origin network requests, so they can call remote APIs
+directly. APIs that provide data in JSON format are particularly easy to use.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 由于扩展程序可以发出跨域 Ajax 请求，因此它们可以直接调用远程 API。而以 JSON 格式提供数据的 API 特别易于使用。
 
+<<<<<<< HEAD
 ### 扩展程序可以编码/解码 JSON 数据吗？{: #faq-dev-07 }
+=======
+Yes. Chrome's JavaScript engine, called "V8", has built-in support for
+[JSON.stringify][stringify] and [JSON.parse][parse] so you can use these
+functions in your extensions without including JSON libraries in
+your code.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 可以，Chrome V8 这样的现代 JavaScript 引擎内置了对 [JSON.stringify][stringify] 和 [JSON.parse][parse] 的支持，因此您可以在扩展程序中使用这些函数，而无需在代码中包含 JSON 库。
 
+<<<<<<< HEAD
 ### 扩展程序可以在本地存储数据吗？{: #faq-dev-08 }
+=======
+Yes. Extensions provide a [storage API][63] designed specifically for extensions. An extension service worker can als0 use [CacheStorage][65], and [IndexedDB][38]. Additionally, contexts outside the extension service worker can use the [Web Storage API][37].
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 可以，扩展程序可以使用 [localStorage][37] 永久存储字符串数据。同时，借助于 Chrome 内置的 JSON 函数，您可以将复杂的数据结构存储在 `localStorage` 中。如果您的扩展程序需要对其存储的数据执行 SQL 查询，那么可以使用 Chrome 实现的 [客户端 SQL 数据库][38]。
 
@@ -77,9 +117,17 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 
 可以。大多数开发人员发现使用 [JavaScript OAuth 库][39] 来简化签署 OAuth 请求的过程很方便，而我们的 Chrome 扩展程序可以使用 OAuth 访问远程数据 API。
 
+<<<<<<< HEAD
 ### 扩展程序可以在呈现的网页之外创建 UI 吗？{: #faq-dev-05 }
 
 可以，您的扩展程序可能会向 Chrome 浏览器的用户界面添加按钮。有关详细信息，请参阅 [浏览器操作][40] 和 [页面操作][41]。
+=======
+Yes, your extension may add buttons to the Chrome browser's user interface using the
+[action API][40].
+
+An extension may also create popup notifications, which exist outside of the browser window. See the
+[Rich notifications][42] documentation for details.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 扩展程序还可以创建弹出通知，这些通知存在于浏览器窗口之外。有关更多详细信息，请参阅 [丰富通知][42] 文档。
 
@@ -87,39 +135,92 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 
 不能，扩展程序仅限于监听 [API 文档][43] 中描述的事件。
 
+<<<<<<< HEAD
 ### 两个扩展程序可以相互通信吗？{: #faq-dev-11 }
+=======
+Yes, extensions may pass messages to other extensions. See [Cross-extension messaging][44]
+for more information.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 可以，扩展程序可以将消息传递给其他扩展程序。有关更多信息，请参阅 [消息传递文档][44]。
 
+<<<<<<< HEAD
 ### 扩展程序可以使用 Google Analytics 吗？{: #faq-dev-13 }
+=======
+Yes, since extensions are built just like websites, they can use [Google Analytics][45] to track
+usage. See [Using Google Analytics 4][46] for more information.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 可以，由于我们可以像构建网站一样构建扩展程序，因此可以使用 [Google Analytics][45] 来跟踪使用情况。但是，您必须修改跟踪代码以提取 HTTPS 版本的 Google Analytics 库。有关执行此操作的更多信息，请参阅 [本教程][46]。
 
+<<<<<<< HEAD
 ### 扩展程序可以修改 chrome:// 网址吗？{: #faq-dev-15 }
+=======
+No. The extensions APIs have been designed to minimize backwards compatibility issues that can arise
+when new versions of the browser are pushed. Allowing content scripts on `chrome://` URLs would mean
+that developers would begin to rely on the DOM, CSS, and JavaScript of these pages to stay the same.
+In the best case, these pages could not be updated as quickly as they are currently.
+In the worst case, it could mean that an update to one of these pages could cause an extension to
+break, causing key parts of the browser to stop working for users of that extension.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 不可以。扩展程序 API 旨在最大限度地减少推送新版本浏览器时可能出现的向后兼容性问题。 如果允许扩展程序修改 “chrome://” URL 就意味着开发人员将开始依赖这些页面的 DOM、CSS 和 JavaScript 来保持不变。在最好的情况下，这些页面的更新速度不会像现在更新的那么快。在最坏的情况下，这可能意味着对这些页面之一的更新可能会导致扩展程序中断，从而导致浏览器的关键部分停止为该扩展程序的用户工作。
 
+<<<<<<< HEAD
 完全允许 [替换托管这些在 URL 上的内容][47] 的原因是因为它强制扩展程序开发人员实现他们想要的所有功能，而不依赖于浏览器的内部实现保持不变。
 
 ### 扩展程序可以在没有用户交互的情况下打开浏览器/页面操作弹出窗口吗？{: #faq-open-popups }
+=======
+### Can extensions open action popups without a user interaction? {: #faq-open-popups }
+
+No. Popups can only be opened if the user clicks the corresponding action. An
+extension cannot open its popup programmatically.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 不可以，只有当用户点击相应的页面或浏览器操作时，才能打开弹出窗口。扩展程序无法以编程方式打开其弹出窗口。
 
+<<<<<<< HEAD
 ### 用户点击离开后，扩展程序可以保持弹出窗口打开吗？{: #faq-persist-popups }
+=======
+No. Popups automatically close when the user focuses on some portion of the browser outside of the
+popup. There is no way to keep the popup open after the user has clicked away.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 不可以，当用户关注浏览器之外的某个部分时，弹出窗口会自动关闭弹出。用户点击离开后，无法保持弹出窗口打开。
 
+<<<<<<< HEAD
 ### 可以在安装/卸载扩展程序时通知它们吗？{: #faq-lifecycle-events }
+=======
+You can listen to the [`runtime.onInstalled`][48] event to be notified when your
+extension is installed or updated, or when Chrome itself is updated. While there
+is no event listener for uninstalling an extension, a URL can be set by calling
+[`runtime.setUninstallUrl()`](/docs/extensions/reference/runtime/#method-setUninstallURL)
+to open a URL when the extension is uninstalled. This allows for some final
+functionality, like cleaning up server-side data, doing analytics, and
+implementing surveys without access to any extension APIs.
+
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 您可以监听 [runtime.onInstalled][48] 事件，以便在安装或更新扩展程序或 Chrome 本身更新时收到通知。当您的扩展程序被卸载时，没有相应的监听事件。
 
 ## 开发{: #development2 }
 
+<<<<<<< HEAD
 ### 如何为我的扩展程序构建 UI？{: #faq-building-ui }
+=======
+Extensions use HTML and CSS to define their user interfaces, so you can use standard form controls
+to build your UI, or style the interface with CSS, as you would a web page. You can also create rich
+interactions using JavaScript and the web platform's many APIs. Additionally, extensions
+can add [some limited UI elements to Chrome itself.][49]
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 扩展程序使用 HTML 和 CSS 来定义它们的用户界面，因此您可以像处理网页一样，使用标准表单控件来构建您的 UI，或者使用 CSS 设置界面样式。此外，扩展程序可以添加 [一些有限的 UI 元素到 Chrome 本身]。
 
+<<<<<<< HEAD
 ### 我可以在 localStorage 中存储多少数据？{: #faq-dev-09 }
+=======
+Extensions can store up to 10MB of data in [`storage.local`][local-storage].
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 扩展程序可以在 `localStorage` 中存储多达 5MB 的数据。
 
@@ -127,6 +228,7 @@ cros,beta,#.#.###.#,#.#.###.#,mm/dd/yy,mm/dd/yy,#####,#####,#####
 
 您可以通过创建 [选项页面][50] 让用户为您的扩展设置选项，这是一个当用户单击扩展程序的“选项”按钮时将加载的简单 HTML 页面。此页面可以读取和写入设置到 `localStorage`，甚至可以将选项发送到 Web 服务器，以便它们可以跨浏览器持久化。
 
+<<<<<<< HEAD
 ### 扩展程序开发人员可以使用哪些调试工具？{: #faq-dev-12 }
 
 Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关更多信息，请参阅此 [关于调试扩展的教程][51]。
@@ -140,6 +242,25 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 因此，您应该明确列举所希望运行扩展程序的顶级域名。
 
 ### 为什么在安装/卸载我的扩展程序时管理 API 不会触发事件？{: #faq-management }
+=======
+Chrome's built-in developer tools can be used to debug extensions as well as web pages. See
+[Debugging extensions][51] for more information.
+
+### Why do wildcard matches not work for top level domains? {: #faq-dev-16 }
+
+You cannot use wildcard match patterns like `https://google.*/*` to match top level domains (like
+`https://google.es` and `https://google.fr`) due to the complexity of actually restricting such a
+match to only the desired domains.
+
+For the example of `https://google.*/*`, the Google domains would be matched, but so would
+`https://google.someotherdomain.com`. Additionally, many sites do not own all of the top level domains for their
+domain. For an example, assume you want to use `https://example.*/*` to match `https://example.com`
+and `https://example.es`, but `https://example.net` is a hostile site. If your extension has a bug,
+the hostile site could potentially attack your extension in order to get access to your extension's
+increased privileges.
+
+You should explicitly enumerate the top level domains that you wish to run your extension on.
+>>>>>>> a4910388d405c58d6860a2a88fb6aaeb70ccb097
 
 [管理 API][52] 旨在帮助创建新的标签页替换扩展，而不是为了触发当前扩展的安装/卸载事件。
 
@@ -207,14 +328,13 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 [31]: #faq-fea-02
 [32]: /docs/extensions/mv3/getstarted
 [33]: https://developer.mozilla.org/docs/Web/API
-[34]: https://omahaproxy.appspot.com
+[34]: https://chromiumdash.appspot.com/releases
 [35]: /docs/extensions/mv3/xhr
 [36]: https://json.org/js.html
-[37]: https://dev.w3.org/html5/webstorage/
-[38]: https://dev.w3.org/html5/webdatabase/
-[39]: https://unitedheroes.net/OAuthSimple/js/OAuthSimple.js
-[40]: /docs/extensions/reference/browserAction
-[41]: /docs/extensions/reference/pageAction
+[37]: https://developer.mozilla.org/docs/Web/API/Web_Storage_API
+[38]: https://developer.mozilla.org/docs/Web/API/IDBDatabase
+[39]: /docs/extensions/mv3/tut_oauth/
+[40]: /docs/extensions/reference/action/
 [42]: /docs/extensions/mv3/richNotifications
 [43]: /docs/extensions/reference
 [44]: /docs/extensions/mv3/messaging#external
@@ -225,7 +345,6 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 [49]: #faq-dev-05
 [50]: /docs/extensions/mv3/options
 [51]: /docs/extensions/mv3/tut_debugging
-[52]: /docs/extensions/reference/management
 [53]: /docs/extensions/reference/runtime#event-onInstalled
 [54]: #faq-lifecycle-events
 [55]: https://crbug.com
@@ -236,5 +355,9 @@ Chrome 的内置开发人员工具可用于调试扩展程序和网页。有关�
 [60]: https://bugs.chromium.org/p/chromium/issues/list?can=2&q=component%3DPlatform>Extensions+Type%3DFeature+shortcuts
 [61]: https://crbug.com/new
 [62]: https://groups.google.com/a/chromium.org/group/chromium-extensions/topics
+[63]: /docs/extensions/reference/storage/
+[64]: /docs/extensions/mv3/service_workers/
+[65]: https://developer.mozilla.org/docs/Web/API/CacheStorage
+[local-storage]: /docs/extensions/reference/storage/#property-local
 [stringify]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
 [parse]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
